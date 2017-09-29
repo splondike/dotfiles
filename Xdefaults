@@ -1,0 +1,47 @@
+urxvt*background: #252525
+urxvt*foreground: White
+urxvt*scrollstyle: plain
+urxvt*scrollBar_right: true
+urxvt*font:               xft:Terminus:pixelsize=14
+urxvt*boldFont:           xft:Terminus:pixelsize=14
+
+urxvt*tripleclickwords: true
+urxvt.print-pipe: "cat > /dev/null"
+
+!Only refresh when the screen is full
+urxvt*scrollTtyOutput: false
+urxvt*scrollWithBuffer: true
+urxvt*scrollTtyKeypress: true
+
+!Open links by clicking on them
+urxvt*perl-ext-common : default
+urxvt*urlLauncher: /usr/bin/firefox
+urxvt*matcher.button: 1
+
+!Colours
+urxvt*color0:      #000000
+urxvt*color1:      #be1828
+urxvt*color2:      #aece92
+urxvt*color3:      #968a38
+urxvt*color4:      #2c5a80
+urxvt*color5:      #963c59
+urxvt*color6:      #418179
+urxvt*color7:      #bebebe
+urxvt*color8:      #666666
+urxvt*color9:      #cf6171
+urxvt*color10:     #c5f779
+urxvt*color11:     #fff796
+urxvt*color12:     #4186be
+urxvt*color13:     #cf9ebe
+urxvt*color14:     #71bebe
+urxvt*color15:     #ffffff
+
+urxvt*chdir: /home/normal
+
+!Plugins
+urxvt.perl-ext-common: searchable-scrollback,keyboard-select
+urxvt.keysym.M-w: perl:keyboard-select:activate
+
+bar.focused                   #DA6F00 #000000 #999999
+bar.unfocused                 #333333 #000000 #999999
+bar.urgent                    #FF0000 #000000 #999999

@@ -1,0 +1,9 @@
+[user]
+	email = code@stefansk.name
+	name = Stefan Schneider-Kennedy
+[color]
+	ui = auto
+[github]
+	user = splondike
+[core]
+	editor = /usr/bin/vim
