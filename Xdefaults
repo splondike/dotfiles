@@ -2,8 +2,9 @@ urxvt*background: #252525
 urxvt*foreground: White
 urxvt*scrollstyle: plain
 urxvt*scrollBar_right: true
-urxvt*font:               xft:Terminus:pixelsize=14
-urxvt*boldFont:           xft:Terminus:pixelsize=14
+#urxvt*font: -*-terminus-medium-*-*-*-16-*-*-*-*-*-*-u
+#urxvt*boldFont: -*-terminus-bold-*-*-*-16-*-*-*-*-*-*-u
+urxvt.font: xft:Terminus:size=14
 
 urxvt*tripleclickwords: true
 urxvt.print-pipe: "cat > /dev/null"

@@ -1,0 +1,122 @@
+# Simple snippets
+
+snippet #! "#!/usr/bin/env python" b
+#!/usr/bin/env python
+$0
+endsnippet
+
+snippet ipdb "import pdb;pdb.set_trace()" b
+import pdb;pdb.set_trace()$0
+endsnippet
+
+snippet irpdb "import pdb;pdb.set_trace()" b
+import remote_pdb;remote_pdb.set_trace()$0
+endsnippet
+
+snippet o.f "QuerySet.objects.filter" b
+${1:items = }$2.objects.filter(
+	$3
+)$0
+endsnippet
+
+# Fancy snippets
+
+global !p
+def get_last_iterable():
+	curr_line_num, _ = vim.current.window.cursor
+	curr_line = vim.current.buffer[curr_line_num]
+	indent_depth = len(snip.indent)
+
+	for i in range(max(curr_line_num - 1, 0), max(curr_line_num - 20, -1), -1):
+		line = vim.current.buffer[i]
+		assignment_matches = re.match('\s*([a-z_]+s) ?=', line)
+		if assignment_matches:
+			return assignment_matches.group(1)
+		elif indent_depth and re.match('\s{0,' + str(indent_depth - 1) + '}def ', line):
+			# Collect the arguments to the enclosing function into args
+			args_str = line[line.find('(')+1:]
+			for j in range(i+1, curr_line_num):
+				argsline = vim.current.buffer[j]
+				endpos = argsline.find(')')
+				if endpos == -1:
+					args_str += argsline.strip()
+				else:
+					args_str += argsline[:endpos].strip()
+					break
+
+			arg_matches = [
+				maybe_match.group(1)
+
+				for arg in args_str.split(",")
+				for maybe_match in (re.match('\s*([a-z_]+s)(\W|$)', arg),)
+				if maybe_match
+				if maybe_match.group(1) not in ('cls',)
+			]
+			vim.command('echom "' + args_str + '"')
+			vim.command('echom "' + ",".join(arg_matches) + '"')
+			if arg_matches:
+				return arg_matches[0]
+
+	return "items"
+
+def singularize(name):
+	if not name:
+		return None
+	elif not re.match('[a-z_]+', name):
+		return None
+	elif name.endswith("ies"):
+		return name[:-3] + "y"
+	elif name.endswith("es"):
+		if len(name) > 2 and name[-3] == 't':
+			return name[:-1]
+		else:
+			return name[:-2]
+	elif name.endswith("s"):
+		return name[:-1]
+	else:
+		return None
+endglobal
+
+snippet forl "for item in items:" b
+for ${2:`!p
+snip.rv = singularize(t[1]) or "item"
+`} in ${1:`!p
+if snip.c == "":
+	snip.rv = get_last_iterable()
+`}:
+	$0
+endsnippet
+
+snippet rtn "rtn = []" b
+rtn = []
+for ${2:`!p
+snip.rv = singularize(t[1]) or "item"
+`} in ${1:`!p
+if snip.c == "":
+	snip.rv = get_last_iterable()
+`}:
+	rtn.append({
+		$0
+	})
+
+return rtn
+endsnippet
+
+snippet rtn{ "return {\n" b
+return {
+	"${1:status}": "$0",
+}
+endsnippet
+
+snippet rtn[ "return [\n" b
+return [
+	$0
+
+	for ${2:`!p
+snip.rv = singularize(t[1]) or "item"
+`} in ${1:`!p
+if snip.c == "":
+	snip.rv = get_last_iterable()
+`}:
+]
+endsnippet

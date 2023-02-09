@@ -1,9 +1,14 @@
 [user]
 	email = code@stefansk.name
 	name = Stefan Schneider-Kennedy
+	signingkey = 9598823897D58C3BEC0EB4A3CF4B0B6098E0B9D2
 [color]
 	ui = auto
 [github]
 	user = splondike
 [core]
 	editor = /usr/bin/vim
+[init]
+	defaultBranch = main
+[commit]
+	gpgsign = true

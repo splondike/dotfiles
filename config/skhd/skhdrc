@@ -1,0 +1,47 @@
+# alt - n : yabai -m window --focus west
+# alt - u : yabai -m window --focus north
+# alt - e : yabai -m window --focus south
+# alt - i : yabai -m window --focus east
+alt - n : /Users/stefansk/osx-scripts/scripts/yabai-stack-aware.py focus west
+alt - u : /Users/stefansk/osx-scripts/scripts/yabai-stack-aware.py focus north
+alt - e : /Users/stefansk/osx-scripts/scripts/yabai-stack-aware.py focus south
+alt - i : /Users/stefansk/osx-scripts/scripts/yabai-stack-aware.py focus east
+
+alt + shift - n : yabai -m window --warp west
+alt + shift - u : yabai -m window --warp north
+alt + shift - e : yabai -m window --warp south
+alt + shift - i : yabai -m window --warp east
+
+# Moving to different spaces is done via Prefs -> Keyboard -> Shortcuts natively
+# Shifting can be done here
+alt + shift - 1 : yabai -m window --space 1
+alt + shift - 2 : yabai -m window --space 2
+alt + shift - 3 : yabai -m window --space 3
+alt + shift - 4 : yabai -m window --space 4
+alt + shift - 5 : yabai -m window --space 5
+alt + shift - 6 : yabai -m window --space 6
+alt + shift - 7 : yabai -m window --space 7
+alt + shift - 8 : yabai -m window --space 8
+alt + shift - 9 : yabai -m window --space 9
+alt + shift - 0 : yabai -m window --space 10
+
+alt - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance --working-directory /Users/stefansk/
+# alt - p : skhd -k "cmd - space"
+alt - p : /Users/stefansk/osx-scripts/scripts/itemselector.sh /Users/stefansk/osx-scripts/scripts/app-launcher.sh
+
+alt - h : /Users/stefansk/osx-scripts/scripts/yabai-stack-aware.py toggle
+alt - k : yabai -m window --toggle split
+alt - t : yabai -m window --toggle zoom-fullscreen
+
+alt + shift - m : yabai -m window --toggle float
+alt + shift - j : yabai -m window --resize abs:1024:768
+alt + shift - l : yabai -m window --move abs:0:0
+
+# Disabled the default window close shortcut via the apple keyboard shorcuts in system preferences
+alt + shift - c : yabai -m window --close
+
+# Cycle through windows (useful for floating things in the background)
+alt - tab : yabai -m window --focus "$(yabai -m query --windows | jq -re "sort_by(.display, .space, .frame.x, .frame.y, .id) | map(select(.\"is-visible\" == true and .role != \"AXUnknown\" and .frame.h != 0.0)) | reverse | nth(index(map(select(.\"has-focus\" == true))) - 1).id")"
+
+# Application key
+0x6E : /Users/stefansk/osx-scripts/scripts/passmenu-osx.sh

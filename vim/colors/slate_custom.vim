@@ -16,7 +16,7 @@ hi ModeMsg guifg=goldenrod cterm=none ctermfg=Red
 hi MoreMsg guifg=SeaGreen ctermfg=darkgreen
 hi NonText guifg=RoyalBlue guibg=grey15 cterm=bold ctermfg=blue
 hi Question guifg=springgreen ctermfg=green
-hi Search guibg=peru guifg=wheat cterm=none ctermfg=grey ctermbg=blue
+hi Search guibg=peru guifg=wheat cterm=none ctermfg=white ctermbg=darkgrey
 hi SpecialKey guifg=yellowgreen ctermfg=darkgreen
 hi StatusLine guibg=#c2bfa5 guifg=black gui=none cterm=bold,reverse
 hi StatusLineNC guibg=#c2bfa5 guifg=grey40 gui=none cterm=reverse
@@ -40,7 +40,7 @@ hi LineNr guifg=grey50 ctermfg=3
 hi Ignore guifg=grey40 cterm=bold ctermfg=7
 hi Todo guifg=orangered guibg=yellow2
 hi Directory ctermfg=darkcyan
-hi ErrorMsg cterm=bold guifg=White guibg=Red cterm=bold ctermfg=7 ctermbg=1
+hi ErrorMsg cterm=bold guifg=White guibg=Red cterm=bold ctermfg=15 ctermbg=1
 hi VisualNOS cterm=bold,underline
 hi WildMenu ctermfg=0 ctermbg=3
 hi DiffAdd ctermbg=4
@@ -48,8 +48,8 @@ hi DiffChange ctermbg=5
 hi DiffDelete cterm=bold ctermfg=4 ctermbg=6
 hi DiffText cterm=bold ctermbg=1
 hi Underlined cterm=underline ctermfg=5
-hi Error guifg=White guibg=Red cterm=bold ctermfg=7 ctermbg=1
-hi SpellErrors guifg=White guibg=Red cterm=bold ctermfg=7 ctermbg=1
+" hi Error guifg=White guibg=Red cterm=bold ctermfg=15 ctermbg=1
+" hi SpellErrors guifg=White guibg=Red cterm=bold ctermfg=15 ctermbg=1
 
-hi Comment ctermfg=darkgray
+hi Comment ctermfg=7
 hi LineNr ctermfg=darkgray

@@ -1,2 +1,0 @@
-set nocindent
-set noautoindent
