@@ -8,6 +8,7 @@ fi
 # User specific aliases and functions
 
 export EDITOR='/usr/bin/nvim'
+export GIT_EDITOR='/usr/bin/nvim'
 
 PS1='\[\033[00;32m\]\t \W> \['$(tput sgr0)'\]'
 export PATH=~/bin/preempt:$PATH
