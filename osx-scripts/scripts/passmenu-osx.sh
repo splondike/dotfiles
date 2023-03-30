@@ -13,6 +13,7 @@ password=$(echo -n "$result" | tail -n +2 | head -n 1)
 
 skhd=/opt/homebrew/bin/skhd
 
+sleep 1
 $skhd --text "$username"
 $skhd --key "tab"
 $skhd --text "$password"
