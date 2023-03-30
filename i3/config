@@ -228,3 +228,4 @@ exec $homedir/bin/mine/keyboard-i3-binding.py
 exec dunst
 exec redshift -l -37.7958:144.9234 -t 6500:3000 -b 1.0:0.8
 exec picom
+exec snixembed
