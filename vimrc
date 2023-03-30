@@ -2,9 +2,8 @@
 "***** Options *****
 "*******************
 
-" TODO: 2022-12-11 This seems to break visual selection mode, so I commented it out
-" let &titlestring = 'VIM %{mode()} %m - %-00.30{expand("%:p:h")} %-00.20t'
-" set title
+let &titlestring = 'VIM %{mode()} %m - %-00.30{expand("%:p:h")} %-00.20t'
+set title
 
 set backspace=2 "Make backspace behave sensibly
 set mouse=a "Enable mouse if possible
@@ -53,14 +52,9 @@ set undofile
 "Buffer customisations
 " Don't force buffers to be saved when switching
 set hidden
-" Use ,s to swap between most recent buffers
-nnoremap <Leader>s <C-^>
-" Use ,t to show buffers and allow selection (using FZF)
-nnoremap <Leader>t :Buffers<CR>
 
-" Base64 decode from https://stackoverflow.com/a/7846569
-vnoremap <leader>64 c<c-r>=trim(system('base64', @"))<cr><esc>"
-vnoremap <leader>46 c<c-r>=system('base64 --decode', @")<cr><esc>"
+" Source ~/.vim/local_vimrc for machine specific global config
+runtime local_vimrc
 
 "*******************
 "***** Plugins *****
@@ -80,6 +74,7 @@ Plug 'Lokaltog/vim-easymotion', { 'commit': '44499bae252458895f823cec5eb494bff86
 Plug 'preservim/tagbar', { 'commit': 'af3ce7c3cec81f2852bdb0a0651d2485fcd01214' }
 Plug 'tomtom/tcomment_vim', { 'commit': 'b4930f9da28647e5417d462c341013f88184be7e' }
 " Plug 'weilbith/vim-localrc', { 'commit': '7fd606ac361f7058739bb8bce27888efa86c7420' }
+Plug 'wellle/targets.vim', { 'commit': '642d3a4ce306264b05ea3219920b13ea80931767' }
 
 "Plug 'vim-php/tagbar-phpctags.vim', { 'commit': '00d12a891482c35e6bd0dd9a8860163322a45daf' }
 "Plug 'neoclide/vim-jsx-improve', { 'commit': '3eb35b93d91d8f818236f4b019beb2d4accc0916' }
@@ -160,6 +155,8 @@ augroup END
 "when I later remap them. E.g. u is later remapped to k, but I still
 "want z to be 'u' (undo), rather than up.
 
+" Text objects can be used with as" -> select within quotes, aa" -> select
+" around quotes
 
 "===== General =====
 "'z' stuff like folds and spelling now uses h. hf folds visual mode highlight,
@@ -168,6 +165,14 @@ augroup END
 noremap h z
 " Paste in a timestamp in insert mode
 inoremap <F12> <C-R>=strftime("%H:%M:%S")<CR>
+" Use ,s to swap between most recent buffers
+nnoremap <Leader>s <C-^>
+" Use ,t to show buffers and allow selection (using FZF)
+nnoremap <Leader>t :Buffers<CR>
+
+" Base64 decode from https://stackoverflow.com/a/7846569
+vnoremap <leader>64 c<c-r>=trim(system('base64', @"))<cr><esc>"
+vnoremap <leader>46 c<c-r>=system('base64 --decode', @")<cr><esc>"
 
 "===== Mode switching =====
 " Switch to normal mode from insert by typing hh
