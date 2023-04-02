@@ -2,7 +2,7 @@
 "***** Options *****
 "*******************
 
-let &titlestring = 'VIM %{mode()} %m - %-00.30{expand("%:p:h")} %-00.20t'
+let &titlestring = 'VIM %{mode()} %l %c %L %m - %-00.20t'
 set title
 
 set backspace=2 "Make backspace behave sensibly
@@ -70,7 +70,7 @@ Plug 'junegunn/fzf.vim', { 'commit': 'cc13a4b728c7b76c63e6dc42f320cec955d74227' 
 Plug 'SirVer/ultisnips', { 'commit': '0ad238b1910d447476b2d98f593322c1cdb71285' }
 Plug 'mbbill/undotree', { 'commit': 'cb3e7390fbb49db2ad2150fb7cd91590a4a65a0a' }
 "Plug 'joonty/vdebug', { 'commit': '4c6a7caa10e32841dba86ba16acee30781388fdd' }
-Plug 'Lokaltog/vim-easymotion', { 'commit': '44499bae252458895f823cec5eb494bff8625953' }
+Plug 'easymotion/vim-easymotion', { 'commit': 'b3cfab2a6302b3b39f53d9fd2cd997e1127d7878' }
 Plug 'preservim/tagbar', { 'commit': 'af3ce7c3cec81f2852bdb0a0651d2485fcd01214' }
 Plug 'tomtom/tcomment_vim', { 'commit': 'b4930f9da28647e5417d462c341013f88184be7e' }
 " Plug 'weilbith/vim-localrc', { 'commit': '7fd606ac361f7058739bb8bce27888efa86c7420' }
@@ -102,11 +102,11 @@ let g:tcomment_opleader1 = ",c"
 "Used in tagbar
 nmap <F8> :TagbarToggle<CR>
 
-"Used in easymotion
-nmap 0 <Plug>(easymotion-s)
-
 "Toggle undotree
 nnoremap <F2> :UndotreeToggle<CR>
+
+"Easymotion
+nnoremap p :call EasyMotion#User('\(^\\|\W\)\zs[a-zA-Z]', 0, 2, 0)<CR>
 
 " CoC (Intellisense/completion)
 " Make sure to be in the right venv and have installed jedi
@@ -227,10 +227,8 @@ noremap N 5h|
 noremap U 5k|
 noremap E 5j|
 noremap I 5l|
-noremap <C-n> 5h|
 noremap <C-u> 5k|
 noremap <C-e> 5j|
-noremap <C-i> 5l|
 
 noremap l b|
 noremap y w|
@@ -246,8 +244,8 @@ nnoremap <C-w>e <C-w>j|
 nnoremap <C-w>i <C-w>l|
 
 "====== Search =====
-nnoremap 8 N|
-nnoremap 9 n|
+nnoremap <C-i> N|
+nnoremap <C-n> n|
 
 "====== Autocomplete =====
 
