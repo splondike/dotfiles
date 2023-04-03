@@ -106,7 +106,7 @@ nmap <F8> :TagbarToggle<CR>
 nnoremap <F2> :UndotreeToggle<CR>
 
 "Easymotion
-nnoremap p :call EasyMotion#User('\(^\\|\W\)\zs[a-zA-Z]', 0, 2, 0)<CR>
+nnoremap p :call EasyMotion#User('\(^\\|\W\)\zs[a-zA-Z_0-9]', 0, 2, 0)<CR>
 
 " CoC (Intellisense/completion)
 " Make sure to be in the right venv and have installed jedi
@@ -245,7 +245,7 @@ nnoremap <C-w>i <C-w>l|
 
 "====== Search =====
 nnoremap <C-i> N|
-nnoremap <C-n> n|
+nnoremap <C-e> n|
 
 "====== Autocomplete =====
 
