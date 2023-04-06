@@ -244,8 +244,8 @@ nnoremap <C-w>e <C-w>j|
 nnoremap <C-w>i <C-w>l|
 
 "====== Search =====
-nnoremap <C-i> N|
-nnoremap <C-e> n|
+nnoremap <C-i> n|
+nnoremap <C-o> N|
 
 "====== Autocomplete =====
 
