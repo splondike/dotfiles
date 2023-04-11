@@ -2,7 +2,7 @@
 "***** Options *****
 "*******************
 
-let &titlestring = 'VIM %{mode()} %l %c %L %m - %-00.20t'
+let &titlestring = 'VIM %{mode()} %l %c %L %m - %{v:servername} - %-00.20t'
 set title
 
 set backspace=2 "Make backspace behave sensibly
@@ -61,28 +61,35 @@ runtime local_vimrc
 "*******************
 
 call plug#begin()
-Plug 'mileszs/ack.vim', { 'commit': 'a16a9b63eb85cc0960a7f25c54647ac1f99f3360' }
+" Library packages
+Plug 'nvim-lua/plenary.nvim', { 'commit': '253d34830709d690f013daf2853a9d21ad7accab' }
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'commit': '584ccea56e2d37b31ba292da2b539e1a4bb411ca'}
+
+" Movement packages
+Plug 'nvim-telescope/telescope.nvim', { 'commit': '942fe5faef47b21241e970551eba407bc10d9547' }
+Plug 'debugloop/telescope-undo.nvim', { 'commit': '231b5ebb4328d2768c830c9a8d1b9c696116848d' }
+Plug 'desdic/agrolens.nvim', {  'commit': 'f5833b800a659db4789d518f0d63bb8c6eacbdd7' }
+Plug 'ggandor/leap.nvim', { 'commit': 'f74473d23ebf60957e0db3ff8172349a82e5a442' }
+Plug 'wellle/targets.vim', { 'commit': '642d3a4ce306264b05ea3219920b13ea80931767' }
+
+" Misc packages
 Plug 'dense-analysis/ale', { 'commit': '5b1044e2ade71fee4a59f94faa108d99b4e61fb2' }
 Plug 'chriskempson/base16-vim', { 'commit': '6191622d5806d4448fa2285047936bdcee57a098' }
 Plug 'neoclide/coc.nvim', { 'commit': '33ddba0d8db509378b59d05939da20d8a8d23df7' }
-Plug 'editorconfig/editorconfig-vim', { 'commit': '30ddc057f71287c3ac2beca876e7ae6d5abe26a0' }
-Plug 'junegunn/fzf.vim', { 'commit': 'cc13a4b728c7b76c63e6dc42f320cec955d74227' }
 Plug 'SirVer/ultisnips', { 'commit': '0ad238b1910d447476b2d98f593322c1cdb71285' }
-Plug 'mbbill/undotree', { 'commit': 'cb3e7390fbb49db2ad2150fb7cd91590a4a65a0a' }
-"Plug 'joonty/vdebug', { 'commit': '4c6a7caa10e32841dba86ba16acee30781388fdd' }
-Plug 'easymotion/vim-easymotion', { 'commit': 'b3cfab2a6302b3b39f53d9fd2cd997e1127d7878' }
-Plug 'preservim/tagbar', { 'commit': 'af3ce7c3cec81f2852bdb0a0651d2485fcd01214' }
 Plug 'tomtom/tcomment_vim', { 'commit': 'b4930f9da28647e5417d462c341013f88184be7e' }
+Plug 'editorconfig/editorconfig-vim', { 'commit': '30ddc057f71287c3ac2beca876e7ae6d5abe26a0' }
 " Plug 'weilbith/vim-localrc', { 'commit': '7fd606ac361f7058739bb8bce27888efa86c7420' }
-Plug 'wellle/targets.vim', { 'commit': '642d3a4ce306264b05ea3219920b13ea80931767' }
+"Plug 'joonty/vdebug', { 'commit': '4c6a7caa10e32841dba86ba16acee30781388fdd' }
 
-"Plug 'vim-php/tagbar-phpctags.vim', { 'commit': '00d12a891482c35e6bd0dd9a8860163322a45daf' }
+" Language specific packages
 "Plug 'neoclide/vim-jsx-improve', { 'commit': '3eb35b93d91d8f818236f4b019beb2d4accc0916' }
 Plug 'leafgarland/typescript-vim', { 'commit': '67e81e4292186889a1a519e1bf3a600d671237eb' }
 Plug 'vim-python/python-syntax', { 'commit': 'c1c5bafb6d2333d25e415eb2ec2d0a54a59a21b4' }
 Plug 'Vimjas/vim-python-pep8-indent', { 'commit': '60ba5e11a61618c0344e2db190210145083c91f8' }
 Plug 'hashivim/vim-terraform', { 'commit': 'f0b17ac9f1bbdf3a29dba8b17ab429b1eed5d443' }
 
+" Vendored packages
 Plug '~/.vim/plugged/fzf-basic'
 Plug '~/.vim/plugged/my_stuff'
 call plug#end()
@@ -90,23 +97,53 @@ call plug#end()
 " Syntax highlight code embedded in markdown. Built in Vim functionality
 let g:markdown_fenced_languages = ['python', 'terraform', 'javascript', 'bash']
 
-"FZF
-" Disable preview window
-let g:fzf_preview_window = []
-nnoremap <Leader>f :Files<CR>
-nnoremap <Leader>p :Tags<CR>
+" Telescope
+lua << EOF
+    local tele = require('telescope')
+    tele.setup({
+        defaults = {
+            layout_strategy = 'vertical',
+            layout_config = {
+                vertical = {
+                    width = {
+                        0.99,
+                        max = 100
+                    },
+                    preview_height = 10,
+                }
+            },
+            mappings = {
+                i = {
+                    -- Turn off the default vim mode stuff, I don't
+                    -- find it useful
+                    ["<esc>"] = require('telescope.actions').close,
+                }
+            }
+        },
+        pickers = {
+            buffers = {
+                sort_lastused = true
+            }
+        },
+    })
+    tele.load_extension('undo')
+    tele.load_extension('agrolens')
+EOF
+" See https://stackoverflow.com/questions/74448018/neovim-broken-syntax-highlighting-after-heredoc-lua-eof-in-vimscript/75191068#75191068 for broken highlighter fix "
+" See also git_files
+nnoremap <Leader>f :Telescope find_files<CR>
+nnoremap <Leader>t :Telescope buffers<CR>
+nnoremap <Leader>g :Telescope live_grep<CR>
+nnoremap <Leader>d :Telescope agrolens query=functions<CR>
+nnoremap <Leader>pg :Telescope git_status<CR>
+nnoremap <F2> :Telescope undo<CR>
 
 "Used in tComment
 let g:tcomment_opleader1 = ",c"
 
-"Used in tagbar
-nmap <F8> :TagbarToggle<CR>
-
-"Toggle undotree
-nnoremap <F2> :UndotreeToggle<CR>
-
-"Easymotion
-nnoremap p :call EasyMotion#User('\(^\\|\W\)\zs[a-zA-Z_0-9]', 0, 2, 0)<CR>
+"Leap.nvim
+nnoremap <silent> p <Plug>(leap-forward-to)
+nnoremap <silent> P <Plug>(leap-backward-to)
 
 " CoC (Intellisense/completion)
 " Make sure to be in the right venv and have installed jedi
@@ -167,8 +204,6 @@ noremap h z
 inoremap <F12> <C-R>=strftime("%H:%M:%S")<CR>
 " Use ,s to swap between most recent buffers
 nnoremap <Leader>s <C-^>
-" Use ,t to show buffers and allow selection (using FZF)
-nnoremap <Leader>t :Buffers<CR>
 
 " Base64 decode from https://stackoverflow.com/a/7846569
 vnoremap <leader>64 c<c-r>=trim(system('base64', @"))<cr><esc>"
