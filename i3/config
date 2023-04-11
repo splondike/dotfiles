@@ -173,9 +173,6 @@ bar {
         status_command conky -c ~/.conkyrc
 }
 
-# Application specific shortcuts
-bindsym $mod+j exec "sleep 0.1 && xdotool key --clearmodifiers ctrl+shift+Tab"
-bindsym $mod+l exec "sleep 0.1 && xdotool key --clearmodifiers ctrl+Tab"
 # Calculator button launces password thing
 bindcode 148 exec "/home/work/bin/mine/onepassword-open.sh"
 
