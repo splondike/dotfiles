@@ -56,6 +56,12 @@ set hidden
 " Source ~/.vim/local_vimrc for machine specific global config
 runtime local_vimrc
 
+" Fold by default, hR to remove all, hM to get them back, lowercases to
+" increment
+set foldmethod=indent
+set foldlevel=0
+set foldclose=all
+
 "*******************
 "***** Plugins *****
 "*******************
@@ -155,6 +161,9 @@ let g:UltiSnipsExpandTrigger="hh"
 let g:UltiSnipsJumpForwardTrigger="hh"
 let g:UltiSnipsJumpBackwardTrigger="<c-p>"
 
+" targets.vim
+let g:targets_aiAI = 'tsTS'
+
 " Better colours for JSX syntax highlighter
 let g:vim_jsx_pretty_colorful_config = 1 " default 0
 
@@ -192,8 +201,21 @@ augroup END
 "when I later remap them. E.g. u is later remapped to k, but I still
 "want z to be 'u' (undo), rather than up.
 
-" Text objects can be used with as" -> select within quotes, aa" -> select
+" Text objects can be used with as" -> select within quotes, at" -> select
 " around quotes
+for textObject in ['w', 'W', 's', 'p']
+    " Loop to remap some built in objects. targets.vim does the rest.
+    execute printf('xnoremap s%s i%s', textObject, textObject)
+    execute printf('onoremap s%s i%s', textObject, textObject)
+    execute printf('xnoremap t%s a%s', textObject, textObject)
+    execute printf('onoremap t%s a%s', textObject, textObject)
+
+    " Remove the original commands.
+    execute printf('xnoremap a%s <Nop>', textObject)
+    execute printf('onoremap a%s <Nop>', textObject)
+    execute printf('xnoremap i%s <Nop>', textObject)
+    execute printf('onoremap i%s <Nop>', textObject)
+endfor
 
 "===== General =====
 "'z' stuff like folds and spelling now uses h. hf folds visual mode highlight,
@@ -218,14 +240,12 @@ inoremap <Tab> <Esc>|
 "Use semicolon instead of colon to enter command mode from normal and
 "visual modes
 map ; :
-"And use ;; to jump to repeat the last find
-noremap ;; ;
 
 "Insert
-noremap s i|
-noremap S I|
-noremap t a|
-noremap T A|
+nnoremap s i|
+nnoremap S I|
+nnoremap t a|
+nnoremap T A|
 "Visual
 nnoremap a v|
 nnoremap A V|
