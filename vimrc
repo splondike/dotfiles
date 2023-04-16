@@ -1,9 +1,13 @@
 "*******************
 "***** Options *****
 "*******************
+" {{{
 
 let &titlestring = 'VIM %{mode()} %l %c %L %m - %{v:servername} - %-00.20t'
 set title
+" titlelen means to not truncate the title so Talon can pull out the long RPC
+" socket filename on OSX
+set statusline=%00.70F\ %m\ %=%l,%c\ %p%% titlelen=1000
 
 set backspace=2 "Make backspace behave sensibly
 set mouse=a "Enable mouse if possible
@@ -60,11 +64,15 @@ runtime local_vimrc
 " increment
 set foldmethod=indent
 set foldlevel=0
-set foldclose=all
+" Find auto close annoying at the moment, but maybe in the future?
+" set foldclose=all
+
+" }}}
 
 "*******************
 "***** Plugins *****
 "*******************
+" {{{
 
 call plug#begin()
 " Library packages
@@ -100,6 +108,13 @@ Plug '~/.vim/plugged/fzf-basic'
 Plug '~/.vim/plugged/my_stuff'
 call plug#end()
 
+" }}}
+
+"*******************
+"** Plugin config **
+"*******************
+"{{{
+
 " Syntax highlight code embedded in markdown. Built in Vim functionality
 let g:markdown_fenced_languages = ['python', 'terraform', 'javascript', 'bash']
 
@@ -124,21 +139,23 @@ lua << EOF
                     -- find it useful
                     ["<esc>"] = require('telescope.actions').close,
                 }
+            },
+            file_ignore_patterns = {
+                ".git/"
             }
         },
         pickers = {
             buffers = {
                 sort_lastused = true
-            }
+            },
         },
     })
     tele.load_extension('undo')
     tele.load_extension('agrolens')
 EOF
 " See https://stackoverflow.com/questions/74448018/neovim-broken-syntax-highlighting-after-heredoc-lua-eof-in-vimscript/75191068#75191068 for broken highlighter fix "
-" See also git_files
 nnoremap <Leader>f :Telescope find_files<CR>
-nnoremap <Leader>t :Telescope buffers<CR>
+nnoremap <Leader>t :Telescope oldfiles<CR>
 nnoremap <Leader>g :Telescope live_grep<CR>
 nnoremap <Leader>d :Telescope agrolens query=functions<CR>
 nnoremap <Leader>pg :Telescope git_status<CR>
@@ -167,9 +184,6 @@ let g:targets_aiAI = 'tsTS'
 " Better colours for JSX syntax highlighter
 let g:vim_jsx_pretty_colorful_config = 1 " default 0
 
-" Edit relative to current buffer
-cnoremap <expr> e; "e " . expand("%:h") . "/"
-
 function! s:base16_customize() abort
   call Base16hi("Normal", g:base16_gui06, g:base16_gui00, g:base16_cterm06, g:base16_cterm00, "", "")
   call Base16hi("LineNr", g:base16_gui03, g:base16_gui00, g:base16_cterm03, g:base16_cterm00, "", "")
@@ -184,18 +198,29 @@ augroup END
 let base16colorspace=256
 silent! colorscheme base16-tomorrow-night
 
+" }}}
+
 "*******************
 "**** Languages ****
 "*******************
+"{{{
 
 augroup python
     au!
     autocmd FileType python nnoremap <buffer> hF :setlocal foldmethod=indent<cr>
 augroup END
 
+augroup vim
+    au!
+    autocmd FileType vim set foldmethod=marker
+augroup END
+
+" }}}
+
 "*******************
 "***** Bindings ****
 "*******************
+"{{{
 
 "Use noremap rather than map as this uses the original vim mappings
 "when I later remap them. E.g. u is later remapped to k, but I still
@@ -230,6 +255,9 @@ nnoremap <Leader>s <C-^>
 " Base64 decode from https://stackoverflow.com/a/7846569
 vnoremap <leader>64 c<c-r>=trim(system('base64', @"))<cr><esc>"
 vnoremap <leader>46 c<c-r>=system('base64 --decode', @")<cr><esc>"
+
+" Edit relative to current buffer
+cnoremap <expr> e; "e " . expand("%:h") . "/"
 
 "===== Mode switching =====
 " Switch to normal mode from insert by typing hh
@@ -305,3 +333,4 @@ nnoremap <C-o> N|
 "====== Autocomplete =====
 
 inoremap <C-e> <C-n>
+" }}}
