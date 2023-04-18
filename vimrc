@@ -3,7 +3,7 @@
 "*******************
 " {{{
 
-let &titlestring = 'VIM %{mode()} %l %c %L %m - %{v:servername} - %-00.20t'
+let &titlestring = 'VIM %-00.20t | %{v:servername}'
 set title
 " titlelen means to not truncate the title so Talon can pull out the long RPC
 " socket filename on OSX
