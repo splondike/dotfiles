@@ -63,7 +63,7 @@ runtime local_vimrc
 " Fold by default, hR to remove all, hM to get them back, lowercases to
 " increment
 set foldmethod=indent
-set foldlevel=0
+set foldlevel=99
 " Find auto close annoying at the moment, but maybe in the future?
 " set foldclose=all
 
