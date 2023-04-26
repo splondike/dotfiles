@@ -8,12 +8,14 @@ set title
 " titlelen means to not truncate the title so Talon can pull out the long RPC
 " socket filename on OSX
 set statusline=%00.70F\ %m\ %=%l,%c\ %p%% titlelen=1000
+" Always show this to avoid bouncing
+set signcolumn=yes
 
 set backspace=2 "Make backspace behave sensibly
 set mouse=a "Enable mouse if possible
 set tags=./tags; "Climb dir tree until tags is found
-set nospell
 set nu
+set nospell
 
 set clipboard=unnamed,unnamedplus
 
@@ -79,20 +81,30 @@ call plug#begin()
 Plug 'nvim-lua/plenary.nvim', { 'commit': '253d34830709d690f013daf2853a9d21ad7accab' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'commit': '584ccea56e2d37b31ba292da2b539e1a4bb411ca'}
 
+" LSP
+Plug 'neovim/nvim-lspconfig', {'commit': 'eddaef928c1e1dd79a96f5db45f2fd7f2efe7ea0'}
+
 " Movement packages
 Plug 'nvim-telescope/telescope.nvim', { 'commit': '942fe5faef47b21241e970551eba407bc10d9547' }
 Plug 'debugloop/telescope-undo.nvim', { 'commit': '231b5ebb4328d2768c830c9a8d1b9c696116848d' }
 Plug 'desdic/agrolens.nvim', {  'commit': 'f5833b800a659db4789d518f0d63bb8c6eacbdd7' }
 Plug 'ggandor/leap.nvim', { 'commit': 'f74473d23ebf60957e0db3ff8172349a82e5a442' }
 Plug 'wellle/targets.vim', { 'commit': '642d3a4ce306264b05ea3219920b13ea80931767' }
+Plug 'bkad/CamelCaseMotion', { 'commit': 'de439d7c06cffd0839a29045a103fe4b44b15cdc' }
+
+" Completion
+Plug 'neoclide/coc.nvim', { 'commit': 'bbaa1d5d1ff3cbd9d26bb37cfda1a990494c4043' }
+Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build', 'commit': '1dbacb6f17c46c3beedc506e8007603a759fdcff' }
+Plug 'codota/tabnine-nvim', { 'do': './dl_binaries.sh', 'commit': 'cf22d7707263a0ff6f8a5bf47cda0a8a5d2d4238' }
 
 " Misc packages
 Plug 'dense-analysis/ale', { 'commit': '5b1044e2ade71fee4a59f94faa108d99b4e61fb2' }
-Plug 'chriskempson/base16-vim', { 'commit': '6191622d5806d4448fa2285047936bdcee57a098' }
-Plug 'neoclide/coc.nvim', { 'commit': '33ddba0d8db509378b59d05939da20d8a8d23df7' }
+Plug 'chriskempson/base16-vim', { 'commit': '3be3cd82cd31acfcab9a41bad853d9c68d30478d' }
 Plug 'SirVer/ultisnips', { 'commit': '0ad238b1910d447476b2d98f593322c1cdb71285' }
 Plug 'tomtom/tcomment_vim', { 'commit': 'b4930f9da28647e5417d462c341013f88184be7e' }
 Plug 'editorconfig/editorconfig-vim', { 'commit': '30ddc057f71287c3ac2beca876e7ae6d5abe26a0' }
+Plug 'ray-x/lsp_signature.nvim', { 'commit': '72b0d4ece23338fe2d03fc7b6fd8c8bace6bb441' }
+Plug 'nvim-treesitter/nvim-treesitter-context', { 'commit': '8b6861ebf0ba88e5f57796372eb194787705d25a' }
 " Plug 'weilbith/vim-localrc', { 'commit': '7fd606ac361f7058739bb8bce27888efa86c7420' }
 "Plug 'joonty/vdebug', { 'commit': '4c6a7caa10e32841dba86ba16acee30781388fdd' }
 
@@ -114,6 +126,20 @@ call plug#end()
 "** Plugin config **
 "*******************
 "{{{
+
+function! s:base16_customize() abort
+  call Base16hi("Normal", g:base16_gui06, g:base16_gui00, g:base16_cterm06, g:base16_cterm00, "", "")
+  call Base16hi("LineNr", g:base16_gui03, g:base16_gui00, g:base16_cterm03, g:base16_cterm00, "", "")
+  call Base16hi("Comment", g:base16_gui04, "", g:base16_cterm04, "", "", "")
+endfunction
+
+augroup on_change_colorschema
+  autocmd!
+  autocmd ColorScheme * call s:base16_customize()
+augroup END
+
+let base16colorspace=256
+silent! colorscheme base16-tomorrow-night
 
 " Syntax highlight code embedded in markdown. Built in Vim functionality
 let g:markdown_fenced_languages = ['python', 'terraform', 'javascript', 'bash']
@@ -161,17 +187,47 @@ nnoremap <Leader>d :Telescope agrolens query=functions<CR>
 nnoremap <Leader>pg :Telescope git_status<CR>
 nnoremap <F2> :Telescope undo<CR>
 
+"LSPs
+lua << EOF
+local lspconfig = require('lspconfig')
+lspconfig.jedi_language_server.setup {}
+EOF
+
 "Used in tComment
 let g:tcomment_opleader1 = ",c"
 
 "Leap.nvim
-nnoremap <silent> p <Plug>(leap-forward-to)
+nnoremap <silent> p <Plug>(leap-forward-to
 nnoremap <silent> P <Plug>(leap-backward-to)
 
+"CamelCaseMotion
+omap <silent> si <Plug>CamelCaseMotion_ie
+xmap <silent> si <Plug>CamelCaseMotion_ie
+
 " CoC (Intellisense/completion)
-" Make sure to be in the right venv and have installed jedi
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gr <Plug>(coc-references)
+call coc#config('suggest.noselect', v:true)
+" TODO: Something's breaking the line highligting. Can temp fix with
+" hi Pmenu ctermfg=... ctermbg=..., but it looks like something stops
+" that from working when put in .vimrc
+inoremap <silent><expr> <C-e>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ coc#refresh()
+inoremap <silent><expr> <C-p> coc#pum#visible() ? coc#pum#prev(1) : "\<C-p>"
+
+" Tabnine
+lua << EOF
+require('tabnine').setup({
+  disable_auto_comment=true,
+  accept_keymap="<Tab>",
+  dismiss_keymap = "<C-]>",
+  debounce_ms = 800,
+  suggestion_color = {gui = "#808080", cterm = 244},
+  exclude_filetypes = {"TelescopePrompt", "text"},
+  log_file_path = nil, -- absolute path to Tabnine log file
+})
+EOF
 
 " Ultisnips
 let g:UltiSnipsExpandTrigger="hh"
@@ -183,20 +239,6 @@ let g:targets_aiAI = 'tsTS'
 
 " Better colours for JSX syntax highlighter
 let g:vim_jsx_pretty_colorful_config = 1 " default 0
-
-function! s:base16_customize() abort
-  call Base16hi("Normal", g:base16_gui06, g:base16_gui00, g:base16_cterm06, g:base16_cterm00, "", "")
-  call Base16hi("LineNr", g:base16_gui03, g:base16_gui00, g:base16_cterm03, g:base16_cterm00, "", "")
-  call Base16hi("Comment", g:base16_gui04, "", g:base16_cterm04, "", "", "")
-endfunction
-
-augroup on_change_colorschema
-  autocmd!
-  autocmd ColorScheme * call s:base16_customize()
-augroup END
-
-let base16colorspace=256
-silent! colorscheme base16-tomorrow-night
 
 " }}}
 
@@ -262,8 +304,6 @@ cnoremap <expr> e; "e " . expand("%:h") . "/"
 "===== Mode switching =====
 " Switch to normal mode from insert by typing hh
 nnoremap <silent> <Tab> <Esc>:noh<CR>|
-vnoremap <Tab> <Esc><Nul>| " <Nul> added to fix select mode problem
-inoremap <Tab> <Esc>|
 
 "Use semicolon instead of colon to enter command mode from normal and
 "visual modes
@@ -329,8 +369,11 @@ nnoremap <C-w>i <C-w>l|
 "====== Search =====
 nnoremap <C-i> n|
 nnoremap <C-o> N|
-
-"====== Autocomplete =====
-
-inoremap <C-e> <C-n>
 " }}}
+
+"====== Misc =====
+" Used by my Talon scripts to cancel any pending repeat or operator
+" pending commands
+noremap <F4> :echo<cr>
+inoremap <F4> <Nop>
+cnoremap <F4> <Nop>
