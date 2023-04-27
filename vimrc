@@ -95,11 +95,10 @@ Plug 'bkad/CamelCaseMotion', { 'commit': 'de439d7c06cffd0839a29045a103fe4b44b15c
 " Completion
 Plug 'neoclide/coc.nvim', { 'commit': 'bbaa1d5d1ff3cbd9d26bb37cfda1a990494c4043' }
 Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build', 'commit': '1dbacb6f17c46c3beedc506e8007603a759fdcff' }
-Plug 'codota/tabnine-nvim', { 'do': './dl_binaries.sh', 'commit': 'cf22d7707263a0ff6f8a5bf47cda0a8a5d2d4238' }
 
 " Misc packages
 Plug 'dense-analysis/ale', { 'commit': '5b1044e2ade71fee4a59f94faa108d99b4e61fb2' }
-Plug 'chriskempson/base16-vim', { 'commit': '3be3cd82cd31acfcab9a41bad853d9c68d30478d' }
+Plug 'tinted-theming/base16-vim', { 'commit': '79d4fb4575b6e9fab785c44557529240c0b7093a' }
 Plug 'SirVer/ultisnips', { 'commit': '0ad238b1910d447476b2d98f593322c1cdb71285' }
 Plug 'tomtom/tcomment_vim', { 'commit': 'b4930f9da28647e5417d462c341013f88184be7e' }
 Plug 'editorconfig/editorconfig-vim', { 'commit': '30ddc057f71287c3ac2beca876e7ae6d5abe26a0' }
@@ -216,18 +215,6 @@ inoremap <silent><expr> <C-e>
       \ coc#refresh()
 inoremap <silent><expr> <C-p> coc#pum#visible() ? coc#pum#prev(1) : "\<C-p>"
 
-" Tabnine
-lua << EOF
-require('tabnine').setup({
-  disable_auto_comment=true,
-  accept_keymap="<Tab>",
-  dismiss_keymap = "<C-]>",
-  debounce_ms = 800,
-  suggestion_color = {gui = "#808080", cterm = 244},
-  exclude_filetypes = {"TelescopePrompt", "text"},
-  log_file_path = nil, -- absolute path to Tabnine log file
-})
-EOF
 
 " Ultisnips
 let g:UltiSnipsExpandTrigger="hh"
