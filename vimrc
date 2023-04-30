@@ -196,7 +196,7 @@ EOF
 let g:tcomment_opleader1 = ",c"
 
 "Leap.nvim
-nnoremap <silent> p <Plug>(leap-forward-to
+nnoremap <silent> p <Plug>(leap-forward-to)
 nnoremap <silent> P <Plug>(leap-backward-to)
 
 "CamelCaseMotion
