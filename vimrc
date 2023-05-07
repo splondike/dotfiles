@@ -105,6 +105,7 @@ Plug 'editorconfig/editorconfig-vim', { 'commit': '30ddc057f71287c3ac2beca876e7a
 Plug 'ray-x/lsp_signature.nvim', { 'commit': '72b0d4ece23338fe2d03fc7b6fd8c8bace6bb441' }
 Plug 'nvim-treesitter/nvim-treesitter-context', { 'commit': '8b6861ebf0ba88e5f57796372eb194787705d25a' }
 Plug 'freitass/todo.txt-vim', { 'commit': 'ed9d639de2e34eafb82f2682010ab361966ee40f' }
+Plug 'Wansmer/treesj', { 'commit': 'cba4aca075e4a9687cfd34b40328cac06126bc07' }
 " Plug 'weilbith/vim-localrc', { 'commit': '7fd606ac361f7058739bb8bce27888efa86c7420' }
 "Plug 'joonty/vdebug', { 'commit': '4c6a7caa10e32841dba86ba16acee30781388fdd' }
 
@@ -186,6 +187,24 @@ nnoremap <Leader>g :Telescope live_grep<CR>
 nnoremap <Leader>d :Telescope agrolens query=functions<CR>
 nnoremap <Leader>pg :Telescope git_status<CR>
 nnoremap <F2> :Telescope undo<CR>
+
+" Treesj
+lua << EOF
+local tsj = require('treesj')
+
+local langs = {--[[ configuration for languages ]]}
+
+tsj.setup({
+  use_default_keymaps = false,
+  check_syntax_error = true,
+  max_join_length = 500,
+  cursor_behavior = 'hold',
+  notify = true,
+  langs = langs,
+  dot_repeat = false,
+})
+EOF
+nnoremap <Leader>m :TSJToggle<CR>
 
 "LSPs
 lua << EOF
