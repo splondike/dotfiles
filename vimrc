@@ -104,6 +104,7 @@ Plug 'tomtom/tcomment_vim', { 'commit': 'b4930f9da28647e5417d462c341013f88184be7
 Plug 'editorconfig/editorconfig-vim', { 'commit': '30ddc057f71287c3ac2beca876e7ae6d5abe26a0' }
 Plug 'ray-x/lsp_signature.nvim', { 'commit': '72b0d4ece23338fe2d03fc7b6fd8c8bace6bb441' }
 Plug 'nvim-treesitter/nvim-treesitter-context', { 'commit': '8b6861ebf0ba88e5f57796372eb194787705d25a' }
+Plug 'freitass/todo.txt-vim', { 'commit': 'ed9d639de2e34eafb82f2682010ab361966ee40f' }
 " Plug 'weilbith/vim-localrc', { 'commit': '7fd606ac361f7058739bb8bce27888efa86c7420' }
 "Plug 'joonty/vdebug', { 'commit': '4c6a7caa10e32841dba86ba16acee30781388fdd' }
 
@@ -223,6 +224,9 @@ let g:UltiSnipsJumpBackwardTrigger="<c-p>"
 
 " targets.vim
 let g:targets_aiAI = 'tsTS'
+
+" todo.txt-vim
+let maplocalleader=" "
 
 " Better colours for JSX syntax highlighter
 let g:vim_jsx_pretty_colorful_config = 1 " default 0
@@ -364,3 +368,4 @@ nnoremap <C-o> N|
 noremap <F4> :echo<cr>
 inoremap <F4> <Nop>
 cnoremap <F4> <Nop>
+vnoremap <F4> <Nop>
