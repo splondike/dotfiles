@@ -88,7 +88,7 @@ Plug 'neovim/nvim-lspconfig', {'commit': 'eddaef928c1e1dd79a96f5db45f2fd7f2efe7e
 Plug 'nvim-telescope/telescope.nvim', { 'commit': '942fe5faef47b21241e970551eba407bc10d9547' }
 Plug 'debugloop/telescope-undo.nvim', { 'commit': '231b5ebb4328d2768c830c9a8d1b9c696116848d' }
 Plug 'desdic/agrolens.nvim', {  'commit': 'f5833b800a659db4789d518f0d63bb8c6eacbdd7' }
-Plug 'ggandor/leap.nvim', { 'commit': 'f74473d23ebf60957e0db3ff8172349a82e5a442' }
+Plug 'ggandor/leap.nvim', { 'commit': '6f2912755c9c4ae790abd829f0cf1b07c037b2a4w' }
 Plug 'wellle/targets.vim', { 'commit': '642d3a4ce306264b05ea3219920b13ea80931767' }
 Plug 'bkad/CamelCaseMotion', { 'commit': 'de439d7c06cffd0839a29045a103fe4b44b15cdc' }
 
@@ -227,9 +227,6 @@ xmap <silent> si <Plug>CamelCaseMotion_ie
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gr <Plug>(coc-references)
 call coc#config('suggest.noselect', v:true)
-" TODO: Something's breaking the line highligting. Can temp fix with
-" hi Pmenu ctermfg=... ctermbg=..., but it looks like something stops
-" that from working when put in .vimrc
 inoremap <silent><expr> <C-e>
       \ coc#pum#visible() ? coc#pum#next(1) :
       \ coc#refresh()
@@ -246,6 +243,9 @@ let g:targets_aiAI = 'tsTS'
 
 " todo.txt-vim
 let maplocalleader=" "
+highlight link TodoPriorityA Normal
+highlight link TodoPriorityB Normal
+highlight link TodoPriorityC Normal
 
 " Better colours for JSX syntax highlighter
 let g:vim_jsx_pretty_colorful_config = 1 " default 0
@@ -379,7 +379,6 @@ nnoremap <C-w>i <C-w>l|
 "====== Search =====
 nnoremap <C-i> n|
 nnoremap <C-o> N|
-" }}}
 
 "====== Misc =====
 " Used by my Talon scripts to cancel any pending repeat or operator
@@ -388,3 +387,5 @@ noremap <F4> :echo<cr>
 inoremap <F4> <Nop>
 cnoremap <F4> <Nop>
 vnoremap <F4> <Nop>
+
+" }}}
