@@ -13,6 +13,7 @@ export GIT_EDITOR='/usr/bin/nvim'
 PS1='\[\033[00;32m\]\t \W> \['$(tput sgr0)'\]'
 export PATH=~/bin/preempt:$PATH
 export PATH=$PATH:~/bin/mine
+export PATH=$PATH:~/Programming/small-utilities
 export PATH=$PATH:/opt/android-sdk-linux/platform-tools/:/opt/android-sdk-linux/tools/
 export PATH=$PATH:/opt/android-ndk-r15b/
 export PATH="$PATH:$HOME/.rvm/bin"
