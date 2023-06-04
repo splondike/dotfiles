@@ -242,8 +242,8 @@ inoremap <silent><expr> <C-p> coc#pum#visible() ? coc#pum#prev(1) : "\<C-p>"
 
 " Ultisnips
 let g:UltiSnipsExpandTrigger="hh"
-let g:UltiSnipsJumpForwardTrigger="hh"
-let g:UltiSnipsJumpBackwardTrigger="<c-p>"
+let g:UltiSnipsJumpBackwardTrigger="<c-s>"
+let g:UltiSnipsJumpForwardTrigger="<c-t>"
 
 " targets.vim
 let g:targets_aiAI = 'tsTS'
