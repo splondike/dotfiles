@@ -1,8 +1,14 @@
+" Per machine vimrc customisations
+let s:host_vimrc = $HOME . '/.' . hostname() . '.vimrc'
+if filereadable(s:host_vimrc)
+  execute 'source ' . s:host_vimrc
+endif
+
+
 "*******************
 "***** Options *****
 "*******************
 " {{{
-
 let &titlestring = 'VIM %-00.20t | %{v:servername}'
 set title
 " titlelen means to not truncate the title so Talon can pull out the long RPC
@@ -119,6 +125,7 @@ Plug 'hashivim/vim-terraform', { 'commit': 'f0b17ac9f1bbdf3a29dba8b17ab429b1eed5
 " Vendored packages
 Plug '~/.vim/plugged/fzf-basic'
 Plug '~/.vim/plugged/my_stuff'
+Plug '~/.vim/plugged/todo-txt-time-tracking'
 call plug#end()
 
 " }}}
@@ -265,6 +272,11 @@ augroup END
 augroup vim
     au!
     autocmd FileType vim set foldmethod=marker
+augroup END
+
+augroup todo
+    au!
+    autocmd FileType todo nnoremap <buffer> <localleader>t :call todotxt#timetracking#toggle()<cr>
 augroup END
 
 " }}}
