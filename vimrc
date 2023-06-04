@@ -276,7 +276,9 @@ augroup END
 
 augroup todo
     au!
-    autocmd FileType todo nnoremap <buffer> <localleader>t :call todotxt#timetracking#toggle()<cr>
+    autocmd FileType todo nnoremap <buffer> <localleader>t :call todotxt#timetracking#Toggle()<cr>
+    autocmd FileType todo nnoremap <buffer> <localleader>o :call todotxt#timetracking#OpenToggleFile()<cr>
+    autocmd FileType todo nnoremap <buffer> <localleader>e :call todotxt#timetracking#AddEstimate()<cr>
 augroup END
 
 " }}}
