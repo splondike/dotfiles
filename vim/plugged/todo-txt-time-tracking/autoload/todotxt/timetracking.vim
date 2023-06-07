@@ -37,9 +37,10 @@ endfunction
 function! todotxt#timetracking#AddEstimate() abort
     if exists("g:TodoTxtTimeTrackingEstimatesFile")
         let line = getline(".")
+        let timestamp = strftime("%Y%m%d%H%M%S")
         execute("e " . g:TodoTxtTimeTrackingEstimatesFile)
         normal! Go
-        call setline(".", "," . line)
+        call setline(".", "," . timestamp . "," . line)
         startinsert
     endif
 endfunction
