@@ -44,7 +44,7 @@ alt + shift - c : yabai -m window --close
 alt - tab : yabai -m window --focus "$(yabai -m query --windows | jq -re "sort_by(.display, .space, .frame.x, .frame.y, .id) | map(select(.\"is-visible\" == true and .role != \"AXUnknown\" and .frame.h != 0.0)) | reverse | nth(index(map(select(.\"has-focus\" == true))) - 1).id")"
 
 
-cmd + shift - a: /Users/stefansk/osx-scripts/scripts/passmenu-osx.sh
+cmd + alt - a: /Users/stefansk/osx-scripts/scripts/passmenu-osx.sh
 
 # Application key
 0x6E : /Users/stefansk/osx-scripts/scripts/macro.sh
