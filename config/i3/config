@@ -210,6 +210,8 @@ workspace 8 output VGA-1
 workspace 9 output VGA-1
 workspace 10 output VGA-1
 
+focus_on_window_activation focus
+
 # Autostart
 
 exec xscreensaver
