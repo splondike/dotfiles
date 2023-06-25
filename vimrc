@@ -1,5 +1,5 @@
 " Per machine vimrc customisations
-let s:host_vimrc = $HOME . '/.' . hostname() . '.vimrc'
+let s:host_vimrc = $HOME . '/.vimrc.' . hostname()
 if filereadable(s:host_vimrc)
   execute 'source ' . s:host_vimrc
 endif
