@@ -1,0 +1,34 @@
+general {
+    colors = false
+    interval = 30
+}
+
+order += "load"
+order += "read_file backup_local"
+order += "read_file backup_remote"
+order += "read_file backup_password"
+order += "tztime local"
+
+wireless wlp3s0 {
+    format_up = "W: (%quality %bitrate)"
+    format_down = "W: down"
+}
+
+tztime local {
+    format = "%d %b, %I:%M"
+}
+
+read_file backup_local {
+    format = "l: %content"
+    path = "/var/log/backup_local_status"
+}
+
+read_file backup_remote {
+    format = "r: %content"
+    path = "/var/log/backup_remote_status"
+}
+
+read_file backup_password {
+    format = "rp: %content"
+    path = "/var/log/backup_password_status"
+}
