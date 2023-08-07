@@ -121,11 +121,13 @@ Plug 'leafgarland/typescript-vim', { 'commit': '67e81e4292186889a1a519e1bf3a600d
 Plug 'vim-python/python-syntax', { 'commit': 'c1c5bafb6d2333d25e415eb2ec2d0a54a59a21b4' }
 Plug 'Vimjas/vim-python-pep8-indent', { 'commit': '60ba5e11a61618c0344e2db190210145083c91f8' }
 Plug 'hashivim/vim-terraform', { 'commit': 'f0b17ac9f1bbdf3a29dba8b17ab429b1eed5d443' }
+Plug 'ray-x/go.nvim', { 'commit': '711b3b84cf59d3c43a9d1b02fdf12152b397e7b1' }
 
 " Vendored packages
 Plug '~/.vim/plugged/fzf-basic'
 Plug '~/.vim/plugged/my_stuff'
 Plug '~/.vim/plugged/todo-txt-time-tracking'
+Plug '~/.vim/plugged/kitty-integration'
 call plug#end()
 
 " }}}
@@ -401,5 +403,8 @@ noremap <F4> :echo<cr>
 inoremap <F4> <Nop>
 cnoremap <F4> <Nop>
 vnoremap <F4> <Nop>
+
+nnoremap <buffer> hr :call kittyterminal#kitty#Send()<cr><cr>
+vnoremap <buffer> hr :call kittyterminal#kitty#Send()<cr><cr>
 
 " }}}
