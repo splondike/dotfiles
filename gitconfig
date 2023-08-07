@@ -7,7 +7,7 @@
 [github]
 	user = splondike
 [core]
-	editor = /usr/bin/vim
+    excludesfile = ~/.config/git/gitignore
 [init]
 	defaultBranch = main
 [commit]
