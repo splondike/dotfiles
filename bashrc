@@ -23,6 +23,7 @@ export ANDROID_NDK=/opt/android-ndk-r15b/
 alias vim='nvim'
 alias gg='git status'
 alias kssh='kitty +kitten ssh'
+alias pvim='poetry run nvim'
 
 export VAGRANT_DEFAULT_PROVIDER=virtualbox
 source $HOME/.rvm/scripts/rvm
