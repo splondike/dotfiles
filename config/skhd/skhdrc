@@ -25,7 +25,7 @@ alt + shift - 8 : yabai -m window --space 8
 alt + shift - 9 : yabai -m window --space 9
 alt + shift - 0 : yabai -m window --space 10
 
-alt - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance --working-directory /Users/stefansk/
+alt - return : /Applications/kitty.app/Contents/MacOS/kitty --working-directory /Users/stefansk/
 # alt - p : skhd -k "cmd - space"
 alt - p : /Users/stefansk/osx-scripts/scripts/itemselector.sh /Users/stefansk/osx-scripts/scripts/app-launcher.sh
 
