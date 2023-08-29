@@ -121,7 +121,7 @@ Plug 'leafgarland/typescript-vim', { 'commit': '67e81e4292186889a1a519e1bf3a600d
 Plug 'vim-python/python-syntax', { 'commit': 'c1c5bafb6d2333d25e415eb2ec2d0a54a59a21b4' }
 Plug 'Vimjas/vim-python-pep8-indent', { 'commit': '60ba5e11a61618c0344e2db190210145083c91f8' }
 Plug 'hashivim/vim-terraform', { 'commit': 'f0b17ac9f1bbdf3a29dba8b17ab429b1eed5d443' }
-Plug 'ray-x/go.nvim', { 'commit': '711b3b84cf59d3c43a9d1b02fdf12152b397e7b1' }
+Plug 'mattn/vim-goimports', { 'commit': 'e50dae830c3cc405003bbc79e90c2dfb5c8da7f5' }
 
 " Vendored packages
 Plug '~/.vim/plugged/fzf-basic'
@@ -178,7 +178,8 @@ lua << EOF
             },
             file_ignore_patterns = {
                 ".git/"
-            }
+            },
+            path_display = {"truncate"}
         },
         pickers = {
             buffers = {
@@ -281,6 +282,11 @@ augroup todo
     autocmd FileType todo nnoremap <buffer> <localleader>t :call todotxt#timetracking#Toggle()<cr>
     autocmd FileType todo nnoremap <buffer> <localleader>o :call todotxt#timetracking#OpenToggleFile()<cr>
     autocmd FileType todo nnoremap <buffer> <localleader>e :call todotxt#timetracking#AddEstimate()<cr>
+augroup END
+
+augroup go
+    au!
+    autocmd FileType go setlocal noexpandtab
 augroup END
 
 " }}}

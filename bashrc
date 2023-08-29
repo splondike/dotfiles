@@ -9,6 +9,7 @@ fi
 
 export EDITOR='/usr/bin/nvim'
 export GIT_EDITOR='/usr/bin/nvim'
+export GOPATH="$HOME/.cache/go"
 
 PS1='\[\033[00;32m\]\t \W> \['$(tput sgr0)'\]'
 export PATH=~/bin/preempt:$PATH
@@ -17,6 +18,7 @@ export PATH=$PATH:~/Programming/small-utilities
 export PATH=$PATH:/opt/android-sdk-linux/platform-tools/:/opt/android-sdk-linux/tools/
 export PATH=$PATH:/opt/android-ndk-r15b/
 export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="$PATH:$GOPATH/bin"
 export ANDROID_HOME=/opt/android/
 export ANDROID_NDK=/opt/android-ndk-r15b/
 
