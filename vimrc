@@ -260,6 +260,9 @@ highlight link TodoPriorityC Normal
 " Better colours for JSX syntax highlighter
 let g:vim_jsx_pretty_colorful_config = 1 " default 0
 
+" vim-goimports
+let g:goimports_show_loclist = 0
+
 " }}}
 
 "*******************
