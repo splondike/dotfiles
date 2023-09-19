@@ -289,6 +289,11 @@ augroup go
     autocmd FileType go setlocal noexpandtab
 augroup END
 
+augroup mermaid
+    au!
+    autocmd FileType mermaid call tcomment#type#Define('mermaid', '%%%% %s')
+augroup END
+
 " }}}
 
 "*******************
