@@ -246,5 +246,6 @@ bindsym $mod+s exec $homedir/bin/mine/onlyone.sh warpd-instance kill $homedir/bi
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +1dB
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -1dB
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym $mod+Ctrl+a exec $homedir/bin/mine/passmenu
 
 include /etc/sway/config.d/*
