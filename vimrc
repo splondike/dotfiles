@@ -280,6 +280,11 @@ augroup vim
     autocmd FileType vim set foldmethod=marker
 augroup END
 
+augroup zsh
+    au!
+    autocmd FileType zsh set foldmethod=marker
+augroup END
+
 augroup todo
     au!
     autocmd FileType todo nnoremap <buffer> <localleader>t :call todotxt#timetracking#Toggle()<cr>
