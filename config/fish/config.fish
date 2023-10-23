@@ -3,6 +3,7 @@ if status is-interactive
     set EDITOR '/usr/bin/nvim'
     set GIT_EDITOR '/usr/bin/nvim'
     set GOPATH "$HOME/.cache/go"
+    fish_add_path -a ~/bin
     fish_add_path -a ~/bin/mine
     fish_add_path -a ~/Programming/small-utilities
     fish_add_path -a $GOPATH/bin

@@ -233,9 +233,6 @@ bar {
     }
 }
 
-# Custom window behaviour
-for_window [title="itemselector"] floating enable, border pixel 4
-
 # Startup commands
 exec_always nm-applet --indicator
 exec gammastep -l -37.7958:144.9234 -t 6500:3000 -b 1.0:0.8
@@ -250,5 +247,6 @@ bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +1dB
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -1dB
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym $mod+Ctrl+a exec $homedir/bin/mine/passmenu
+bindsym Menu exec $homedir/bin/mine/macro.sh
 
 include /etc/sway/config.d/*

@@ -37,7 +37,7 @@ bindsym $mod+Return exec kitty
 bindsym $mod+Shift+c kill
 
 # start dmenu (a program launcher)
-bindsym $mod+p exec $homedir/bin/mine/dmenu_apps | xargs exec
+bindsym $mod+p exec $homedir/bin/mine/dmenu_apps | xargs i3-msg exec --
 bindsym $mod+Shift+a exec $homedir/bin/mine/i3-actions
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -219,4 +219,4 @@ exec $homedir/bin/mine/keyboard-i3-binding.py
 exec dunst
 exec redshift -l -37.7958:144.9234 -t 6500:3000 -b 1.0:0.8
 exec picom
-exec snixembed
+exec $homedir/bin/snixembed
