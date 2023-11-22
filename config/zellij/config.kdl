@@ -1,7 +1,13 @@
 keybinds clear-defaults=true {
+    shared {
+        // Used for my macro button
+        bind "Alt Right" { MoveFocus "Right"; }
+        bind "Alt Left" { MoveFocus "Left"; }
+    }
+
     normal {
         bind "Ctrl t" { SwitchToMode "Pane"; }
-        // bind "Ctrl p" { SwitchFocus; }
+        bind "Ctrl p" { SwitchFocus; }
     }
 
     pane {
@@ -15,8 +21,9 @@ keybinds clear-defaults=true {
             };
             SwitchToMode "Normal"
         }
+        bind "f" { EditScrollback; SwitchToMode "Normal"; }
 
-        bind "c" { NewPane; SwitchToMode "Normal"; }
+        bind "c" { NewPane; }
 
         bind "n" "Left" { MoveFocus "Left"; }
         bind "i" "Right" { MoveFocus "Right"; }
@@ -32,7 +39,7 @@ keybinds clear-defaults=true {
         bind "-" { Resize "Decrease"; }
         bind "t" { ToggleFocusFullscreen; }
 
-        bind "x" { NewTab; SwitchToMode "Normal"; }
+        bind "x" { NewTab; }
         bind "s" { GoToNextTab; }
         bind "b" { BreakPane; }
         bind "]" { BreakPaneRight; }
@@ -57,8 +64,30 @@ keybinds clear-defaults=true {
         bind "Ctrl u" { HalfPageScrollUp; }
         bind "Ctrl e" { HalfPageScrollDown; }
 
-        bind "Ctrl i" { Search "up"; }
+        // bind "Ctrl i" { Search "up"; }
         bind "Ctrl o" { Search "down"; }
+    }
+}
+
+themes {
+    default {
+        // Background of bar
+        black 19
+        // Background of active tab and inactive border
+        green 2
+        // Foreground text
+        white 8
+        // Inactive tab
+        fg 20
+
+        // Don't know what these do
+        bg 1
+        red 30
+        yellow 50
+        blue 60
+        magenta 70
+        cyan 80
+        orange 254
     }
 }
 
