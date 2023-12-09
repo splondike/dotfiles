@@ -103,7 +103,8 @@ Plug 'neoclide/coc.nvim', { 'commit': 'bbaa1d5d1ff3cbd9d26bb37cfda1a990494c4043'
 Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build', 'commit': '1dbacb6f17c46c3beedc506e8007603a759fdcff' }
 
 " Misc packages
-Plug 'dense-analysis/ale', { 'commit': '5b1044e2ade71fee4a59f94faa108d99b4e61fb2' }
+" ALE is producing a bit of lag when switching modes
+" Plug 'dense-analysis/ale', { 'commit': '53b01d6a546384a28f1ccbed41baae58d7341da4' }
 Plug 'tinted-theming/base16-vim', { 'commit': '79d4fb4575b6e9fab785c44557529240c0b7093a' }
 Plug 'SirVer/ultisnips', { 'commit': '0ad238b1910d447476b2d98f593322c1cdb71285' }
 Plug 'tomtom/tcomment_vim', { 'commit': 'b4930f9da28647e5417d462c341013f88184be7e' }
@@ -113,7 +114,7 @@ Plug 'nvim-treesitter/nvim-treesitter-context', { 'commit': '8b6861ebf0ba88e5f57
 Plug 'freitass/todo.txt-vim', { 'commit': 'ed9d639de2e34eafb82f2682010ab361966ee40f' }
 Plug 'Wansmer/treesj', { 'commit': 'cba4aca075e4a9687cfd34b40328cac06126bc07' }
 " Plug 'weilbith/vim-localrc', { 'commit': '7fd606ac361f7058739bb8bce27888efa86c7420' }
-"Plug 'joonty/vdebug', { 'commit': '4c6a7caa10e32841dba86ba16acee30781388fdd' }
+" Plug 'joonty/vdebug', { 'commit': '4c6a7caa10e32841dba86ba16acee30781388fdd' }
 
 " Language specific packages
 "Plug 'neoclide/vim-jsx-improve', { 'commit': '3eb35b93d91d8f818236f4b019beb2d4accc0916' }
@@ -122,6 +123,7 @@ Plug 'vim-python/python-syntax', { 'commit': 'c1c5bafb6d2333d25e415eb2ec2d0a54a5
 Plug 'Vimjas/vim-python-pep8-indent', { 'commit': '60ba5e11a61618c0344e2db190210145083c91f8' }
 Plug 'hashivim/vim-terraform', { 'commit': 'f0b17ac9f1bbdf3a29dba8b17ab429b1eed5d443' }
 Plug 'mattn/vim-goimports', { 'commit': 'e50dae830c3cc405003bbc79e90c2dfb5c8da7f5' }
+Plug 'khaveesh/vim-fish-syntax', { 'commit': 'e229becbf4bbee21cc78cd2cf24f57112e33c02a' }
 
 " Vendored packages
 Plug '~/.vim/plugged/fzf-basic'
@@ -182,6 +184,9 @@ lua << EOF
             path_display = {"truncate"}
         },
         pickers = {
+            find_files = {
+                hidden = true
+            },
             buffers = {
                 sort_lastused = true
             },
@@ -240,7 +245,7 @@ call coc#config('suggest.noselect', v:true)
 inoremap <silent><expr> <C-e>
       \ coc#pum#visible() ? coc#pum#next(1) :
       \ coc#refresh()
-inoremap <silent><expr> <C-p> coc#pum#visible() ? coc#pum#prev(1) : "\<C-p>"
+inoremap <silent><expr> <C-i> coc#pum#visible() ? coc#pum#prev(1) : "\<C-p>"
 
 
 " Ultisnips
