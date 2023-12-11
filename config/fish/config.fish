@@ -2,6 +2,8 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
     set -x EDITOR 'nvim'
     set -x GIT_EDITOR 'nvim'
+    set GOPATH "$HOME/.cache/go"
+    set -x SSH_AUTH_SOCK "/var/run/user/1000/ssh-agent.sock"
     fish_add_path -a ~/bin
     fish_add_path -a ~/bin/mine
     alias vim='nvim'
@@ -15,7 +17,6 @@ if status is-interactive
             fish_add_path -a ~/software/small-utilities
             set -U GIT_EDITOR "$HOME/bin/git_commit_editor"
         case Linux
-            set -x GOPATH "$HOME/.cache/go"
             fish_add_path -a ~/Programming/small-utilities
             fish_add_path -a $GOPATH/bin
     end

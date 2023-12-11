@@ -8,6 +8,7 @@
 #
 # Logo key. Use Mod1 for Alt.
 set $homedir /home/normal
+set $userid 1000
 set $mod Mod1
 set $ralt Mod5
 set $win Mod4
@@ -240,6 +241,7 @@ exec swayidle -w \
          timeout 300 'swaylock -f -c 000000' \
          timeout 310 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
          before-sleep 'swaylock -f -c 000000'
+exec_always ssh-agent -a /var/run/user/1000/ssh-agent.sock
 
 # Custom keybinds
 bindsym $mod+s exec $homedir/bin/mine/onlyone.sh warpd-instance kill $homedir/bin/warpd --normal
