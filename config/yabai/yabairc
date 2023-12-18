@@ -11,6 +11,7 @@ yabai -m config window_border_blur off
 # yabai -m config window_border on
 # yabai -m config active_window_border_color 0xFF507dc7
 
-yabai -m signal --add event=space_changed action=/Users/stefansk/osx-scripts/scripts/spaces-trigger.sh
-yabai -m signal --add event=window_destroyed action=/Users/stefansk/osx-scripts/scripts/focus-first-window-in-space.sh
 yabai -m rule --add label=itemselector title='^itemselector$' manage=off grid=12:12:3:3:6:3
+
+yabai -m signal --add event=window_destroyed action=/Users/stefansk/osx-scripts/scripts/yabai-window-destroyed.sh
+yabai -m signal --add event=window_created action=/Users/stefansk/osx-scripts/scripts/yabai-window-created.sh
