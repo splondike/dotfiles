@@ -4,6 +4,7 @@ if status is-interactive
     set -x GIT_EDITOR 'nvim'
     set GOPATH "$HOME/.cache/go"
     set -x SSH_AUTH_SOCK "/var/run/user/1000/ssh-agent.sock"
+    set -U fish_greeting
     fish_add_path -a ~/bin
     fish_add_path -a ~/bin/mine
     alias vim='nvim'
