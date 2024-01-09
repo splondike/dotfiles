@@ -113,7 +113,7 @@ Plug 'ray-x/lsp_signature.nvim', { 'commit': '72b0d4ece23338fe2d03fc7b6fd8c8bace
 Plug 'nvim-treesitter/nvim-treesitter-context', { 'commit': '8b6861ebf0ba88e5f57796372eb194787705d25a' }
 Plug 'freitass/todo.txt-vim', { 'commit': 'ed9d639de2e34eafb82f2682010ab361966ee40f' }
 Plug 'Wansmer/treesj', { 'commit': 'cba4aca075e4a9687cfd34b40328cac06126bc07' }
-" Plug 'weilbith/vim-localrc', { 'commit': '7fd606ac361f7058739bb8bce27888efa86c7420' }
+Plug 'embear/vim-localvimrc', { 'commit': 'ebb73832e6795967e5a52db3636a37282871b218' }
 " Plug 'joonty/vdebug', { 'commit': '4c6a7caa10e32841dba86ba16acee30781388fdd' }
 
 " Language specific packages
