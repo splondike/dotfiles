@@ -213,6 +213,21 @@ input * {
 #     bindsym Escape mode "default"
 # }
 # bindsym $mod+r mode "resize"
+mode "mouse" {
+    bindsym a exec "$homedir/bin/mine/screen-jumper.sh 0 0"
+    bindsym r exec "$homedir/bin/mine/screen-jumper.sh 1 0"
+    bindsym s exec "$homedir/bin/mine/screen-jumper.sh 2 0"
+    bindsym t exec "$homedir/bin/mine/screen-jumper.sh 3 0"
+    bindsym w exec "$homedir/bin/mine/screen-jumper.sh -1 -1"
+    bindsym control+a exec "$homedir/bin/mine/screen-jumper.sh 0 1"
+    bindsym control+r exec "$homedir/bin/mine/screen-jumper.sh 1 1"
+    bindsym control+s exec "$homedir/bin/mine/screen-jumper.sh 2 1"
+    bindsym control+t exec "$homedir/bin/mine/screen-jumper.sh 3 1"
+
+    bindsym $mod+s mode "default"
+}
+
+bindsym $mod+s mode "mouse"
 
 #
 # Status Bar:
@@ -237,6 +252,7 @@ bar {
 # Startup commands
 exec_always nm-applet --indicator
 exec gammastep -l -37.7958:144.9234 -t 6500:3000 -b 1.0:0.8
+exec $homedir/bin/mine/keyboard-i3-binding.py
 exec swayidle -w \
          timeout 300 'swaylock -f -c 000000' \
          timeout 310 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
@@ -244,7 +260,7 @@ exec swayidle -w \
 exec_always ssh-agent -a /var/run/user/1000/ssh-agent.sock
 
 # Custom keybinds
-bindsym $mod+s exec $homedir/bin/mine/onlyone.sh warpd-instance kill $homedir/bin/warpd --normal
+# bindsym $mod+s exec $homedir/bin/mine/onlyone.sh warpd-instance kill $homedir/bin/warpd --normal
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +1dB
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -1dB
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
