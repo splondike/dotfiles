@@ -1,0 +1,62 @@
+######## Scrolling ############
+
+keymap u DOWN
+keymap C-e NEXT_HALF_PAGE
+keymap e UP
+keymap C-u PREV_HALF_PAGE
+keymap n LEFT
+keymap i RIGHT
+
+keymap g BEGIN
+keymap G END
+
+keymap ( UNDO
+keymap ) REDO
+
+####### Navigation #########
+
+keymap l PREV
+keymap y NEXT
+keymap ,t SELECT
+keymap ,z HISTORY
+
+keymap / ISEARCH
+keymap ? ISEARCH_BACK
+keymap C-i SEARCH_NEXT
+keymap C-o SEARCH_PREV
+
+keymap h PREV_LINK
+keymap k NEXT_LINK
+
+# Type the number before the link then press f to open it
+keymap f COMMAND "LINK_BEGIN ; GOTO_LINK"
+
+####### Open urls, bookmarks etc. #########
+
+keymap C-l GOTO
+# keymap O COMMAND  "GOTO https://duckduckgo.com/lite/; NEXT_LINK; GOTO_LINK"
+# keymap O EXTERN "file:/cgi-bin/omnibar_google.cgi"
+# EXEC_SHELL/SHELL Just runs a shell script and when you press a key it exits. Not sure about env vars
+# PIPE_SHELL/READ_SHELL Just runs a shell script and shows its output in a w3m buffer
+# EXTERN lets another program take the screen, and returns to w3m when it exits
+keymap v GOTO file:/cgi-bin/foo.sh
+# keymap v COMMAND "EXTERN read ; GOTO file:/cgi-bin/foo.sh"
+
+# TODO: Swap these back
+keymap q ABORT
+
+####### Marks #######
+
+# TODO: Don't know how to use these
+keymap m MARK
+keymap p NEXT_MARK
+keymap w PREV_MARK
+
+keymap C-r RELOAD
+
+# Show history
+# HISTORY
+# Some kind of link picker
+# keymap h ACCESSKEY
+# keymap ' MAIN_MENU
+# MOVE_DOWN

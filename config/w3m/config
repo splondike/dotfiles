@@ -1,0 +1,4 @@
+display_link_number 1
+wrap_search 1
+
+cgi_bin ~/.w3m/cgi-bin
