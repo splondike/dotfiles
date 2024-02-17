@@ -1,0 +1,43 @@
+# External tools:
+# - dnf install difftastic
+# - brew install difftastic
+# Alternative is 'delta' which doesn't know about language semantics and so
+# takes less memory
+
+[color]
+ui = auto
+
+[core]
+excludesfile = ~/.config/git/gitignore
+
+[add.interactive]
+useBuiltin = false
+
+[merge]
+conflictstyle = zdiff3
+
+[pull]
+rebase = true
+
+[push]
+default = current
+
+[diff]
+colorMoved = default
+tool = difftastic
+external = difft
+
+[difftool]
+prompt = false
+
+[difftool "difftastic"]
+cmd = difft "$LOCAL" "$REMOTE"
+
+[init]
+defaultBranch = main
+
+[commit]
+gpgsign = true
+
+[include]
+path = ~/.config/git/config-local
