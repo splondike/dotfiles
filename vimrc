@@ -124,6 +124,7 @@ Plug 'Vimjas/vim-python-pep8-indent', { 'commit': '60ba5e11a61618c0344e2db190210
 Plug 'hashivim/vim-terraform', { 'commit': 'f0b17ac9f1bbdf3a29dba8b17ab429b1eed5d443' }
 Plug 'mattn/vim-goimports', { 'commit': 'e50dae830c3cc405003bbc79e90c2dfb5c8da7f5' }
 Plug 'khaveesh/vim-fish-syntax', { 'commit': 'e229becbf4bbee21cc78cd2cf24f57112e33c02a' }
+Plug 'google/vim-jsonnet', { 'commit': '4ebc6619ddce5d032a985b42a9864154c3d20e4a' }
 
 " Vendored packages
 Plug '~/.vim/plugged/fzf-basic'
