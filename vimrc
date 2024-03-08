@@ -125,6 +125,7 @@ Plug 'hashivim/vim-terraform', { 'commit': 'f0b17ac9f1bbdf3a29dba8b17ab429b1eed5
 Plug 'mattn/vim-goimports', { 'commit': 'e50dae830c3cc405003bbc79e90c2dfb5c8da7f5' }
 Plug 'khaveesh/vim-fish-syntax', { 'commit': 'e229becbf4bbee21cc78cd2cf24f57112e33c02a' }
 Plug 'google/vim-jsonnet', { 'commit': '4ebc6619ddce5d032a985b42a9864154c3d20e4a' }
+Plug 'jparise/vim-graphql', { 'commit': 'c1d6af3b93ec135e7e2fc182d4cae6cd0d9e20b1' }
 
 " Vendored packages
 Plug '~/.vim/plugged/fzf-basic'
@@ -306,6 +307,12 @@ augroup END
 augroup mermaid
     au!
     autocmd FileType mermaid call tcomment#type#Define('mermaid', '%%%% %s')
+augroup END
+
+" .ron used by Trustfall: https://github.com/obi1kenobi/trustfall
+augroup ron
+    au!
+    autocmd BufNewFile,BufRead *.ron   set syntax=graphql
 augroup END
 
 " }}}
