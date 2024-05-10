@@ -180,7 +180,8 @@ bindcode 123 exec $homedir/bin/mine/volume increment
 bindcode 232 exec $homedir/bin/mine/backlighter decrement
 bindcode 233 exec $homedir/bin/mine/backlighter increment
 bindcode 160 exec $homedir/bin/mine/blankscreen
-bindcode 135 exec $homedir/bin/mine/macro.sh
+bindcode 135 exec $homedir/bin/mine/macro.sh 0
+bindcode $mod+135 exec $homedir/bin/mine/macro.sh 1
 bindsym $mod+Ctrl+a exec $homedir/bin/mine/passmenu
 
 bindsym $mod+Shift+minus move scratchpad

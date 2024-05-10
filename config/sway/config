@@ -265,6 +265,7 @@ bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +1dB
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -1dB
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym $mod+Ctrl+a exec $homedir/bin/mine/passmenu
-bindsym Menu exec $homedir/bin/mine/macro.sh
+bindsym Menu exec $homedir/bin/mine/macro.sh 0
+bindsym $mod+Menu exec $homedir/bin/mine/macro.sh 1
 
 include /etc/sway/config.d/*
