@@ -4,6 +4,8 @@ return {
     config = function()
       -- Theme (base16 tomorrow night)
       -- See semantics of the numbering scheme here https://github.com/chriskempson/base16/blob/main/styling.md
+      -- Force mini16 to use the cterm_palette
+      vim.opt.termguicolors = false
       local cterm_palette = {
         -- Pure background progressing through to highlight
         base00 = 00,
@@ -34,7 +36,7 @@ return {
         -- base0E = 07,
         -- base0F = 07,
       }
-      -- I don't use the gui stuff, so it's some random colours
+      -- I don't use the gui stuff (setnotermguicolors), so it's some random colours
       local gui_palette = {
         base00 = '#1d1f21',
         base01 = '#cc6667',
@@ -58,7 +60,7 @@ return {
         palette = gui_palette,
       }
       -- Don't have the line number/sign column filled in
-      local gutter_groups = {'SignColumn', 'LineNr', 'GitSignsAdd', 'GitSignsChange', 'GitSignsChange', 'GitSignsDelete', 'GitSignsUntracked'}
+      local gutter_groups = { 'SignColumn', 'LineNr', 'GitSignsAdd', 'GitSignsChange', 'GitSignsChange', 'GitSignsDelete', 'GitSignsUntracked' }
       for _, group in pairs(gutter_groups) do
         vim.cmd(
           string.format(
