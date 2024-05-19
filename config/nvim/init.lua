@@ -9,10 +9,11 @@ vim.g.have_nerd_font = false
 require 'options'
 
 -- [[ Set local machine options ]]
-local fh = io.open('init-local.lua', 'r')
+local config_path = debug.getinfo(1).source:match '@?(.*/)'
+local fh = io.open(config_path .. 'init-local.lua', 'r')
 if fh then
   fh:close()
-  dofile 'init-local.lua'
+  dofile(config_path .. 'init-local.lua')
 end
 
 -- [[ Basic Keymaps ]]
