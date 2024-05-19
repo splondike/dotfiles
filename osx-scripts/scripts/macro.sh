@@ -12,5 +12,15 @@
 # cliclick kd:alt kp:arrow-left ku:alt
 
 # Pure kitty
-# See showkey -a for keycodes
+# See GNU showkey -a for keycodes. Just use a Linux VM to check things
+
+# Ctrl-c (03) Ctrl-l (0c) up (1b 5b 41) enter (0d)
+# printf '\x03\x0c\x1b\x5b\x41\x0d' | kitty-send-text
+# Ctrl-l up enter
 printf '\x0c\x1b\x5b\x41\x0d' | kitty-send-text
+
+# Mermaid
+# pbcopy < ~/blah.erd
+# yabai -m window --focus west
+# cliclick kd:cmd t:a t:v ku:cmd
+# yabai -m window --focus east
