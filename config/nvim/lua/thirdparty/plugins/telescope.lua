@@ -106,7 +106,21 @@ return {
       vim.keymap.set('n', '<leader>th', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>tk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>tf', builtin.find_files, { desc = '[S]earch [F]iles' })
+      vim.keymap.set('n', '<leader>ttf', function(opts)
+        if not opts then
+          opts = {}
+        end
+        opts.cwd = '%:p:h'
+        builtin.find_files(opts)
+      end, { desc = '[S]earch [F]iles in current buffer dir' })
       vim.keymap.set('n', '<leader>tg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+      vim.keymap.set('n', '<leader>ttg', function(opts)
+        if not opts then
+          opts = {}
+        end
+        opts.cwd = '%:p:h'
+        builtin.live_grep(opts)
+      end, { desc = '[S]earch by [G]rep in current buffer dir' })
       vim.keymap.set('n', '<leader>td', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>tr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>te', builtin.oldfiles, { desc = '[S]earch Recent Files' })
