@@ -18,7 +18,8 @@ return {
         base07 = 15,
 
         -- Accent colors
-        base08 = 01,
+        -- base08 = 01,
+        base08 = 07,
         base09 = 136,
         base0A = 03,
         base0B = 02,
