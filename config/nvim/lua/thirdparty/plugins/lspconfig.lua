@@ -92,6 +92,7 @@ return {
       local servers = {
         -- clangd = {},
         gopls = {},
+        goimports = {},
         pylsp = {
           settings = {
             pylsp = {

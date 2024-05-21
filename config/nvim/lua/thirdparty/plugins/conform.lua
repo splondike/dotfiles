@@ -36,7 +36,7 @@ return {
         elseif vim.b.enable_autoformat == false then
           return
         else
-          local enable_filetypes = { lua = true }
+          local enable_filetypes = { lua = true, go = true }
           if enable_filetypes[vim.bo[bufnr].filetype] then
             return {
               timeout_ms = 500,
@@ -50,6 +50,7 @@ return {
       formatters_by_ft = {
         lua = { 'stylua' },
         python = { 'black' },
+        go = { 'goimports', 'gofmt' },
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
