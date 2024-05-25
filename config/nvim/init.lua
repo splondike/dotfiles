@@ -8,14 +8,6 @@ vim.g.have_nerd_font = false
 -- [[ Setting options ]]
 require 'options'
 
--- [[ Set local machine options ]]
-local config_path = debug.getinfo(1).source:match '@?(.*/)'
-local fh = io.open(config_path .. 'init-local.lua', 'r')
-if fh then
-  fh:close()
-  dofile(config_path .. 'init-local.lua')
-end
-
 -- [[ Basic Keymaps ]]
 require 'keymaps'
 
@@ -24,6 +16,14 @@ require 'lazy-bootstrap'
 
 -- [[ Configure and install plugins ]]
 require 'lazy-plugins'
+
+-- [[ Set local machine options ]]
+local config_path = debug.getinfo(1).source:match '@?(.*/)'
+local fh = io.open(config_path .. 'init-local.lua', 'r')
+if fh then
+  fh:close()
+  dofile(config_path .. 'init-local.lua')
+end
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
