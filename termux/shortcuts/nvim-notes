@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cd /sdcard/Notes/
+nvim .
