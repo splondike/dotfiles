@@ -9,6 +9,8 @@ vim.keymap.set('', 'h', 'z')
 vim.keymap.set('n', '<Leader>s', '<C-^>')
 -- Edit relative to current buffer
 vim.keymap.set('c', 'e;', '"e " . expand("%:h") . "/"', { expr = true })
+-- Open spell check (easier than h= in Termux)
+vim.keymap.set('n', 'jj', 'z=')
 
 ------- Mode switching
 
@@ -33,8 +35,6 @@ vim.keymap.set('n', '<C-f>', ':move .-2<CR>', { silent = true })
 vim.keymap.set('n', '<C-s>', ':move .+1<CR>', { silent = true })
 vim.keymap.set('v', '<C-f>', ":move '<-2<CR>gv", { silent = true })
 vim.keymap.set('v', '<C-s>', ":move '>+1<CR>gv", { silent = true })
-
-vim.keymap.set('n', '<leader>o', ':Oil<CR>', { silent = true })
 
 ------- Undo/Redo/Copy+Paste
 
