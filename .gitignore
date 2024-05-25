@@ -1,3 +1,5 @@
 local/share/shotwell/
 vim/local_vimrc
 config/git/config-local
+config/fish/fish_variables
+config/nvim/init-local.lua
