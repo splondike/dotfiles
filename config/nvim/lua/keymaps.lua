@@ -34,6 +34,8 @@ vim.keymap.set('n', '<C-s>', ':move .+1<CR>', { silent = true })
 vim.keymap.set('v', '<C-f>', ":move '<-2<CR>gv", { silent = true })
 vim.keymap.set('v', '<C-s>', ":move '>+1<CR>gv", { silent = true })
 
+vim.keymap.set('n', '<leader>o', ':Oil<CR>', { silent = true })
+
 ------- Undo/Redo/Copy+Paste
 
 vim.keymap.set('n', 'z', 'u')
