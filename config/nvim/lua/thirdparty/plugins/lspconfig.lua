@@ -94,6 +94,7 @@ return {
         -- clangd = {},
         gopls = {},
         goimports = {},
+        markdown_oxide = {},
         pylsp = {
           settings = {
             pylsp = {

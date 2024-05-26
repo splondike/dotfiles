@@ -63,11 +63,13 @@ return {
           layout_strategy = 'vertical',
           layout_config = {
             vertical = {
+              -- height = 100,
               width = {
                 0.99,
                 max = 100,
               },
-              preview_height = 10,
+              preview_cutoff = 15,
+              preview_height = 5,
             },
           },
           mappings = {
@@ -88,6 +90,9 @@ return {
           },
           buffers = {
             sort_lastused = true,
+          },
+          lsp_references = {
+            show_line = false,
           },
         },
         -- extensions = {
