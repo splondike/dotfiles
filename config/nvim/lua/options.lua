@@ -23,6 +23,9 @@ vim.opt.clipboard = 'unnamedplus'
 -- Enable break indent
 vim.opt.breakindent = true
 
+-- Soft wrap rather than hard wrap
+vim.opt.linebreak = true
+
 -- Save undo history
 vim.opt.undofile = true
 
