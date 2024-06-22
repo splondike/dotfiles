@@ -11,6 +11,7 @@ keybinds clear-defaults=true {
     }
 
     pane {
+        bind "Ctrl t" { SwitchToMode "Normal"; }
         bind "Esc" { SwitchToMode "Normal"; }
         bind "d" { Detach; }
         bind "/" { SwitchToMode "EnterSearch"; SearchInput 0; }
@@ -21,7 +22,7 @@ keybinds clear-defaults=true {
             };
             SwitchToMode "Normal"
         }
-        bind "f" { EditScrollback; SwitchToMode "Normal"; }
+        bind "g" { EditScrollback; SwitchToMode "Normal"; }
 
         bind "c" { NewPane; }
 
