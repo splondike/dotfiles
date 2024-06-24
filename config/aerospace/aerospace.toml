@@ -1,0 +1,97 @@
+# See this for all options:
+# https://nikitabobko.github.io/AeroSpace/config-examples#default-config
+
+default-root-container-layout = 'accordion'
+default-root-container-orientation = 'vertical'
+
+# enable-normalization-flatten-containers = false
+# enable-normalization-opposite-orientation-for-nested-containers = false
+
+[mode.main.binding]
+alt-enter = 'exec-and-forget /Applications/kitty.app/Contents/MacOS/kitty --single-instance --instance-group normal --working-directory /Users/stefansk/'
+alt-p = 'exec-and-forget /Users/stefansk/osx-scripts/scripts/itemselector.sh /Users/stefansk/osx-scripts/scripts/app-launcher.sh'
+cmd-alt-a = 'exec-and-forget /Users/stefansk/osx-scripts/scripts/passmenu-osx.sh'
+
+alt-n = 'focus left'
+alt-i = 'focus right'
+alt-u = 'focus up'
+alt-e = 'focus down'
+
+alt-shift-n = 'move left'
+alt-shift-i = 'move right'
+alt-shift-u = 'move up'
+alt-shift-e = 'move down'
+
+alt-shift-c = 'close'
+
+alt-t = 'fullscreen'
+alt-h = 'layout v_tiles v_accordion'
+alt-k = 'join-with left'
+alt-shift-m = 'layout floating tiling'
+
+alt-1 = 'workspace 1'
+alt-2 = 'workspace 2'
+alt-3 = 'workspace 3'
+alt-4 = 'workspace 4'
+alt-5 = 'workspace 5'
+alt-6 = 'workspace 6'
+alt-7 = 'workspace 7'
+alt-8 = 'workspace 8'
+alt-9 = 'workspace 9'
+alt-0 = 'workspace 10'
+
+alt-shift-1 = 'move-node-to-workspace 1'
+alt-shift-2 = 'move-node-to-workspace 2'
+alt-shift-3 = 'move-node-to-workspace 3'
+alt-shift-4 = 'move-node-to-workspace 4'
+alt-shift-5 = 'move-node-to-workspace 5'
+alt-shift-6 = 'move-node-to-workspace 6'
+alt-shift-7 = 'move-node-to-workspace 7'
+alt-shift-8 = 'move-node-to-workspace 8'
+alt-shift-9 = 'move-node-to-workspace 9'
+alt-shift-0 = 'move-node-to-workspace 10'
+
+alt-shift-p = 'reload-config'
+
+[[on-window-detected]]
+if.window-title-regex-substring = 'itemselector'
+run = ['layout floating']
+
+# Make Colemak the default
+[key-mapping.key-notation-to-key-code]
+q = 'q'
+w = 'w'
+f = 'e'
+p = 'r'
+g = 't'
+j = 'y'
+l = 'u'
+u = 'i'
+y = 'o'
+semicolon = 'p'
+leftSquareBracket = 'leftSquareBracket'
+rightSquareBracket = 'rightSquareBracket'
+backslash = 'backslash'
+
+a = 'a'
+r = 's'
+s = 'd'
+t = 'f'
+d = 'g'
+h = 'h'
+n = 'j'
+e = 'k'
+i = 'l'
+o = 'semicolon'
+quote = 'quote'
+
+z = 'z'
+x = 'x'
+c = 'c'
+v = 'v'
+b = 'b'
+k = 'n'
+m = 'm'
+comma = 'comma'
+period = 'period'
+slash = 'slash'
