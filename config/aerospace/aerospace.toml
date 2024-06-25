@@ -57,6 +57,9 @@ alt-shift-p = 'reload-config'
 if.window-title-regex-substring = 'itemselector'
 run = ['layout floating']
 
+[workspace-to-monitor-force-assignment]
+5 = '^built-in retina display$'
+
 # Make Colemak the default
 [key-mapping.key-notation-to-key-code]
 q = 'q'
