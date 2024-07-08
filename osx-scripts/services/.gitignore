@@ -1,0 +1,4 @@
+scandir/*/log/event
+scandir/*/event
+scandir/**/supervise
+.s6-svscan

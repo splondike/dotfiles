@@ -1,0 +1,3 @@
+#/bin/sh
+
+exec ssh-agent -D -a $HOME/.local/state/ssh-agent.sock
