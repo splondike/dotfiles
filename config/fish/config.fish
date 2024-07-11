@@ -16,6 +16,7 @@ if status is-interactive
     set uname $(uname)
     switch $uname
         case Darwin
+            fish_add_path -a /opt/homebrew/bin
             fish_add_path -a ~/software/small-utilities
             pyenv init - | source
             set -U GIT_EDITOR "$HOME/bin/git_commit_editor"
