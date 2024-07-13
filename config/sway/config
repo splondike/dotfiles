@@ -33,7 +33,8 @@ titlebar_padding 1
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+# output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg $homedir/Pictures/wallpaper.jpg fill
 # output "LVDS-2" disable
 # output "LVDS-1" disable
 #
