@@ -1,0 +1,40 @@
+snippet fn Basic function
+    def $1(${2:self}):
+        $0
+
+snippet fnc Class method
+    @classmethod
+    def $1(${2:self}):
+        $0
+
+snippet fns Static method
+    @staticmethod
+    def $1(${2:self}):
+        $0
+
+snippet cls Class
+    class $1($2):
+        $0
+
+snippet ' Docblock
+  """
+  $1
+  """
+
+  $0
+
+snippet file_cli Make a main function for a script
+    import argparse
+
+
+    def main():
+        parser = argparse.ArgumentParser(description="$1")
+        parser.add_argument("basic", help="Some arg")
+        parser.add_argument("-c", help="Arg taking param", default=1, choices=[1, 2])
+        parser.add_argument("--debug", help="Boolean arg", action="store_true")
+        args = parser.parse_args()
+        $0
+
+
+    if __name__ == "__main__":
+        main()

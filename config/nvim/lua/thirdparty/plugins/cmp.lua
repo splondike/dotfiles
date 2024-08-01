@@ -42,6 +42,9 @@ return {
       local luasnip = require 'luasnip'
       luasnip.config.setup {}
       require('luasnip.loaders.from_snipmate').lazy_load()
+      require('luasnip.loaders.from_lua').load {
+        paths = vim.api.nvim_get_runtime_file('snippets', true),
+      }
 
       cmp.setup {
         snippet = {

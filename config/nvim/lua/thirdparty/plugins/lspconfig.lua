@@ -102,6 +102,9 @@ return {
                 pycodestyle = {
                   enabled = false,
                 },
+                rope_autoimport = {
+                  enabled = true,
+                },
               },
             },
           },
