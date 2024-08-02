@@ -75,6 +75,7 @@ def command_get(args):
 
 def command_set(args):
     password = input()
+    command_delete(args)
     comment = "##simplesecret##"
     command = [
         "security",
