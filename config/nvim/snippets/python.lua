@@ -59,7 +59,11 @@ local function calculate_assignments(args)
   local rtn = {}
   for match in gsplit(params, ', *', false) do
     if match ~= '' then
-      table.insert(rtn, 'self.' .. match .. ' = ' .. match)
+      -- gsplit returns iterator
+      for raw_variable in gsplit(match, ': *', false) do
+        table.insert(rtn, '\tself.' .. raw_variable .. ' = ' .. raw_variable)
+        break
+      end
     end
   end
   return rtn
@@ -141,7 +145,7 @@ return {
     fmta(
       [[
           def __init__(self, <args>):
-              <assignments>
+          <assignments>
   ]],
       {
         args = i(1),
