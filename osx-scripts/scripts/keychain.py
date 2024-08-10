@@ -75,7 +75,12 @@ def command_get(args):
 
 def command_set(args):
     password = input()
-    command_delete(args)
+    try:
+        command_delete(args)
+    except subprocess.CalledProcessError:
+        # Key probably doesn't exist
+        pass
+
     comment = "##simplesecret##"
     command = [
         "security",
