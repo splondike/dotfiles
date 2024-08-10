@@ -7,6 +7,11 @@ default-root-container-orientation = 'vertical'
 # enable-normalization-flatten-containers = false
 # enable-normalization-opposite-orientation-for-nested-containers = false
 
+[mode.resize.binding]      # 2. Declare 'resize' binding mode
+minus = 'resize smart -50'
+equal = 'resize smart +50'
+alt-r = 'mode main'
+
 [mode.main.binding]
 alt-enter = 'exec-and-forget /Applications/kitty.app/Contents/MacOS/kitty --single-instance --instance-group normal --working-directory /Users/stefansk/'
 alt-p = 'exec-and-forget /Users/stefansk/osx-scripts/scripts/itemselector.sh /Users/stefansk/osx-scripts/scripts/app-launcher.sh'
@@ -23,6 +28,8 @@ alt-shift-u = 'move up'
 alt-shift-e = 'move down'
 
 alt-shift-c = 'close'
+
+alt-r = 'mode resize'      # 1. Define a binding to switch to 'resize' mode
 
 alt-t = 'fullscreen'
 alt-h = 'layout v_tiles v_accordion'
