@@ -21,6 +21,7 @@ require('lazy').setup {
   require 'thirdparty/plugins/nvim-treesitter-context',
   require 'thirdparty/plugins/oil',
   require 'thirdparty/plugins/vimagit',
+  require 'thirdparty/plugins/diffview',
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   -- require 'thirdparty.plugins.debug',
 
