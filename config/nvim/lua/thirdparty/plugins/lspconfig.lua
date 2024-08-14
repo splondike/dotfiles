@@ -103,7 +103,7 @@ return {
                   enabled = false,
                 },
                 rope_autoimport = {
-                  enabled = true,
+                  enabled = false,
                 },
               },
             },
