@@ -19,7 +19,6 @@ if status is-interactive
             fish_add_path -a /opt/homebrew/bin
             fish_add_path -a ~/software/small-utilities
             pyenv init - | source
-            set -U GIT_EDITOR "$HOME/bin/git_commit_editor"
             set -x SSH_AUTH_SOCK "$HOME/.local/state/ssh-agent.sock"
         case Linux
             fish_add_path -a ~/Programming/small-utilities
