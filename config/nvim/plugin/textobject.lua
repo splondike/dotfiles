@@ -84,7 +84,8 @@ end
 
 if vim then
   vim.keymap.set('o', 'c', select_subword)
-  vim.keymap.set('x', 'c', select_subword)
+  -- Using this 'x' map interferes with the copy command in visual mode
+  -- vim.keymap.set('x', 'c', select_subword)
 else
   return {
     find_extent = find_extent,
