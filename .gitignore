@@ -3,3 +3,5 @@ vim/local_vimrc
 config/git/config-local
 config/fish/fish_variables
 config/nvim/init-local.lua
+home-private
+!home-private/.gitkeep
