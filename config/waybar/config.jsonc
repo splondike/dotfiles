@@ -1,0 +1,16 @@
+{
+    "layer": "top",
+    "position": "bottom",
+    "modules-left": ["sway/workspaces", "sway/mode"],
+    "modules-right": ["custom/backup", "cpu", "battery", "tray", "clock"],
+    "cpu": {
+        "format": "cpu: {usage}%"
+    },
+    "clock": {
+         "format": "{:%Y-%m-%d %H:%M}"
+    },
+    "custom/backup": {
+        "exec": "backup-status.sh",
+        "interval": 60
+    }
+}

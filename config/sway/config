@@ -7,23 +7,26 @@
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
-set $homedir /home/normal
-set $userid 1000
-set $mod Mod1
-set $ralt Mod5
-set $win Mod4
+set $mod Mod4
 # Home row direction keys, like vim
 set $left n
 set $down e
 set $up u
 set $right i
 # Your preferred terminal emulator
+# Recommends: foot
 set $term kitty
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-# set $menu dmenu_path | dmenu | xargs swaymsg exec --
-set $menu $homedir/bin/mine/dmenu_apps | xargs swaymsg exec --
+# Recommends: rofi-wayland
+set $rofi_cmd rofi \
+        -terminal '$term'
+# Shows a combined list of the applications with desktop files and
+# executables from PATH.
+# TODO: add window with the next release of rofi-wayland
+# set $menu $rofi_cmd -show combi -combi-modes drun#run -modes combi
+set $menu dmenu_apps | xargs swaymsg exec --
 
 default_orientation horizontal
 workspace_layout stacking
@@ -33,10 +36,8 @@ titlebar_padding 1
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-# output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-output * bg $homedir/Pictures/wallpaper.jpg fill
-# output "LVDS-2" disable
-# output "LVDS-1" disable
+# Requires: desktop-backgrounds-compat, swaybg
+output * bg /usr/share/backgrounds/default.png fill
 #
 # Example configuration:
 #
@@ -70,10 +71,6 @@ output * bg $homedir/Pictures/wallpaper.jpg fill
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
-input * {
-    xkb_layout "us"
-    xkb_variant "colemak"
-}
 
 ### Key bindings
 #
@@ -87,7 +84,8 @@ input * {
 
     # Start your launcher
     bindsym $mod+p exec $menu
-    bindsym $mod+Shift+a exec $homedir/bin/mine/sway-actions
+    bindsym $mod+Shift+a exec sway-actions
+    bindsym $mod+Ctrl+a exec passmenu
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -100,7 +98,7 @@ input * {
     bindsym $mod+Shift+p reload
 
     # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+f exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+    bindsym $mod+Shift+Escape exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 #
 # Moving around:
 #
@@ -168,7 +166,7 @@ input * {
     bindsym $mod+h layout toggle all
 
     # Make the current focus fullscreen
-    bindsym $mod+t fullscreen
+    bindsym $mod+v fullscreen
 
     # Toggle the current focus between tiling and floating mode
     bindsym $mod+Shift+m floating toggle
@@ -193,80 +191,59 @@ input * {
 #
 # Resizing containers:
 #
-# mode "resize" {
-#     # left will shrink the containers width
-#     # right will grow the containers width
-#     # up will shrink the containers height
-#     # down will grow the containers height
-#     bindsym $left resize shrink width 10px
-#     bindsym $down resize grow height 10px
-#     bindsym $up resize shrink height 10px
-#     bindsym $right resize grow width 10px
-#
-#     # Ditto, with arrow keys
-#     bindsym Left resize shrink width 10px
-#     bindsym Down resize grow height 10px
-#     bindsym Up resize shrink height 10px
-#     bindsym Right resize grow width 10px
-#
-#     # Return to default mode
-#     bindsym Return mode "default"
-#     bindsym Escape mode "default"
-# }
-# bindsym $mod+r mode "resize"
-mode "mouse" {
-    bindsym a exec "$homedir/bin/mine/screen-jumper.sh 0 0"
-    bindsym r exec "$homedir/bin/mine/screen-jumper.sh 1 0"
-    bindsym s exec "$homedir/bin/mine/screen-jumper.sh 2 0"
-    bindsym t exec "$homedir/bin/mine/screen-jumper.sh 3 0"
-    bindsym w exec "$homedir/bin/mine/screen-jumper.sh -1 -1"
-    bindsym control+a exec "$homedir/bin/mine/screen-jumper.sh 0 1"
-    bindsym control+r exec "$homedir/bin/mine/screen-jumper.sh 1 1"
-    bindsym control+s exec "$homedir/bin/mine/screen-jumper.sh 2 1"
-    bindsym control+t exec "$homedir/bin/mine/screen-jumper.sh 3 1"
+mode "resize" {
+    # left will shrink the containers width
+    # right will grow the containers width
+    # up will shrink the containers height
+    # down will grow the containers height
+    bindsym $up resize grow height 10px
+    bindsym $right resize shrink width 10px
+    bindsym $down resize shrink height 10px
+    bindsym $left resize grow width 10px
+    bindsym Ctrl+$right resize shrink width 50px
+    bindsym Ctrl+$up resize grow height 50px
+    bindsym Ctrl+$down resize shrink height 50px
+    bindsym Ctrl+$left resize grow width 50px
 
-    bindsym $mod+s mode "default"
+    # Ditto, with arrow keys
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
+bindsym $mod+equal mode "resize"
 
-bindsym $mod+s mode "mouse"
-
-#
-# Status Bar:
-#
-# Read `man 5 sway-bar` for more information about this section.
-bar {
-    position bottom
-
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    # status_command while date +'%Y-%m-%d %I:%M %p'; do sleep 30; done
-    # TODO: Replace this with a short shell script
-    status_command i3status
-
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #323232 #323232 #5c5c5c
-    }
-}
-
-# Startup commands
-exec_always nm-applet --indicator
-exec gammastep -l -37.7958:144.9234 -t 6500:3000 -b 1.0:0.8
-exec $homedir/bin/mine/keyboard-i3-binding.py
-exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000' \
-         timeout 310 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-         before-sleep 'swaylock -f -c 000000'
-exec_always ssh-agent -a /var/run/user/1000/ssh-agent.sock
-
-# Custom keybinds
-# bindsym $mod+s exec $homedir/bin/mine/onlyone.sh warpd-instance kill $homedir/bin/warpd --normal
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +1dB
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -1dB
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym $mod+Ctrl+a exec $homedir/bin/mine/passmenu
+# Extra custom bindings
 bindsym Menu exec $homedir/bin/mine/macro.sh 0
 bindsym $mod+Menu exec $homedir/bin/mine/macro.sh 1
 
-include /etc/sway/config.d/*
+# Startup items
+exec gammastep -l -37.7958:144.9234 -t 6500:3000 -b 1.0:0.8
+exec_always ssh-agent -a /var/run/user/1000/ssh-agent.sock
+
+# Include configs from 3 locations:
+#  - /usr/share/sway/config.d
+#  - /etc/sway/config.d
+#  - $XDG_CONFIG_HOME/sway/config.d ($HOME/.config/sway/config.d)
+#
+# If multiple directories contain the files with the same name, the later
+# directory takes precedence; `$XDG_CONFIG_HOME/sway/config.d/20-swayidle.conf`
+# will always be loaded instead of `/usr/share/sway/config.d/20-swayidle.conf`
+# or `/etc/sway/config.d/20-swayidle.conf`
+#
+# This mechanism permits overriding our default configuration per-system
+# (/etc) or per-user ($XDG_CONFIG_HOME) basis. Just create the file you
+# want to modify/override in the higher-level directory.
+#
+# For example, to disable the default bar from Fedora configs, you'll need to
+#     $ echo -n > "$HOME/.config/sway/config.d/90-bar.conf"
+#
+# Note the quoting, the $() and the arguments quoting. All the parts are equally
+# important to make the magic work. And if you want to learn the secret behind
+# the trick, it's all in the `wordexp(3)`.
+#
+include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'

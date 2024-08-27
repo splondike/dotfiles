@@ -1,0 +1,115 @@
+#|
+
+(deflayer template
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _    _
+)
+|#
+
+(defsrc
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt cmp  rctl
+)
+
+(defcfg
+  log-layer-changes no
+  delegate-to-first-layer yes
+  movemouse-smooth-diagonals yes
+)
+
+(defvar
+  tap-timeout 50
+  hold-timeout 200
+  one-shot-timeout 1000
+  scroll-speed 100
+  scroll-amount 120
+  move-speed 40
+  move-amount 5
+)
+
+(defalias
+  rat (tap-hold-press $tap-timeout $hold-timeout esc ctl)
+  lat (tap-hold-press $tap-timeout $hold-timeout (one-shot $one-shot-timeout alt) (multi met (layer-while-held lalt-hold)))
+  mse (layer-switch mouse-base)
+  vim (layer-switch vim-base)
+  def (layer-switch default)
+
+  ;; vim aliases
+  vcl (tap-hold-press $tap-timeout $hold-timeout @def (layer-while-held vim-ctrl))
+  clt C-left
+  crt C-rght
+  cbc C-bspc
+
+  ;; lalt-hold layer
+  Rmet (release-key met)
+  up (multi @Rmet up)
+  dwn (multi @Rmet down)
+  ret (multi @Rmet ret)
+  cpu (multi @Rmet C-pgup)
+  cpd (multi @Rmet C-pgdn)
+  akb (multi @Rmet alt b)
+  akf (multi @Rmet alt f)
+
+  ;; mouse-base layer
+  msu (mwheel-up $scroll-speed $scroll-amount)
+  msd (mwheel-down $scroll-speed $scroll-amount)
+  mup (movemouse-up $move-speed $move-amount)
+  mdn (movemouse-down $move-speed $move-amount)
+  mlt (movemouse-left $move-speed $move-amount)
+  mrt (movemouse-right $move-speed $move-amount)
+  mac (tap-hold $tap-timeout $hold-timeout @def (movemouse-speed 800))
+
+  ;; Reset the mouse position
+  mtl (multi (movemouse-up $move-speed 3000) (movemouse-left $move-speed 3000))
+  mtr (multi (movemouse-up $move-speed 3000) (movemouse-right $move-speed 3000))
+  mbl (multi (movemouse-down $move-speed 3000) (movemouse-left $move-speed 3000))
+  mbr (multi (movemouse-down $move-speed 3000) (movemouse-right $move-speed 3000))
+)
+
+(deflayer default
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    f    p    g    j    l    u    y    ;    [    ]    \
+  bspc a    r    s    t    d    h    n    e    i    o    '    ret
+  lsft z    x    c    v    b    k    m    ,    .    /    rsft
+  lctl lmet @lat           spc            @rat cmp  rctl
+)
+
+(deflayer lalt-hold
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    @mse @vim @akf _    _    @cpu @cpd _    @up  _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    @dwn _    _
+  _    _    _    _    _    @akb _    _    _    _    _    _
+  _    _    _              @ret           rctl _    _
+)
+
+
+(deflayer vim-base
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    @clt up   @crt _    _    _    _
+  _    _    _    _    _    _    _    left down rght _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              @vcl _    _
+)
+
+(deflayer vim-ctrl
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    C-w  _    _    _    _    home pgup end  _    _    _    _
+  @cbc _    _    _    _    _    _    _    pgdn _    _    _    _
+  _    _    _    C-c  C-v  _    _    _    _    _    _    _
+  _    _    _              _              _    _    _
+)
+
+(deflayer mouse-base
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    @mup @msu _    _    _    _
+  _    @mtl @mbl @mbr @mtr mrgt mmid @mlt @mdn @mrt @msd _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              mlft           @mac _    _
+)
+

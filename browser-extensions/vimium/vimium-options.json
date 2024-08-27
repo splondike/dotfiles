@@ -1,0 +1,5 @@
+{
+  "keyMappings": "unmapAll\nmap n scrollLeft\nmap i scrollRight\nmap u scrollUp\nmap e scrollDown\nmap E scrollPageDown\nmap U scrollPageUp\n\nmap gg scrollToTop\nmap G scrollToBottom\n\nmap t createTab\nmap d removeTab\nmap D restoreTab\nmap <c-n> previousTab\nmap <c-y> nextTab\n\nmap l goBack\nmap y goForward\n\nmap m Marks.activateCreateMode\nmap ` Marks.activateGotoMode\n\nmap f LinkHints.activateMode\nmap F LinkHints.activateModeToOpenInNewTab\nmap / enterFindMode",
+  "settingsVersion": "2.1.2",
+  "exclusionRules": []
+}

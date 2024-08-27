@@ -1,0 +1,21 @@
+! 2021-04-16 https://stackoverflow.com
+stackoverflow.com##.js-consent-banner
+stackoverflow.com##.js-dismissable-hero
+
+! 2021-06-06 https://unix.stackexchange.com
+unix.stackexchange.com##.js-consent-banner.r16.l16.b16.bar-lg.fc-white.bg-black-750.sm\:p16.p32.sm\:w-auto.ws4.z-nav-fixed.ps-fixed.ff-sans
+
+! 2021-06-11 https://vi.stackexchange.com
+vi.stackexchange.com##.js-consent-banner.r16.l16.b16.bar-lg.fc-white.bg-black-750.sm\:p16.p32.sm\:w-auto.ws4.z-nav-fixed.ps-fixed.ff-sans
+
+! 2023-09-29 https://askubuntu.com
+askubuntu.com##.js-consent-banner.r16.l16.b16.bar-lg.fc-white.bg-black-750.sm\:p16.p32.sm\:w-auto.ws4.z-nav-fixed.ps-fixed.ff-sans
+
+! 2023-10-01 https://serverfault.com
+serverfault.com##.js-consent-banner.r16.l16.b16.bar-lg.fc-white.bg-black-750.sm\:p16.p32.sm\:w-auto.ws4.z-nav-fixed.ps-fixed.ff-sans
+
+! 2023-10-05 https://superuser.com
+superuser.com##.js-consent-banner.r16.l16.b16.bar-lg.fc-white.bg-black-750.sm\:p16.p32.sm\:w-auto.ws4.z-nav-fixed.ps-fixed.ff-sans
+
+! 2023-11-17 https://unix.stackexchange.com
+unix.stackexchange.com##.js-consent-banner.r16.l16.b16.bar-lg.fc-white.bg-black-600.sm\:p16.p32.sm\:w-auto.ws4.z-nav-fixed.ps-fixed.ff-sans

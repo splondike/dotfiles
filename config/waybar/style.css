@@ -1,0 +1,18 @@
+window#waybar {
+    background: #1d1f21;
+    color: #c5c8c6;
+}
+
+#workspaces button {
+    padding: 0 5px;
+    background-color: transparent;
+    color: #c5c8c6;
+}
+
+#workspaces button.focused {
+    background-color: #373b41;
+}
+
+#cpu, #clock, #battery, #tray {
+    padding: 0 10px;
+}
