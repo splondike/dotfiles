@@ -18,11 +18,11 @@ require 'lazy-bootstrap'
 require 'lazy-plugins'
 
 -- [[ Set local machine options ]]
-local config_path = debug.getinfo(1).source:match '@?(.*/)'
-local fh = io.open(config_path .. 'init-local.lua', 'r')
+local local_config = os.getenv 'HOME' .. '/.config/nvim-init-local.lua'
+local fh = io.open(local_config, 'r')
 if fh then
   fh:close()
-  dofile(config_path .. 'init-local.lua')
+  dofile(local_config)
 end
 
 -- The line beneath this is called `modeline`. See `:help modeline`
