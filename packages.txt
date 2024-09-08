@@ -25,3 +25,4 @@ firejail
 khal
 khard
 encfs
+difftastic
