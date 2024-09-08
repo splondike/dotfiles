@@ -25,7 +25,7 @@ local function search_notes(opts)
 end
 
 -- Docs: https://github.com/nvim-telescope/telescope.nvim/blob/master/developers.md#first-picker
--- vim.keymap.set('n', '<leader>tna', search_notes, { desc = 'Search Notes' })
+vim.keymap.set('n', '<leader>tna', search_notes, { desc = 'Search Notes' })
 -- search_notes {}
 
 vim.keymap.set('n', '<leader>tnf', function(opts)
