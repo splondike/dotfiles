@@ -1,4 +1,0 @@
-#!/bin/sh
-
-cd $(dirname $0)/../../../
-exec ~/Desktop/venv/bin/python scripts/mouse-spots.py < misc/mouse-spots-fifo
