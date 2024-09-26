@@ -42,3 +42,18 @@ vim.keymap.set('n', '<leader>tng', function(opts)
   opts.cwd = vim.g.TelescopeNotesDir
   builtin.live_grep(opts)
 end, { desc = 'Search notes grep' })
+
+vim.keymap.set('n', '<leader>trf', function(opts)
+  if not opts then
+    opts = {}
+  end
+  opts.cwd = vim.g.TelescopeReposRootDir
+  builtin.find_files(opts)
+end, { desc = 'Search repos files' })
+vim.keymap.set('n', '<leader>trg', function(opts)
+  if not opts then
+    opts = {}
+  end
+  opts.cwd = vim.g.TelescopeReposRootDir
+  builtin.live_grep(opts)
+end, { desc = 'Search repos grep' })
