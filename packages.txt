@@ -26,3 +26,8 @@ khal
 khard
 encfs
 difftastic
+strace
+visidata
+
+Groups:
+Multimedia
