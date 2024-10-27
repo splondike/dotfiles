@@ -17,6 +17,9 @@ require 'lazy-bootstrap'
 -- [[ Configure and install plugins ]]
 require 'lazy-plugins'
 
+-- [[ Set up additional filetypes ]]
+require 'filetypes'
+
 -- [[ Set local machine options ]]
 local local_config = os.getenv 'HOME' .. '/.config/nvim-init-local.lua'
 local fh = io.open(local_config, 'r')
