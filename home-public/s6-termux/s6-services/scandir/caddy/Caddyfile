@@ -1,0 +1,7 @@
+{
+	admin off
+}
+
+http://localhost:8008 {
+	respond "Hello" 200
+}
