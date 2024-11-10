@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cd ~/software/indonesian-reader/
+
+exec poetry run uvicorn --uds ~/s6-services/sockets/indonesian-reader main:app

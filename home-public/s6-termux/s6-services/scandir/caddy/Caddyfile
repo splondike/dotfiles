@@ -3,5 +3,11 @@
 }
 
 http://localhost:8008 {
-	respond "Hello" 200
+	basic_auth {
+		normal {$CADDY_BASIC_AUTH_PASS}
+	}
+
+	reverse_proxy {
+		to unix/{$HOME}/s6-services/sockets/indonesian-reader
+	}
 }
