@@ -180,7 +180,7 @@ return {
         live_multigrep(opts)
       end, { desc = '[S]earch by [G]rep in current buffer dir' })
       vim.keymap.set('n', '<leader>td', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-      vim.keymap.set('n', '<leader>tr', builtin.resume, { desc = '[S]earch [R]esume' })
+      vim.keymap.set('n', '<leader>ts', builtin.resume, { desc = '[S]earch Re[s]ume' })
       vim.keymap.set('n', '<leader>te', builtin.oldfiles, { desc = '[S]earch Recent Files' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
