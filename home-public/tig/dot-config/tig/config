@@ -1,0 +1,17 @@
+set main-view = line-number:yes id author date commit-title:yes,graph,refs,overflow=no
+
+color cursor 0 8
+
+bind generic u move-up
+bind generic e move-down
+bind generic g move-first-line
+bind generic G move-last-line
+bind main G move-last-line
+
+bind generic l previous
+bind generic y next
+
+bind generic <Ctrl-i> find-next
+bind generic <Ctrl-o> find-prev
+
+bind generic j view-log
