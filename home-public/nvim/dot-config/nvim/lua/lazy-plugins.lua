@@ -29,4 +29,7 @@ require('lazy').setup {
   require 'thirdparty.plugins.todo-txt-vim',
 }
 
+-- Built in plugin we need to enable
+vim.cmd.packadd 'cfilter'
+
 -- vim: ts=2 sts=2 sw=2 et
