@@ -22,6 +22,7 @@ require('lazy').setup {
   require 'thirdparty/plugins/oil',
   require 'thirdparty/plugins/vimagit',
   require 'thirdparty/plugins/diffview',
+  require 'thirdparty/plugins/csvview',
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   -- require 'thirdparty.plugins.debug',
 
