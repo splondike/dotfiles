@@ -124,7 +124,7 @@ return {
             end
 
             local pieces = vim.split(prompt, '  ')
-            local args = { 'rg' }
+            local args = { 'rg', '--no-ignore-vcs' }
             if pieces[1] then
               table.insert(args, '-e')
               table.insert(args, pieces[1])
