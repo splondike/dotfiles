@@ -23,6 +23,7 @@ require('lazy').setup {
   require 'thirdparty/plugins/vimagit',
   require 'thirdparty/plugins/diffview',
   require 'thirdparty/plugins/csvview',
+  'splondike/nvim-tui',
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   -- require 'thirdparty.plugins.debug',
 
