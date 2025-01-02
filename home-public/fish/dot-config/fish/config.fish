@@ -8,6 +8,7 @@ if status is-interactive
     fish_add_path -a ~/bin/mine
     fish_add_path -a ~/go/bin/
     fish_add_path -a ~/.local/bin
+    bind \co edit_command_buffer
     alias vim='nvim'
     alias gg='git status'
     alias dc='docker-compose'
