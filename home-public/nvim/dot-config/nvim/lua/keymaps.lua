@@ -67,8 +67,8 @@ vim.keymap.set('', 'Y', '^')
 vim.keymap.set('', '<C-l>', '^')
 vim.keymap.set('', '<C-y>', '$')
 
-vim.keymap.set('n', ']', '<cmd>cnext<cr>')
-vim.keymap.set('n', '[', '<cmd>cprev<cr>')
+vim.keymap.set('n', ']t', '<cmd>cnext<cr>')
+vim.keymap.set('n', '[t', '<cmd>cprev<cr>')
 
 ------- Windows
 
