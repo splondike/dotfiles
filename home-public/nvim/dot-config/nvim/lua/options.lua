@@ -77,4 +77,9 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- At least on my OSX setup this takes a while to start up when opening a Python file, blocking the UI.
+-- This is perhaps because it's scalling through all my pyenv environments looking for the neovim package.
+-- I don't think I'm using any Python vim plugins though, so can just turn it off.
+vim.g.loaded_python3_provider = false
+
 -- vim: ts=2 sts=2 sw=2 et
