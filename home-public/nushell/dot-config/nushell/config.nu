@@ -21,8 +21,6 @@ use agl.nu
 use aaz.nu
 use util.nu
 
-let nu_config_dir = $"($env.XDG_CONFIG_HOME)/nushell"
-
 $env.config.show_banner = false
 
 load-env (util env_vars)

@@ -41,7 +41,8 @@ export def append_tables []: list -> table {
 }
 
 export def env_vars []: nothing -> record {
-    let conf_script = $"($env.XDG_CONFIG_HOME)/nushell/setup-env.nu"
+    let conf_home = $env | get --ignore-errors XDG_CONFIG_HOME | default $"($env.HOME)/.config/"
+    let conf_script = $"($conf_home)/nushell/setup-env.nu"
     if ($conf_script | path exists) {
         ^$conf_script | from json
     } else {
