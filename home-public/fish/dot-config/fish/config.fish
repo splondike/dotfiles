@@ -21,6 +21,7 @@ if status is-interactive
             fish_add_path -a ~/software/small-utilities
             pyenv init - | source
             set -x SSH_AUTH_SOCK "$HOME/.local/state/ssh-agent.sock"
+            set -x XDG_CONFIG_HOME "$HOME/.config"
         case Linux
             fish_add_path -a ~/Programming/small-utilities
             fish_add_path -a $GOPATH/bin
