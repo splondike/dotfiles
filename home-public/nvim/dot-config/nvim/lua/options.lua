@@ -82,4 +82,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- I don't think I'm using any Python vim plugins though, so can just turn it off.
 vim.g.loaded_python3_provider = false
 
+-- Just update the edited file in place to avoid breaking file watchers
+vim.g.backupcopy = 'yes'
+
 -- vim: ts=2 sts=2 sw=2 et
