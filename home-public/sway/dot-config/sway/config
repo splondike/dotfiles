@@ -37,7 +37,8 @@ titlebar_padding 1
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # Requires: desktop-backgrounds-compat, swaybg
-output * bg /usr/share/backgrounds/default.png fill
+# output * bg /usr/share/backgrounds/default.png fill
+output * bg $HOME/Pictures/wallpaper.jpg fit
 #
 # Example configuration:
 #
