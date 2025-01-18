@@ -166,7 +166,7 @@ return {
         if not opts then
           opts = {}
         end
-        opts.cwd = '%:p:h'
+        opts.cwd = vim.fn.expand '%:p:h'
         opts.no_ignore = true
         builtin.find_files(opts)
       end, { desc = '[S]earch [F]iles in current buffer dir' })
@@ -175,7 +175,7 @@ return {
         if not opts then
           opts = {}
         end
-        opts.cwd = '%:p:h'
+        opts.cwd = vim.fn.expand '%:p:h'
         opts.additional_args = { '--no-ignore' }
         live_multigrep(opts)
       end, { desc = '[S]earch by [G]rep in current buffer dir' })
