@@ -163,7 +163,7 @@ return {
         if not opts then
           opts = {}
         end
-        opts.prompt_title = 'Search notes by multigrep'
+        opts.prompt_title = 'Search notes by grep'
         opts.cwd = vim.g.TelescopeNotesDir
         builtin.live_grep(opts)
       end, { desc = 'Search [n]otes [g]rep' })
@@ -180,7 +180,7 @@ return {
         if not opts then
           opts = {}
         end
-        opts.prompt_title = 'Search repos by multigrep'
+        opts.prompt_title = 'Search repos by grep'
         opts.cwd = vim.g.TelescopeReposRootDir
         builtin.live_grep(opts)
       end, { desc = 'Search [r]epos [g]rep' })
