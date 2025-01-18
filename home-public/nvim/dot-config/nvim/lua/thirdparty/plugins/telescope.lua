@@ -105,57 +105,6 @@ return {
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
-      local conf = require('telescope.config').values
-      local finders = require 'telescope.finders'
-      local make_entry = require 'telescope.make_entry'
-      local pickers = require 'telescope.pickers'
-
-      -- Like normal builtin.live_grep, but if you put two spaces you can then specify a glob pattern
-      -- for filenames. Relies on ripgrep.
-      -- See https://www.youtube.com/watch?v=xdXE1tOT-qg
-      local function live_multigrep(opts)
-        opts = opts or {}
-        opts.cwd = opts.cwd or vim.uv.cwd()
-
-        local finder = finders.new_async_job {
-          command_generator = function(prompt)
-            if not prompt or prompt == '' then
-              return nil
-            end
-
-            local pieces = vim.split(prompt, '  ')
-            local args = { 'rg', '--no-ignore-vcs' }
-            if pieces[1] then
-              table.insert(args, '-e')
-              table.insert(args, pieces[1])
-            end
-
-            if pieces[2] then
-              table.insert(args, '-g')
-              table.insert(args, pieces[2])
-            end
-
-            ---@diagnostic disable-next-line: deprecated
-            return vim.tbl_flatten {
-              args,
-              { '--color=never', '--no-heading', '--with-filename', '--line-number', '--column', '--smart-case' },
-            }
-          end,
-          entry_maker = make_entry.gen_from_vimgrep { opts },
-          cwd = opts.cwd,
-        }
-
-        pickers
-          .new(opts, {
-            debounce = 100,
-            prompt_title = 'Multi Grep',
-            finder = finder,
-            previewer = conf.grep_previewer(opts),
-            -- Don't try and sort the results, they are already sorted
-            sorter = require('telescope.sorters').empty(),
-          })
-          :find()
-      end
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
@@ -168,16 +117,16 @@ return {
         end
         opts.cwd = vim.fn.expand '%:p:h'
         opts.no_ignore = true
-        builtin.find_files(opts)
+        builtin.live_grep(opts)
       end, { desc = '[S]earch [F]iles in current buffer dir' })
-      vim.keymap.set('n', '<leader>tg', live_multigrep, { desc = '[S]earch by [G]rep' })
+      vim.keymap.set('n', '<leader>tg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>ttg', function(opts)
         if not opts then
           opts = {}
         end
         opts.cwd = vim.fn.expand '%:p:h'
         opts.additional_args = { '--no-ignore' }
-        live_multigrep(opts)
+        builtin.live_grep(opts)
       end, { desc = '[S]earch by [G]rep in current buffer dir' })
       vim.keymap.set('n', '<leader>td', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>ts', builtin.resume, { desc = '[S]earch Re[s]ume' })
@@ -216,7 +165,7 @@ return {
         end
         opts.prompt_title = 'Search notes by multigrep'
         opts.cwd = vim.g.TelescopeNotesDir
-        live_multigrep(opts)
+        builtin.live_grep(opts)
       end, { desc = 'Search [n]otes [g]rep' })
 
       vim.keymap.set('n', '<leader>trf', function(opts)
@@ -233,7 +182,7 @@ return {
         end
         opts.prompt_title = 'Search repos by multigrep'
         opts.cwd = vim.g.TelescopeReposRootDir
-        live_multigrep(opts)
+        builtin.live_grep(opts)
       end, { desc = 'Search [r]epos [g]rep' })
     end,
   },
