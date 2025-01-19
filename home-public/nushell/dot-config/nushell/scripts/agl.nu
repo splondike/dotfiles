@@ -11,36 +11,41 @@ def "api get" [url_fragment: string]: nothing -> table {
     http get --full --headers [Authorization $"Bearer ($env.GITLAB_ACCESS_TOKEN)"] $url
 }
 
-export def "runner jobs" [runner_id?: string, --page = "1", --paginate = false]: nothing -> any {
-    let final_runner_id = $runner_id | default $env.GITLAB_RUNNER_ID
-    let url = $"/runners/($final_runner_id)/jobs?order_by=id&sort=desc&page=($page)"
-    let result = api get $url
-    def getheader [name]: nothing -> string {
-        $result.headers.response | filter {$in.name == $name} | get value | first
-    }
-    # project name status created_at
-    let body = $result.body |
-        insert project_name {$in.project.name} |
-        insert project_id {$in.project.id} |
-        update created_at {into datetime} |
-        update queued_duration {into int | $"($in)sec" | into duration} |
-        update duration {into int | $"($in)sec" | into duration} |
-        util column_order created_at project_name status duration id project_id
+export def "runner jobs" [runner_id?: string, --generate]: nothing -> any {
+    def inner [page: string] {
+        let final_runner_id = $runner_id | default $env.GITLAB_RUNNER_ID
+        let url = $"/runners/($final_runner_id)/jobs?order_by=id&sort=desc&page=($page)"
+        let result = api get $url
+        def getheader [name]: nothing -> string {
+            $result.headers.response | filter {$in.name == $name} | get value | first
+        }
+        # project name status created_at
+        let body = $result.body |
+            insert project_name {$in.project.name} |
+            insert project_id {$in.project.id} |
+            update created_at {into datetime} |
+            update queued_duration {into int | $"($in)sec" | into duration} |
+            update duration {into int | $"($in)sec" | into duration} |
+            util column_order created_at project_name status duration id project_id
 
-    if $paginate {
         let next_page = getheader "x-next-page"
-        let next = if ($next_page == "") { null } else {
+        if $next_page == "" {
             {
-                runner jobs $final_runner_id --page=$next_page --paginate=true
+                out: $body
+            }
+        } else {
+            {
+                out: $body,
+                next: $next_page
             }
         }
+    }
 
-        {
-            items: $body,
-            next: $next
-        }
+    if $generate {
+        generate { |x| inner $x } "1"
     } else {
-        $body
+        let result = inner "1"
+        $result.out
     }
 }
 

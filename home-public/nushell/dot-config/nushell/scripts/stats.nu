@@ -4,8 +4,11 @@ export def quantiles [...quantiles: int]: list -> table {
 
     let len = $sorted | length
     $qs | reduce --fold null {|q|
-        let idx = ($len * $q | math floor)
-        # $in | append [{q: $q, v: ($sorted | get {|x| ([$x ($len - 1)] | math min)})}]
-        $in | append [{q: $q, v: ($sorted | get ([($len - 1) $idx] | math min))}]
+        if $len == 0 {
+            $in | append [{q: $q, v: null}]
+        } else {
+            let idx = ($len * $q | math floor)
+            $in | append [{q: $q, v: ($sorted | get ([($len - 1) $idx] | math min))}]
+        }
     }
 }

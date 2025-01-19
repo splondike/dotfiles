@@ -26,6 +26,52 @@ export def "storageaccounts" [--nocache]: nothing -> table {
     cache_fetch_all "storageaccounts" $nocache {|sub| az storage account list --subscription $sub} | standard_column_order
 }
 
+export def "storagecontainers" [--nocache]: nothing -> table {
+    cache_result "storagecontainers" $nocache {
+        storageaccounts --nocache=$nocache | each {|sa|
+            let result = az storage container list --auth-mode login --account-name $sa.name --subscription $sa.subscription | complete
+            if $result.exit_code == 0 {
+                $result.stdout | from json | insert storage_account_name $sa.name | insert subscription $sa.subscription | insert id {|c| $"($sa.id)/blobServices/default/containers/($c.name)"}
+            } else {
+                $result.stderr | print --stderr
+                null
+            }
+        } | util append_tables
+    } | util column_order subscription storage_account_name name | sort-by subscription storage_account_name name
+}
+
+export def "storageblobs" [--prefix: string="", --results-per-page: int=1000, --generate]: record -> table {
+    let container = $in
+
+    def inner [marker: string] {
+        let results = az storage blob list --auth-mode login --container-name $container.name --account-name $container.storage_account_name --subscription $container.subscription --show-next-marker --marker $marker --prefix $prefix --num-results $results_per_page | from json
+
+        let body = $results | filter {"container" in ($in | columns)} | 
+            insert created_at {$in.properties.creationTime | into datetime } |
+            insert content_length {$in.properties.contentLength | into filesize} |
+            util column_order name content_length created_at
+        let next = $results | filter {"nextMarker" in ($in | columns)} | first | get --ignore-errors nextMarker
+
+        if $next != null {
+            {
+                out: $body,
+                next: $next
+            }
+        } else {
+            {
+                out: $body
+            }
+        }
+    }
+
+    if $generate {
+        generate { |x| inner $x } ""
+    } else {
+        let result = inner ""
+        $result.out
+    }
+}
+
 export def "keyvaults" [--nocache]: nothing -> table {
     cache_fetch_all "keyvaults" $nocache {|sub| az keyvault list --subscription $sub} | standard_column_order
 }
