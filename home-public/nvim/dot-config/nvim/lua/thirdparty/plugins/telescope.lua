@@ -117,7 +117,7 @@ return {
         end
         opts.cwd = vim.fn.expand '%:p:h'
         opts.no_ignore = true
-        builtin.live_grep(opts)
+        builtin.find_files(opts)
       end, { desc = '[S]earch [F]iles in current buffer dir' })
       vim.keymap.set('n', '<leader>tg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>ttg', function(opts)
