@@ -85,4 +85,25 @@ vim.g.loaded_python3_provider = false
 -- Just update the edited file in place to avoid breaking file watchers
 vim.g.backupcopy = 'yes'
 
+vim.go.title = true
+vim.go.titlelen = 500
+-- Allow truncation of lock socket paths via RPCPrefixStrip
+vim.go.titlestring = 'VIM %-00.20t | %{v:servername}'
+vim.api.nvim_create_autocmd('BufEnter', {
+  desc = 'Update buffer title',
+  group = vim.api.nvim_create_augroup('update_buffer_title', { clear = true }),
+  callback = function()
+    local prefix = vim.g.RPCPrefixStrip
+    local socket = vim.v.servername
+
+    if not prefix then
+      return
+    end
+
+    if socket:sub(1, #prefix) == prefix then
+      vim.go.titlestring = 'VIM ' .. vim.fn.expand '%-00.20t' .. ' | ' .. socket:sub(#prefix + 1)
+    end
+  end,
+})
+
 -- vim: ts=2 sts=2 sw=2 et
