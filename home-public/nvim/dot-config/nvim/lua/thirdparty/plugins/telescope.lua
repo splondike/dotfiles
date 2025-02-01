@@ -119,13 +119,19 @@ return {
         opts.no_ignore = true
         builtin.find_files(opts)
       end, { desc = '[S]earch [F]iles in current buffer dir' })
-      vim.keymap.set('n', '<leader>tg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+      vim.keymap.set('n', '<leader>tg', function(opts)
+        if not opts then
+          opts = {}
+        end
+        opts.additional_args = { '--hidden' }
+        builtin.live_grep(opts)
+      end, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>ttg', function(opts)
         if not opts then
           opts = {}
         end
         opts.cwd = vim.fn.expand '%:p:h'
-        opts.additional_args = { '--no-ignore' }
+        opts.additional_args = { '--no-ignore', '--hidden' }
         builtin.live_grep(opts)
       end, { desc = '[S]earch by [G]rep in current buffer dir' })
       vim.keymap.set('n', '<leader>td', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
