@@ -22,6 +22,10 @@ def cache_fetch_all [name: string, nocache: bool, fetcher:closure]: nothing -> a
     cache_result $name $nocache {fetch_all_resources $fetcher}
 }
 
+export def "resourcegroups" [--nocache]: nothing -> table {
+    cache_fetch_all "resourcegroups" $nocache {|sub| az group list --subscription $sub} | util column_order name subscription
+}
+
 export def "storageaccounts" [--nocache]: nothing -> table {
     cache_fetch_all "storageaccounts" $nocache {|sub| az storage account list --subscription $sub} | standard_column_order
 }
