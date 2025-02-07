@@ -1,5 +1,4 @@
 -- Docs: https://github.com/L3MON4D3/LuaSnip/blob/master/DOC.md#functionnode
-local ts_utils = require 'nvim-treesitter.ts_utils'
 
 -- gsplit: iterate over substrings in a string separated by a pattern
 --
