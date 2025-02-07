@@ -79,7 +79,7 @@ return {
       end
       local overrides = {
         { 'Keyword', 13, 'NONE' },
-        { 'Visual', 'NONE', 19 },
+        { 'Visual', 7, 19 },
       }
       for _, item in pairs(overrides) do
         vim.cmd(string.format('highlight %s ctermfg=%s ctermbg=%s gui=NONE cterm=NONE guisp=NONE', item[1], item[2], item[3]))
