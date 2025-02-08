@@ -78,7 +78,7 @@ output * bg $HOME/Pictures/wallpaper.jpg fit
 # Basics:
 #
     # Start a terminal
-    bindsym $mod+Return exec $term
+    bindsym $mod+Return exec $term --single-instance
 
     # Kill focused window
     bindsym $mod+Shift+c kill
