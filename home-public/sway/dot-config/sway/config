@@ -73,6 +73,12 @@ output * bg $HOME/Pictures/wallpaper.jpg fit
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 
+# Use Colemak for keyboard layout
+input * {
+    xkb_layout "us"
+    xkb_variant "colemak"
+}
+
 ### Key bindings
 #
 # Basics:
