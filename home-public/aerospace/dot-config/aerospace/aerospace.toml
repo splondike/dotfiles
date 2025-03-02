@@ -19,7 +19,7 @@ ctrl-u = 'resize height +100'
 esc = 'mode main'
 
 [mode.main.binding]
-alt-enter = 'exec-and-forget /Applications/kitty.app/Contents/MacOS/kitty --single-instance --instance-group normal --working-directory /Users/stefansk/'
+alt-t = 'exec-and-forget /Applications/kitty.app/Contents/MacOS/kitty --single-instance --instance-group normal --working-directory /Users/stefansk/'
 alt-p = 'exec-and-forget /Users/stefansk/osx-scripts/scripts/itemselector.sh /Users/stefansk/osx-scripts/scripts/app-launcher.sh'
 cmd-alt-a = 'exec-and-forget /Users/stefansk/osx-scripts/scripts/passmenu-osx.sh'
 
@@ -39,9 +39,9 @@ alt-equal = 'mode resize'      # 1. Define a binding to switch to 'resize' mode
 
 alt-v = 'fullscreen'
 alt-h = 'layout v_tiles v_accordion'
-alt-k = 'join-with left'
-alt-shift-m = 'layout floating tiling'
+# alt-shift-m = 'layout floating tiling'
 
+alt-o = 'workspace-back-and-forth'
 alt-1 = 'workspace 1'
 alt-2 = 'workspace 2'
 alt-3 = 'workspace 3'
