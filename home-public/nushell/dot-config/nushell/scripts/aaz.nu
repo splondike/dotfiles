@@ -151,7 +151,12 @@ export def "iam" [--nocache]: any -> table {
         },
         string => {
             let arg = $in
-            roleassignments --nocache=$nocache | filter {|x| $arg | str starts-with $x.scope}
+            let f = if ($arg | str starts-with "/") {
+                {|x| $arg | str starts-with $x.scope}
+            } else {
+                {|x| $x.principalId == $arg }
+            }
+            roleassignments --nocache=$nocache | filter $f
         },
         record => {
             let arg = $in.id
