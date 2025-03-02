@@ -4,8 +4,8 @@ options.theme = "asciimono"
 options.motd_url = ""
 
 # Keybindings
-Sheet.addCommand(None, 'go-down-big',  'cursorDown(+5)', 'go down big', replay=False)
-Sheet.addCommand(None, 'go-up-big',  'cursorDown(-5)', 'go up big', replay=False)
+Sheet.addCommand(None, 'go-down-big',  'cursorDown(+10)', 'go down big', replay=False)
+Sheet.addCommand(None, 'go-up-big',  'cursorDown(-10)', 'go up big', replay=False)
 bindings = [
     ("n", "go-left"),
     ("i", "go-right"),
@@ -13,9 +13,10 @@ bindings = [
     ("e", "go-down"),
     ("U", "go-up-big"),
     ("E", "go-down-big"),
-    # Haven't got these working yet
-    # ("Ctrl+e", "go-down-big"),
+    ("Ctrl+E", "go-down-big"),
+    ("Ctrl+U", "go-up-big"),
 ]
 for binding, action in bindings:
-    # TableSheet.unbindkey(binding)
+    if binding in bindings:
+        TableSheet.unbindkey(binding)
     Sheet.bindkey(binding, action)
