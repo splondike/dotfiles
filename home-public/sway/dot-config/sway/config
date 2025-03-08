@@ -84,7 +84,7 @@ input * {
 # Basics:
 #
     # Start a terminal
-    bindsym $mod+Return exec $term --single-instance
+    bindsym $mod+t exec $term --single-instance
 
     # Kill focused window
     bindsym $mod+Shift+c kill
@@ -133,6 +133,8 @@ input * {
 #
 # Workspaces:
 #
+    bindsym $mod+o workspace back_and_forth
+    bindcode 192 workspace back_and_forth
     # Switch to workspace
     bindsym $mod+1 workspace number 1
     bindsym $mod+2 workspace number 2
