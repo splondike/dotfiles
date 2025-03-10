@@ -42,8 +42,8 @@
         mod-right-secondary lalt
         mod-right-tertiary ralt
         mod-home-wm-mod alt
-        mod-home-ctrl-mod ctl
-        mod-home-kitty-mod (multi alt ctl)
+        mod-home-ctrl-mod met
+        mod-home-kitty-mod (multi met ctl)
 
         text-undo M-z
         text-copy M-c
