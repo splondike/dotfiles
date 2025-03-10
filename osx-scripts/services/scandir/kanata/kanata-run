@@ -1,0 +1,6 @@
+#!/bin/sh
+
+cd $(dirname $0)
+./kanata --cfg /private/etc/kanata/config-glove80.kbd
+./kanata --cfg /private/etc/kanata/config-sculpt.kbd
+./kanata --cfg /private/etc/kanata/config-macbook.kbd
