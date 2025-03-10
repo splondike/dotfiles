@@ -16,7 +16,7 @@
 
 (deflayer symbol-base
   S-`  S-1  S-2  S-3  S-4  S-5  S-6  S-7  S-8  f16  f17  f18  _    _
-  _    _    [    ]    _    _    @scu @scd {    }    S-;  _    _    S-\
+  _    _    [    ]    _    _    @scu @scd S-[  S-]  S-p  _    _    S-\
   @lms S-1  -    +    =    _    f19  S--  S-9  S-0  f20  S-'  _
   _    _    _    _    _    @lvb up   down S-,  S-.  S-/  lrld
   _    _    _              ret            _    _    _
