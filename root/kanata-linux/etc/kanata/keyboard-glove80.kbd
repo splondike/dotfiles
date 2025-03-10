@@ -1,0 +1,65 @@
+(defsrc
+  =    1    2    3    4    5    6    7    8    9    0    -
+  tab  q    w    e    r    t    y    u    i    o    p    \
+  esc  a    s    d    f    g    h    j    k    l    ;    '
+  grv  z    x    c    v    b    n    m    ,    .    /    pgup
+       home end  left rght           up   down [    ]    pgdn
+
+       lsft lctl lmet                     rmet rctl rsft
+       bspc del  lalt                     ralt ret  spc
+)
+
+(deflayer default
+  grv  1    2    3    4    5    6    7    8    9    0    -
+  tab  q    w    e    r    t    y    u    i    o    p    \
+  bspc a    @dht @dhs @dhp g    h    j    k    l    ;    '
+  lsft z    x    c    v    b    n    m    ,    .    /    pgup
+       home end  left rght           up   down [    ]    pgdn
+
+       lsft lctl del                      ret  @drt rsft
+       @dlp @dls @dlt                     @drs @drp spc
+)
+
+(deflayer symbol-base
+  S-`  S-1  S-2  S-3  S-4  S-5  S-6  S-7  S-8  f16  f17  f18
+  _    _    [    ]    _    _    @scu @scd {    }    S-;  S-\
+  @lms S-1  -    +    =    _    f19  S--  S-9  S-0  f20  S-'
+  _    _    _    _    _    @lvb up   down S-,  S-.  S-/  _
+       _    _    _    _              _    _    _    _    _
+
+       _    _    _                        lrld _    _
+       _    _    _                        _    _    ret
+)
+
+(deflayer vi-base
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    @vwl up   @vwr _    _
+  bspc @vsf @vrp @vdf _    _    _    left down rght _    _
+  _    @vun _    @vcp @vpt _    _    _    _    _    _    _
+       _    _    _    _              _    _    _    _    _
+
+       _    _    _                        _    _    _
+       _    _    _                        _    @lvc _
+)
+
+(deflayer vi-ctrl
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    C-w  _    _    _    _    @vls pgup @vle _    _
+  @vwd _    _    _    _    _    _    _    pgdn _    _    _
+  _    @vun _    @vcp @vpt _    _    _    _    _    _    _
+       _    _    _    _              _    _    _    _    _
+
+       _    _    _                        _    _    _
+       _    _    _                        _    _    _
+)
+
+(deflayer mouse-base
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    @mup @msu _    _
+  @ldf _    @mac ctl  met  mrgt mmid @mlt @mdn @mrt @msd _
+  _    _    _    _    _    _    _    _    _    _    _    _
+       _    _    _    _              _    _    _    _    _
+
+       _    _    _                        _    _    _
+       lsft _    _                        _    @mac mlft
+)

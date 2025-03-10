@@ -1,0 +1,16 @@
+(defcfg
+    linux-dev-names-include (
+        "Microsoft Microsoft® 2.4GHz Transceiver v9.0"
+    )
+    macos-dev-names-include (
+        "Microsoft® 2.4GHz Transceiver v9.0"
+    )
+    ;; "Apple Internal Keyboard / Trackpad"
+    log-layer-changes no
+    delegate-to-first-layer yes
+    movemouse-smooth-diagonals yes
+    process-unmapped-keys no
+)
+
+(include common.kbd)
+(include keyboard-sculpt.kbd)

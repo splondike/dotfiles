@@ -1,0 +1,15 @@
+(defcfg
+    linux-dev-names-include (
+        "MoErgo Glove80 Left Keyboard"
+    )
+    macos-dev-names-include (
+        "Glove80"
+    )
+    log-layer-changes no
+    delegate-to-first-layer yes
+    movemouse-smooth-diagonals yes
+    process-unmapped-keys no
+)
+
+(include common.kbd)
+(include keyboard-glove80.kbd)

@@ -1,0 +1,12 @@
+(defcfg
+    macos-dev-names-include (
+        "Apple Internal Keyboard / Trackpad"
+    )
+    log-layer-changes no
+    delegate-to-first-layer yes
+    movemouse-smooth-diagonals yes
+    process-unmapped-keys no
+)
+
+(include common.kbd)
+(include keyboard-macbook.kbd)

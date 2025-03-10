@@ -1,0 +1,105 @@
+(defvar
+    tap-timeout 200
+    hold-timeout 200
+    one-shot-timeout 1000
+    scroll-speed 100
+    scroll-amount 120
+    move-speed 40
+    move-amount 5
+)
+
+(defvirtualkeys
+    virtshift lsft
+)
+
+(platform (linux)
+    (defalias
+        mod-left-secondary met
+        mod-left-tertiary ctl
+        mod-right-primary ctl
+        mod-right-secondary lalt
+        mod-right-tertiary ralt
+        mod-home-wm-mod met
+        mod-home-ctrl-mod ctl
+        mod-home-kitty-mod (multi met ctl)
+
+        text-undo C-z
+        text-copy C-c
+        text-paste C-v
+        text-word-delete C-bspc
+        text-word-left C-left
+        text-word-right C-right
+        text-line-start home
+        text-line-end end
+    )
+)
+
+(platform (macos)
+    (defalias
+        mod-left-secondary alt
+        mod-left-tertiary ctl
+        mod-right-primary met
+        mod-right-secondary lalt
+        mod-right-tertiary ralt
+        mod-home-wm-mod alt
+        mod-home-ctrl-mod ctl
+        mod-home-kitty-mod (multi alt ctl)
+
+        text-undo M-z
+        text-copy M-c
+        text-paste M-v
+        text-word-delete A-bspc
+        text-word-left A-left
+        text-word-right A-right
+        text-line-start C-left
+        text-line-end C-right
+    )
+)
+
+(defalias
+    ;; Swap layers
+    ldf (layer-switch default)
+    lsy (layer-while-held symbol-base)
+    lvb (layer-switch vi-base)
+    lvc (layer-while-held vi-ctrl)
+    lms (layer-switch mouse-base)
+
+    ;; default layer
+    dlp (tap-hold-press $tap-timeout $hold-timeout (multi lsft (one-shot $one-shot-timeout lsft)) @lsy)
+    dls @mod-left-secondary
+    dlt @mod-left-tertiary
+    drp (tap-hold-press $tap-timeout $hold-timeout esc @mod-right-primary)
+    drs @mod-right-secondary
+    drt @mod-right-tertiary
+    dhp (tap-hold 0 $hold-timeout f @mod-home-wm-mod)
+    dhs (tap-hold 0 $hold-timeout d @mod-home-ctrl-mod)
+    dht (tap-hold 0 $hold-timeout s @mod-home-kitty-mod)
+
+    ;; symbol-base layer
+    scu C-pgup
+    scd C-pgdn
+
+    ;; vim-* layers
+    vim-release-shift (on-press release-virtualkey virtshift)
+    vim-toggle-shift (on-press toggle-virtualkey virtshift)
+    vsf @vim-toggle-shift
+    vrp (multi @vim-release-shift @ldf bspc)
+    vdf (multi @vim-release-shift @ldf)
+    vun (multi @vim-release-shift @text-undo)
+    vcp (multi @vim-release-shift @text-copy)
+    vpt (multi @vim-release-shift @text-paste)
+    vwd @text-word-delete
+    vwl @text-word-left
+    vwr @text-word-right
+    vls @text-line-start
+    vle @text-line-end
+
+    ;; mouse-base layer
+    msu (mwheel-up $scroll-speed $scroll-amount)
+    msd (mwheel-down $scroll-speed $scroll-amount)
+    mup (movemouse-up $move-speed $move-amount)
+    mdn (movemouse-down $move-speed $move-amount)
+    mlt (movemouse-left $move-speed $move-amount)
+    mrt (movemouse-right $move-speed $move-amount)
+    mac (movemouse-speed 800)
+)
