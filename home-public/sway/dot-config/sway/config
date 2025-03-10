@@ -84,7 +84,7 @@ input * {
 # Basics:
 #
     # Start a terminal
-    bindsym $mod+t exec $term --single-instance
+    bindsym $mod+a exec $term --single-instance
 
     # Kill focused window
     bindsym $mod+Shift+c kill
