@@ -3,8 +3,6 @@
     hold-timeout 200
     one-shot-timeout 1000
     scroll-speed 100
-    scroll-amount 120
-    move-speed 40
     move-amount 5
 )
 
@@ -31,6 +29,16 @@
         text-word-right C-right
         text-line-start home
         text-line-end end
+
+        mouse-scroll-up (mwheel-up $scroll-speed $scroll-amount)
+        mouse-scroll-down (mwheel-down $scroll-speed $scroll-amount)
+    )
+)
+
+(platform (linux)
+    (defvar
+        scroll-amount 120
+        move-speed 40
     )
 )
 
@@ -53,6 +61,16 @@
         text-word-right A-right
         text-line-start C-left
         text-line-end C-right
+
+        mouse-scroll-up (mwheel-down $scroll-speed $scroll-amount)
+        mouse-scroll-down (mwheel-up $scroll-speed $scroll-amount)
+    )
+)
+
+(platform (macos)
+    (defvar
+        scroll-amount 2
+        move-speed 20
     )
 )
 
@@ -95,8 +113,8 @@
     vle @text-line-end
 
     ;; mouse-base layer
-    msu (mwheel-up $scroll-speed $scroll-amount)
-    msd (mwheel-down $scroll-speed $scroll-amount)
+    msu @mouse-scroll-up
+    msd @mouse-scroll-down
     mup (movemouse-up $move-speed $move-amount)
     mdn (movemouse-down $move-speed $move-amount)
     mlt (movemouse-left $move-speed $move-amount)
