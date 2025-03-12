@@ -31,10 +31,10 @@ vim.keymap.set('n', '(', '<C-o>')
 
 ------- Editing things
 
-vim.keymap.set('n', '<C-f>', ':move .-2<CR>', { silent = true })
-vim.keymap.set('n', '<C-s>', ':move .+1<CR>', { silent = true })
-vim.keymap.set('v', '<C-f>', ":move '<-2<CR>gv", { silent = true })
-vim.keymap.set('v', '<C-s>', ":move '>+1<CR>gv", { silent = true })
+vim.keymap.set('n', '<C-k>', ':move .-2<CR>', { silent = true })
+vim.keymap.set('n', '<C-m>', ':move .+1<CR>', { silent = true })
+vim.keymap.set('v', '<C-k>', ":move '<-2<CR>gv", { silent = true })
+vim.keymap.set('v', '<C-m>', ":move '>+1<CR>gv", { silent = true })
 
 ------- Undo/Redo/Copy+Paste
 
