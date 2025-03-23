@@ -126,6 +126,21 @@ export def "apps" [--nocache]: nothing -> table {
     cache_result "apps" $nocache {az ad app list --all | from json} | util column_order id appId displayName
 }
 
+export def "app_secrets" [--nocache]: any -> table {
+    let appId = match ($in | describe --no-collect -d | $in.type) {
+        string => {
+            $in
+        },
+        record => {
+            $in.id
+        }
+        list => {
+            $in | first | $in.id
+        }
+    }
+    az ad app credential list --id $appId | from json | util column_order displayName endDateTime startDateTime
+}
+
 export def "groups" [--nocache]: nothing -> table {
     cache_result "groups" $nocache {az ad group list | from json}
 }
