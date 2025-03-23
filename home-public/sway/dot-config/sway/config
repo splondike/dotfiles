@@ -227,8 +227,8 @@ mode "resize" {
 bindsym $mod+equal mode "resize"
 
 # Extra custom bindings
-bindcode 191 exec $HOME/bin/mine/macro.sh 0
-bindcode $mod+191 exec $HOME/bin/mine/macro.sh 1
+bindcode 197 exec $HOME/bin/mine/macro.sh 0
+# bindcode $mod+191 exec $HOME/bin/mine/macro.sh 1
 
 # Startup items
 exec gammastep -l -37.7958:144.9234 -t 6500:3000 -b 1.0:0.8
