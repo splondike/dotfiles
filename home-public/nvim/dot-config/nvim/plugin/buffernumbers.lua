@@ -36,7 +36,7 @@ for i = 1, 9 do
   vim.keymap.set('v', '<C-' .. i .. '>', function()
     swap_buffer(i)
   end)
-  vim.keymap.set('n', '<C-m>' .. i, function()
+  vim.keymap.set('n', '<C-t>' .. i, function()
     set_buffer(i)
   end)
 end
