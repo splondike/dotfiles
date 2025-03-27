@@ -1,4 +1,4 @@
--- C-m [1-9] will save the current buffer to a bookmark. C-[1-9] restores it. C-0 jumps back to the last buffer that was open before you started using C-[1-9]
+-- C-T [neio] will save the current buffer to a bookmark. C-t [neio] restores it. C-t h jumps back to the last buffer that was open before you started using C-t [neio]
 local bookmarks = {}
 local last_buffer_jumped_to = nil
 local first_buffer_jumped_from = nil
@@ -24,19 +24,20 @@ local function set_buffer(num)
   bookmarks[num] = vim.fn.bufnr()
 end
 
-vim.keymap.set('n', '<C-0>', swap_buffer_to_pre_jump)
+vim.keymap.set('n', '<C-t>h', swap_buffer_to_pre_jump)
 
-for i = 1, 9 do
-  vim.keymap.set('n', '<C-' .. i .. '>', function()
+for i, key in ipairs { 'n', 'e', 'i', 'o' } do
+  local binding = '<leader>s' .. key
+  vim.keymap.set('n', binding, function()
     swap_buffer(i)
   end)
-  vim.keymap.set('i', '<C-' .. i .. '>', function()
+  vim.keymap.set('i', binding, function()
     swap_buffer(i)
   end)
-  vim.keymap.set('v', '<C-' .. i .. '>', function()
+  vim.keymap.set('v', binding, function()
     swap_buffer(i)
   end)
-  vim.keymap.set('n', '<C-t>' .. i, function()
+  vim.keymap.set('n', '<leader>S' .. key, function()
     set_buffer(i)
   end)
 end

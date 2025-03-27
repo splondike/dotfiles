@@ -6,7 +6,7 @@
 -- Use h instead of z for folds
 vim.keymap.set('', 'h', 'z')
 -- Toggle recent buffers
-vim.keymap.set('n', '<Leader>s', '<C-^>')
+vim.keymap.set('n', '<Leader>ss', '<C-^>')
 -- Edit relative to current buffer
 vim.keymap.set('c', 'e;', '"e " . expand("%:h") . "/"', { expr = true })
 -- Open spell check (easier than h= in Termux)
