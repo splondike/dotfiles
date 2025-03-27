@@ -39,7 +39,7 @@ alt-equal = 'mode resize'      # 1. Define a binding to switch to 'resize' mode
 
 alt-v = 'fullscreen'
 alt-h = 'layout v_tiles v_accordion'
-# alt-shift-m = 'layout floating tiling'
+alt-shift-m = 'layout floating tiling'
 
 alt-o = 'workspace-back-and-forth'
 f20 = 'workspace-back-and-forth'
