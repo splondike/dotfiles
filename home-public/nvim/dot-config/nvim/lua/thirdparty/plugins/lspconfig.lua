@@ -58,6 +58,8 @@ return {
           -- or a suggestion from your LSP for this to activate.
           map('<leader>la', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
+          map('<leader>lw', vim.diagnostic.open_float, '[C]ode [W]arning')
+
           -- Opens a popup that displays documentation about the word under your cursor
           --  See `:help K` for why this keymap.
           map('K', vim.lsp.buf.hover, 'Hover Documentation')
