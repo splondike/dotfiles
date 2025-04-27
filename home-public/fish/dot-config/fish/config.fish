@@ -8,14 +8,6 @@ if status is-interactive
     fish_add_path -a ~/bin/mine
     fish_add_path -a ~/go/bin/
     fish_add_path -a ~/.local/bin
-    bind ctrl-o edit_command_buffer
-    bind ctrl-n backward-word
-    bind ctrl-i forward-word
-    bind ctrl-p 'cd (fd -t d | fzf);commandline -f repaint'
-    bind \co edit_command_buffer
-    bind \cn backward-word
-    bind \ci forward-word
-    bind \cp 'cd (fd -t d | fzf);commandline -f repaint'
     alias vim='nvim'
     alias gg='git status'
     alias dc='docker-compose'
@@ -29,7 +21,16 @@ if status is-interactive
             pyenv init - | source
             set -x SSH_AUTH_SOCK "$HOME/.local/state/ssh-agent.sock"
             set -x XDG_CONFIG_HOME "$HOME/.config"
+            # Linux is using an older version of fish that doesn't support this binding syntax.
+            bind ctrl-o edit_command_buffer
+            bind ctrl-n backward-word
+            bind ctrl-i forward-word
+            bind ctrl-p 'cd (fd -t d | fzf);commandline -f repaint'
         case Linux
+            bind \co edit_command_buffer
+            bind \cn backward-word
+            bind \ci forward-word
+            bind \cp 'cd (fd -t d | fzf);commandline -f repaint'
             fish_add_path -a ~/Programming/small-utilities
             fish_add_path -a $GOPATH/bin
             set -x SSH_AUTH_SOCK "/var/run/user/1000/ssh-agent.sock"
