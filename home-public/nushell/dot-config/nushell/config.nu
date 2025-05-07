@@ -23,4 +23,21 @@ use util.nu
 
 $env.config.show_banner = false
 
+$env.config.keybindings = [
+    {
+        name: word_left,
+        modifier: control,
+        keycode: char_n,
+        mode: emacs,
+        event: { edit: MoveWordLeft }
+    },
+    {
+        name: word_right
+        modifier: none,
+        keycode: Tab,
+        mode: emacs,
+        event: { edit: MoveWordRight }
+    },
+]
+
 load-env (util env_vars)
