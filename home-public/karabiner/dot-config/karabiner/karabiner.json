@@ -6,6 +6,7 @@
                 "rules": [
                     {
                         "description": "Map alt+space to enter",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
@@ -26,6 +27,7 @@
                     },
                     {
                         "description": "Map alt+n alt+m to up arrow/down arrow",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
@@ -54,6 +56,7 @@
                     },
                     {
                         "description": "Map alt+y alt+u to ctrl+tab ctrl+shift+tab",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
@@ -85,6 +88,7 @@
                     },
                     {
                         "description": "Mouse control mode",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
@@ -434,6 +438,7 @@
                     },
                     {
                         "description": "Map the right option/alt key to command or escape if tapped.",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
