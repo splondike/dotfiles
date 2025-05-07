@@ -3,7 +3,7 @@
 fzf=/opt/homebrew/bin/fzf
 SUBDIR=internet/
 prefix=${PASSWORD_STORE_DIR-~/.password-store/$SUBDIR}
-password_files=( $(find $prefix -name "*.gpg") )
+password_files=( $(cd $prefix ; find . -name "*.gpg") )
 password_files=( "${password_files[@]#"$prefix"/}" )
 password_files=( "${password_files[@]%.gpg}" )
 
