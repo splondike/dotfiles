@@ -122,6 +122,14 @@ export def "serviceprincipals" [--nocache]: nothing -> table {
     cache_result "serviceprincipals" $nocache {az ad sp list --all | from json}
 }
 
+export def "postgres-flexible" [--nocache]: nothing -> table {
+    cache_fetch_all "postgres-flexible" $nocache {|sub|
+        az postgres flexible-server list --subscription $sub | from json | insert entraAuth {|row|
+            az postgres flexible-server ad-admin list --resource-group $row.resourceGroup --server-name $row.name --subscription $sub | from json
+        } | to json
+    } | standard_column_order
+}
+
 export def "apps" [--nocache]: nothing -> table {
     cache_result "apps" $nocache {az ad app list --all | from json} | util column_order id appId displayName
 }
