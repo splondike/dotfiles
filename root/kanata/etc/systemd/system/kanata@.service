@@ -5,7 +5,8 @@ Documentation=https://github.com/jtroo/kanata
 [Service]
 Type=simple
 ExecStart=/opt/kanata/kanata --cfg /etc/kanata/config-%i.kbd
-Restart=never
+Restart=on-failure
+RestartSec=10
 
 [Install]
 WantedBy=default.target
