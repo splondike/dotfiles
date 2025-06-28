@@ -37,7 +37,7 @@ cmd = difft "$LOCAL" "$REMOTE"
 defaultBranch = main
 
 [commit]
-gpgsign = true
+gpgsign = false
 
 [include]
 path = ~/.config/git/config-local
