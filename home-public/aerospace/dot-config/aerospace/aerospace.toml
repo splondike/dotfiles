@@ -12,10 +12,10 @@ n = 'resize width -10'
 i = 'resize width +10'
 e = 'resize height -10'
 u = 'resize height +10'
-ctrl-n = 'resize width -100'
-ctrl-i = 'resize width +100'
-ctrl-e = 'resize height -100'
-ctrl-u = 'resize height +100'
+alt-n = 'resize width -100'
+alt-i = 'resize width +100'
+alt-e = 'resize height -100'
+alt-u = 'resize height +100'
 esc = 'mode main'
 
 [mode.main.binding]
@@ -35,7 +35,7 @@ alt-shift-e = 'move down'
 
 alt-shift-c = 'close'
 
-alt-equal = 'mode resize'      # 1. Define a binding to switch to 'resize' mode
+alt-r = 'mode resize'      # 1. Define a binding to switch to 'resize' mode
 
 alt-v = 'fullscreen'
 alt-h = 'layout v_tiles v_accordion'
