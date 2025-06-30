@@ -26,6 +26,7 @@ if status is-interactive
             bind ctrl-n backward-word
             bind ctrl-i forward-word
             bind ctrl-p 'cd (fd -t d | fzf);commandline -f repaint'
+            bind 'escape,.' history-token-search-backward
             set -x DOTNET_ROOT "/usr/local/share/dotnet"
         case Linux
             bind \co edit_command_buffer
