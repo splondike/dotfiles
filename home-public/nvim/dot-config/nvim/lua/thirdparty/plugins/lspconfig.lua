@@ -35,10 +35,22 @@ return {
 
           -- Jump to the implementation of the word under your cursor.
           --  Useful when your language has ways of declaring types without an actual implementation.
-          map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [d]efinition')
+          map('gd', function()
+            if vim.b.lsp_definitions then
+              vim.b.lsp_definitions()
+            else
+              require('telescope.builtin').lsp_definitions()
+            end
+          end, '[G]oto [d]efinition')
 
           -- Find references for the word under your cursor.
-          map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+          map('gr', function()
+            if vim.b.lsp_references then
+              vim.b.lsp_references()
+            else
+              require('telescope.builtin').lsp_references()
+            end
+          end, '[G]oto [R]eferences')
 
           -- Jump to the definition of the word under your cursor.
           --  This is where a variable was first declared, or where a function is defined, etc.
