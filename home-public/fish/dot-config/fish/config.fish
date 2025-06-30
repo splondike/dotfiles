@@ -33,6 +33,7 @@ if status is-interactive
             bind \cn backward-word
             bind \ci forward-word
             bind \cp 'cd (fd -t d | fzf);commandline -f repaint'
+            bind 'escape,.' history-token-search-backward
             fish_add_path -a ~/Programming/small-utilities
             fish_add_path -a $GOPATH/bin
             set -x SSH_AUTH_SOCK "/var/run/user/1000/ssh-agent.sock"
