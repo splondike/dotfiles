@@ -18,7 +18,7 @@ export def column_order [...colnames: string, --hide-spacer]: table -> table {
 }
 
 export def no_spacer []: table -> table {
-    let spacer = $in | columns | filter {str starts-with ":spacer:"} | first
+    let spacer = $in | columns | where {str starts-with ":spacer:"} | first
     $in | reject $spacer
 }
 

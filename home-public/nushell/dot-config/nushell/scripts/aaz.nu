@@ -50,11 +50,11 @@ export def "storageblobs" [--prefix: string="", --results-per-page: int=1000, --
     def inner [marker: string] {
         let results = az storage blob list --auth-mode login --container-name $container.name --account-name $container.storage_account_name --subscription $container.subscription --show-next-marker --marker $marker --prefix $prefix --num-results $results_per_page | from json
 
-        let body = $results | filter {"container" in ($in | columns)} | 
+        let body = $results | where {"container" in ($in | columns)} | 
             insert created_at {$in.properties.creationTime | into datetime } |
             insert content_length {$in.properties.contentLength | into filesize} |
             util column_order name content_length created_at
-        let next = $results | filter {"nextMarker" in ($in | columns)} | first | get --ignore-errors nextMarker
+        let next = $results | where {"nextMarker" in ($in | columns)} | first | get --ignore-errors nextMarker
 
         if $next != null {
             {
@@ -179,11 +179,11 @@ export def "iam" [--nocache]: any -> table {
             } else {
                 {|x| $x.principalId == $arg }
             }
-            roleassignments --nocache=$nocache | filter $f
+            roleassignments --nocache=$nocache | where $f
         },
         record => {
             let arg = $in.id
-            roleassignments --nocache=$nocache | filter {|x| $arg | str starts-with $x.scope}
+            roleassignments --nocache=$nocache | where {|x| $arg | str starts-with $x.scope}
         }
     }
     $assignments |

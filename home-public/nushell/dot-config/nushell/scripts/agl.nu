@@ -17,7 +17,7 @@ export def "runner jobs" [runner_id?: string, --generate]: nothing -> any {
         let url = $"/runners/($final_runner_id)/jobs?order_by=id&sort=desc&page=($page)"
         let result = api get $url
         def getheader [name]: nothing -> string {
-            $result.headers.response | filter {$in.name == $name} | get value | first
+            $result.headers.response | where {$in.name == $name} | get value | first
         }
         # project name status created_at
         let body = $result.body |
