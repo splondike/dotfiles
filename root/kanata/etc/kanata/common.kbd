@@ -13,7 +13,7 @@
 (platform (linux)
     (defalias
         mod-left-secondary met
-        mod-left-tertiary ctl
+        mod-left-tertiary met
         mod-right-primary ctl
         mod-right-secondary lalt
         mod-right-tertiary ralt
@@ -81,6 +81,8 @@
     lvb (layer-switch vi-base)
     lvc (layer-while-held vi-ctrl)
     lms (layer-switch mouse-base)
+    lxx (layer-while-held macro)
+    lcp (tap-hold-press $tap-timeout $hold-timeout (one-shot $one-shot-timeout @lxx) (multi lsft (layer-while-held all-caps)))
 
     ;; default layer
     dlp (tap-hold-press $tap-timeout $hold-timeout (multi lsft (one-shot $one-shot-timeout lsft)) @lsy)
@@ -120,4 +122,13 @@
     mlt (movemouse-left $move-speed $move-amount)
     mrt (movemouse-right $move-speed $move-amount)
     mac (movemouse-speed 800)
+
+    ;; macro layer
+    xst dynamic-macro-record-stop
+    xrp (dynamic-macro-record 1)
+    xpp (dynamic-macro-play 1)
+    xrs (dynamic-macro-record 2)
+    xps (dynamic-macro-play 2)
+    xrt (dynamic-macro-record 3)
+    xpt (dynamic-macro-play 3)
 )

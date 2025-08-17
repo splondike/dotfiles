@@ -17,7 +17,7 @@
        home end  left rght           up   down [    ]    pgdn
 
        lsft lctl del                      ret  @drt rsft
-       @dlp @dls @dlt                     @drs @drp spc
+       @dlp @lcp @dlt                     @drs @drp spc
 )
 
 (deflayer symbol-base
@@ -62,4 +62,26 @@
 
        _    _    _                        _    _    _
        lsft _    _                        _    @mac mlft
+)
+
+(deflayer macro
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    @xrt @xrs @xrp _    _    @xpp @xps @xpt _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+       _    _    _    _              _    _    _    _    _
+
+       _    _    _                        _    _    _
+       _    _    _                        _    @xst -
+)
+
+(deflayer all-caps
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+       _    _    _    _              _    _    _    _    _
+
+       _    _    _                        _    _    _
+       _    _    _                        _    @ldf -
 )
