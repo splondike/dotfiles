@@ -106,4 +106,9 @@ vim.api.nvim_create_autocmd('BufEnter', {
   end,
 })
 
+-- Don't require enter to be pressed for long messages, but use two lines in case
+-- they add a linebreak at the end (so we don't just see the empty line)
+vim.opt.cmdheight = 2
+vim.opt.messagesopt = 'wait:0,history:500'
+
 -- vim: ts=2 sts=2 sw=2 et
