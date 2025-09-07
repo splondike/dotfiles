@@ -54,7 +54,7 @@ export def "storageblobs" [--prefix: string="", --results-per-page: int=1000, --
             insert created_at {$in.properties.creationTime | into datetime } |
             insert content_length {$in.properties.contentLength | into filesize} |
             util column_order name content_length created_at
-        let next = $results | where {"nextMarker" in ($in | columns)} | first | get --ignore-errors nextMarker
+        let next = $results | where {"nextMarker" in ($in | columns)} | first | get --optional nextMarker
 
         if $next != null {
             {
@@ -100,9 +100,9 @@ export def "publicips" [--nocache]: nothing -> table {
 
 export def "loadbalancers" [--nocache]: nothing -> table {
     let fetch_ips = {|x|
-        let private = $x | get --ignore-errors frontendIPConfigurations.privateIPAddress
+        let private = $x | get --optional frontendIPConfigurations.privateIPAddress
         let publicips = publicips
-        let public = $x | get --ignore-errors frontendIPConfigurations.publicIPAddress | join $publicips id id | get ipAddress
+        let public = $x | get --optional frontendIPConfigurations.publicIPAddress | join $publicips id id | get ipAddress
         $public | append $private | compact
     }
     cache_fetch_all "loadbalancers" $nocache {|sub| az network lb list --subscription $sub} |
