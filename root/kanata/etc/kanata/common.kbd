@@ -124,11 +124,12 @@
     mac (movemouse-speed 800)
 
     ;; macro layer
-    xst dynamic-macro-record-stop
-    xrp (dynamic-macro-record 1)
+    ; Truncate two to drop the events involving pressing this key
+    xst (dynamic-macro-record-stop-truncate 2)
+    xrp (multi @xst (dynamic-macro-record 1))
     xpp (dynamic-macro-play 1)
-    xrs (dynamic-macro-record 2)
+    xrs (multi @xst (dynamic-macro-record 2))
     xps (dynamic-macro-play 2)
-    xrt (dynamic-macro-record 3)
+    xrt (multi @xst (dynamic-macro-record 3))
     xpt (dynamic-macro-play 3)
 )
