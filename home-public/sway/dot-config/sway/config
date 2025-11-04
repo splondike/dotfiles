@@ -209,10 +209,10 @@ mode "resize" {
     bindsym $right resize shrink width 10px
     bindsym $down resize shrink height 10px
     bindsym $left resize grow width 10px
-    bindsym Ctrl+$right resize shrink width 50px
-    bindsym Ctrl+$up resize grow height 50px
-    bindsym Ctrl+$down resize shrink height 50px
-    bindsym Ctrl+$left resize grow width 50px
+    bindsym $mod+$right resize shrink width 50px
+    bindsym $mod+$up resize grow height 50px
+    bindsym $mod+$down resize shrink height 50px
+    bindsym $mod+$left resize grow width 50px
 
     # Ditto, with arrow keys
     bindsym Left resize shrink width 10px
@@ -224,7 +224,7 @@ mode "resize" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+equal mode "resize"
+bindsym $mod+r mode "resize"
 
 # Extra custom bindings
 bindcode 197 exec $HOME/bin/mine/macro.sh 0
