@@ -1,4 +1,5 @@
 vim.wo.foldmethod = 'marker'
+vim.bo.completeopt = 'menu,popup,noselect'
 
 local spell_check = function()
   vim.wo.spell = true
