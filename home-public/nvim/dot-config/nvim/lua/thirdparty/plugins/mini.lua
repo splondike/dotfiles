@@ -77,12 +77,14 @@ return {
           )
         )
       end
+      -- Can use cterm=bold,underline,underdouble too
       local overrides = {
         { 'Keyword', 13, 'NONE' },
         { 'Visual', 0, 20 },
-        { 'DiffAdd', 'NONE', 2 },
-        { 'DiffChange', 'NONE', 2 },
-        { 'DiffText', 2, 5 },
+        { 'DiffAdd', 15, 19 }, --Added text
+        { 'DiffText', 15, 19 }, -- Modified part of a line
+        { 'DiffChange', 'NONE', 'NONE' }, -- The unmodified part of the line
+        { 'DiffDelete', 0, 103 },
       }
       for _, item in pairs(overrides) do
         vim.cmd(string.format('highlight %s ctermfg=%s ctermbg=%s gui=NONE cterm=NONE guisp=NONE', item[1], item[2], item[3]))
