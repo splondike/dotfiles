@@ -1,0 +1,54 @@
+# -----------------------------------------------------------------------------
+# Transparent skin
+# Preserve your terminal session background color
+# -----------------------------------------------------------------------------
+
+# Skin...
+k9s:
+  body:
+    bgColor: default
+    logoColor: slategray
+  prompt:
+    bgColor: default
+  info:
+    fgColor: default
+    sectionColor: default
+  dialog:
+    bgColor: default
+    labelFgColor: default
+    fieldFgColor: default
+  frame:
+    crumbs:
+      bgColor: default
+    title:
+      bgColor: default
+      fgColor: default
+      counterColor: default
+    status:
+      newColor: slategray
+      completedColor: darkgray
+    menu:
+      fgColor: default
+      numKeyColor: default
+  views:
+    charts:
+      bgColor: default
+    table:
+      bgColor: default
+      fgColor: default
+      cursorFgColor: white
+      header:
+        fgColor: default
+        bgColor: default
+    xray:
+      bgColor: default
+    logs:
+      bgColor: default
+      fgColor: default
+      indicator:
+        bgColor: default
+        toggleOnColor: default
+        toggleOffColor: default
+    yaml:
+      colonColor: default
+      valueColor: default
