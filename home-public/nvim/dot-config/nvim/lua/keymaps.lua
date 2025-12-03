@@ -16,8 +16,8 @@ vim.keymap.set('n', 'jj', 'z=')
 
 vim.keymap.set('n', ';', ':')
 
-vim.keymap.set('n', 's', 'i')
-vim.keymap.set('n', 'S', 'I')
+vim.keymap.set({ 'n', 'v' }, 's', 'i')
+vim.keymap.set({ 'n', 'v' }, 'S', 'I')
 vim.keymap.set('n', 't', 'a')
 vim.keymap.set('n', 'T', 'A')
 vim.keymap.set('n', 'a', 'v')
