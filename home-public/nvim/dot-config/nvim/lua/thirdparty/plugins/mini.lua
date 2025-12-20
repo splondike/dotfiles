@@ -90,6 +90,19 @@ return {
         vim.cmd(string.format('highlight %s ctermfg=%s ctermbg=%s gui=NONE cterm=NONE guisp=NONE', item[1], item[2], item[3]))
       end
 
+      -- File browser
+      require('mini.files').setup {
+        mappings = {
+          go_in = '<CR>',
+          go_out = '-',
+        },
+        windows = {
+          max_number = 1,
+          width_focus = 1000,
+        },
+      }
+      vim.keymap.set('n', '<leader>o', MiniFiles.open, { desc = '[O]pen file browser' })
+
       -- Fuzzy item picker, see also lspconfig
       require('mini.pick').setup {
         mappings = {
