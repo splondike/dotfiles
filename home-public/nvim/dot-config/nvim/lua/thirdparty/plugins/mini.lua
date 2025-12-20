@@ -86,6 +86,7 @@ return {
         { 'DiffChange', 'NONE', 'NONE' }, -- The unmodified part of the line
         { 'DiffDelete', 0, 103 },
         { 'MiniPickMatchCurrent', 0, 20 },
+        { 'MiniFilesCursorLine', 'NONE', 19 },
       }
       for _, item in pairs(overrides) do
         vim.cmd(string.format('highlight %s ctermfg=%s ctermbg=%s gui=NONE cterm=NONE guisp=NONE', item[1], item[2], item[3]))
@@ -102,7 +103,9 @@ return {
           width_focus = 1000,
         },
       }
-      vim.keymap.set('n', '<leader>o', MiniFiles.open, { desc = '[O]pen file browser' })
+      vim.keymap.set('n', '<leader>o', function()
+        MiniFiles.open(vim.api.nvim_buf_get_name(0))
+      end, { desc = '[O]pen file browser' })
 
       -- Fuzzy item picker, see also lspconfig
       require('mini.pick').setup {
