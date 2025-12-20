@@ -97,6 +97,9 @@ return {
           move_up = '<C-u>',
           move_down = '<C-e>',
         },
+        -- source = {
+        --   show = MiniPick.pick.default_show,
+        -- },
         window = {
           config = function()
             local height = math.min(math.floor(vim.o.lines), 30)
@@ -127,8 +130,8 @@ return {
       end
       local show_func = function(f)
         return function(buf_id, items_arr, query)
-          local lines = vim.tbl_map(f, items_arr)
-          vim.api.nvim_buf_set_lines(buf_id, 0, -1, false, lines)
+          local items = vim.tbl_map(f, items_arr)
+          MiniPick.default_show(buf_id, items, query)
         end
       end
 
@@ -173,7 +176,7 @@ return {
               local content = x:sub(string.find(x, '\000', string.find(x, '\000', path_end_idx + 1) + 1) + 1)
               local filepath = truncate_filepath(path, math.max(math.floor(0.5 * vim.o.columns), 50))
 
-              return filepath .. '  ' .. content
+              return filepath .. '\000' .. content
             end),
           },
         })
