@@ -85,6 +85,7 @@ return {
         { 'DiffText', 15, 19 }, -- Modified part of a line
         { 'DiffChange', 'NONE', 'NONE' }, -- The unmodified part of the line
         { 'DiffDelete', 0, 103 },
+        { 'MiniPickMatchCurrent', 0, 20 },
       }
       for _, item in pairs(overrides) do
         vim.cmd(string.format('highlight %s ctermfg=%s ctermbg=%s gui=NONE cterm=NONE guisp=NONE', item[1], item[2], item[3]))
