@@ -12,7 +12,6 @@
 require('lazy').setup {
   -- Generic plugins
   require 'thirdparty/plugins/mini',
-  require 'thirdparty/plugins/telescope',
   require 'thirdparty/plugins/lspconfig',
   require 'thirdparty/plugins/cmp',
   require 'thirdparty/plugins/conform',

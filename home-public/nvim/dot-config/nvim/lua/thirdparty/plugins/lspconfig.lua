@@ -36,31 +36,13 @@ return {
           -- Jump to the implementation of the word under your cursor.
           --  Useful when your language has ways of declaring types without an actual implementation.
           map('gd', function()
-            if vim.b.lsp_definitions then
-              vim.b.lsp_definitions()
-            else
-              require('telescope.builtin').lsp_definitions()
-            end
+            vim.b.lsp_definitions()
           end, '[G]oto [d]efinition')
 
           -- Find references for the word under your cursor.
           map('gr', function()
-            if vim.b.lsp_references then
-              vim.b.lsp_references()
-            else
-              require('telescope.builtin').lsp_references()
-            end
+            vim.b.lsp_references()
           end, '[G]oto [R]eferences')
-
-          -- Jump to the definition of the word under your cursor.
-          --  This is where a variable was first declared, or where a function is defined, etc.
-          --  To jump back, press <C-t>.
-          map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-
-          -- Jump to the type of the word under your cursor.
-          --  Useful when you're not sure what type a variable is and you want to see
-          --  the definition of its *type*, not where it was *defined*.
-          map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
 
           -- Rename the variable under your cursor.
           --  Most Language Servers support renaming across files, etc.

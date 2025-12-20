@@ -90,6 +90,111 @@ return {
         vim.cmd(string.format('highlight %s ctermfg=%s ctermbg=%s gui=NONE cterm=NONE guisp=NONE', item[1], item[2], item[3]))
       end
 
+      -- Fuzzy item picker, see also lspconfig
+      require('mini.pick').setup {
+        mappings = {
+          delete_left = '',
+          move_up = '<C-u>',
+          move_down = '<C-e>',
+        },
+        window = {
+          config = function()
+            local height = math.min(math.floor(vim.o.lines), 30)
+            local width = math.min(math.floor(vim.o.columns), 100)
+
+            return {
+              anchor = 'NW',
+              height = height,
+              width = width,
+              row = math.floor(0.5 * (vim.o.lines - height)),
+              col = math.floor(0.5 * (vim.o.columns - width)),
+            }
+          end,
+        },
+      }
+      local truncate_filepath = function(filepath, max_width)
+        local rtn = filepath
+        local last_slash_idx = vim.fn.strridx(rtn, '/')
+        if last_slash_idx > -1 then
+          -- strridx is 0 indexed
+          rtn = rtn:sub(last_slash_idx + 2)
+        end
+        if #rtn > max_width then
+          return rtn:sub(1, max_width - 1) .. '…'
+        else
+          return rtn
+        end
+      end
+      local show_func = function(f)
+        return function(buf_id, items_arr, query)
+          local lines = vim.tbl_map(f, items_arr)
+          vim.api.nvim_buf_set_lines(buf_id, 0, -1, false, lines)
+        end
+      end
+
+      vim.keymap.set('n', '<leader>th', MiniPick.builtin.help, { desc = '[S]earch [H]elp' })
+      vim.keymap.set('n', '<leader>tf', MiniPick.builtin.files, { desc = '[S]earch [F]iles' })
+      vim.keymap.set('n', '<leader>ttf', function()
+        MiniPick.builtin.files(nil, {
+          source = {
+            cwd = vim.fn.expand '%:p:h',
+          },
+        })
+      end, { desc = '[S]earch [F]iles in current buffer dir' })
+      vim.keymap.set('n', '<leader>tg', MiniPick.builtin.grep_live, { desc = '[S]earch by [G]rep' })
+      vim.keymap.set('n', '<leader>ttg', function()
+        MiniPick.builtin.grep_live(nil, {
+          source = {
+            cwd = vim.fn.expand '%:p:h',
+          },
+        })
+      end, { desc = '[S]earch by [G]rep in current buffer dir' })
+      vim.keymap.set('n', '<leader><leader>', MiniPick.builtin.buffers, { desc = '[ ] Find existing buffers' })
+      vim.keymap.set('n', '<leader>ts', MiniPick.builtin.resume, { desc = '[S]earch Re[s]ume' })
+      vim.keymap.set('n', '<leader>tnf', function()
+        MiniPick.builtin.files(nil, {
+          source = {
+            cwd = vim.g.TelescopeNotesDir,
+            name = 'Files notes',
+            show = show_func(function(x)
+              return truncate_filepath(x, vim.o.columns + 1)
+            end),
+          },
+        })
+      end, { desc = 'Search [n]otes [f]iles' })
+      vim.keymap.set('n', '<leader>tng', function()
+        MiniPick.builtin.grep_live(nil, {
+          source = {
+            cwd = vim.g.TelescopeNotesDir,
+            name = 'Grep notes',
+            show = show_func(function(x)
+              local path_end_idx, _ = string.find(x, '\000')
+              local path = x:sub(1, path_end_idx - 1)
+              local content = x:sub(string.find(x, '\000', string.find(x, '\000', path_end_idx + 1) + 1) + 1)
+              local filepath = truncate_filepath(path, math.max(math.floor(0.5 * vim.o.columns), 50))
+
+              return filepath .. '  ' .. content
+            end),
+          },
+        })
+      end, { desc = 'Search [n]otes [g]rep' })
+      vim.keymap.set('n', '<leader>trf', function()
+        MiniPick.builtin.files(nil, {
+          source = {
+            cwd = vim.g.TelescopeReposRootDir,
+            name = 'Files repos',
+          },
+        })
+      end, { desc = 'Search [r]epos [f]iles' })
+      vim.keymap.set('n', '<leader>trg', function()
+        MiniPick.builtin.grep_live(nil, {
+          source = {
+            cwd = vim.g.TelescopeReposRootDir,
+            name = 'Grep repos',
+          },
+        })
+      end, { desc = 'Search [r]epos [g]rep' })
+
       -- Better Around/Inside textobjects
       require('mini.ai').setup {
         n_lines = 500,
