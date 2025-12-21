@@ -36,12 +36,12 @@ return {
           -- Jump to the implementation of the word under your cursor.
           --  Useful when your language has ways of declaring types without an actual implementation.
           map('gd', function()
-            vim.b.lsp_definitions()
+            vim.lsp.buf.definition()
           end, '[G]oto [d]efinition')
 
           -- Find references for the word under your cursor.
           map('gr', function()
-            vim.b.lsp_references()
+            vim.lsp.buf.references()
           end, '[G]oto [R]eferences')
 
           -- Rename the variable under your cursor.
