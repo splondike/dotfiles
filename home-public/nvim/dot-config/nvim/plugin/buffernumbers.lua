@@ -22,6 +22,7 @@ end
 
 local function set_buffer(num)
   bookmarks[num] = vim.fn.bufnr()
+  vim.g.buffernumbers_bookmarks = bookmarks
 end
 
 vim.keymap.set('n', '<C-t>h', swap_buffer_to_pre_jump)
