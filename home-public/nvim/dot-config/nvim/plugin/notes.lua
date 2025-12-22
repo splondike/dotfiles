@@ -70,10 +70,19 @@ function completions(arglead, cmdline, cursorpos)
   for _, note_type in ipairs(data.note_types) do
     table.insert(rtn, note_type.name)
   end
+  if #arglead > 0 then
+    table.sort(rtn, function(a, b)
+      if a:sub(1, #arglead) == arglead then
+        return true
+      else
+        return nil
+      end
+    end)
+  end
   return rtn
 end
 
-vim.api.nvim_create_user_command('NoteCreate', function(opts)
+vim.api.nvim_create_user_command('Nn', function(opts)
   if #opts.fargs < 2 then
     return
   end
