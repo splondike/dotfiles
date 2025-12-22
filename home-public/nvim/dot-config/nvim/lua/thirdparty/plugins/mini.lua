@@ -174,7 +174,7 @@ return {
       vim.keymap.set('n', '<leader>tnf', function()
         MiniPick.builtin.files(nil, {
           source = {
-            cwd = vim.g.TelescopeNotesDir,
+            cwd = vim.g.NotesPickerDir,
             name = 'Files notes',
             show = show_func(function(x)
               return truncate_filepath(x, vim.o.columns + 1)
@@ -185,7 +185,7 @@ return {
       vim.keymap.set('n', '<leader>tng', function()
         MiniPick.builtin.grep_live(nil, {
           source = {
-            cwd = vim.g.TelescopeNotesDir,
+            cwd = vim.g.NotesPickerDir,
             name = 'Grep notes',
             show = show_func(function(x)
               local path_end_idx, _ = string.find(x, '\000')
