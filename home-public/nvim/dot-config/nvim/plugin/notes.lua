@@ -34,15 +34,29 @@ function build_file_content(note_type, args, current_filepath)
   return rtn
 end
 
-function load_config()
-  local config = os.getenv 'HOME' .. '/.config/makenote-config.json'
-  local fh = io.open(config, 'r')
-  if not fh then
-    return
+function tbl_concat(t1, t2)
+  for i = 1, #t2 do
+    t1[#t1 + 1] = t2[i]
   end
-  local data = vim.fn.json_decode(vim.trim(fh:read 'a'))
-  fh:close()
-  return data
+  return t1
+end
+
+function load_config()
+  local config_files = { vim.g.NotesConfig }
+  local rtn = { note_types = {} }
+  while #config_files > 0 do
+    local config_file = config_files[1]
+    table.remove(config_files, 1)
+    local fh = io.open(config_file, 'r')
+    if not fh then
+      return
+    end
+    local data = vim.fn.json_decode(vim.trim(fh:read 'a'))
+    rtn['note_types'] = tbl_concat(rtn['note_types'], data['note_types'])
+    config_files = tbl_concat(config_files, data['includes'])
+    fh:close()
+  end
+  return rtn
 end
 
 function completions(arglead, cmdline, cursorpos)
