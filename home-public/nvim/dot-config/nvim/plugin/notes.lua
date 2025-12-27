@@ -1,35 +1,40 @@
 vim = vim
 
 local function build_filename(note_type, args)
+  local filename_template = note_type.filename_template or '%y%m%d%H%M-%short_type%-%title%.md'
   local short_type = note_type.name:sub(1, 3)
-  local timestr = (os.date '%Y%m%d%H%M'):sub(3)
   local title_table = {}
   for i = 1, #args do
     title_table[i] = string.lower(args[i]):gsub('[^a-zA-Z0-9]', '')
   end
-  return timestr .. '-' .. short_type .. '-' .. table.concat(title_table, '-') .. '.md'
+  local title = table.concat(title_table, '-')
+  local pre_date = filename_template:gsub('%%title%%', title):gsub('%%short_type%%', short_type):gsub('%%y', os.date('%Y'):sub(3))
+  return os.date(pre_date)
 end
 
 local function build_file_content(note_type, args, current_filepath)
-  local fields = vim.split(note_type.fields, ':', true)
-  local rtn = { '---' }
-  local now_date = os.date '%Y-%m-%d'
-  local filepath_bits = vim.split(current_filepath, '/')
-  local current_filename = filepath_bits[#filepath_bits]
-  local specials = {
-    title = table.concat(args, ' '),
-    date = now_date,
-    start_date = now_date,
-    thread = current_filename,
-  }
-  for _, field in ipairs(fields) do
-    local field_value = ''
-    if specials[field] ~= nil then
-      field_value = ' ' .. specials[field]
+  local rtn = {}
+  if note_type.fields then
+    local fields = vim.split(note_type.fields, ':', true)
+    local now_date = os.date '%Y-%m-%d'
+    local filepath_bits = vim.split(current_filepath, '/')
+    local current_filename = filepath_bits[#filepath_bits]
+    local specials = {
+      title = table.concat(args, ' '),
+      date = now_date,
+      start_date = now_date,
+      thread = current_filename,
+    }
+    table.insert(rtn, '---')
+    for _, field in ipairs(fields) do
+      local field_value = ''
+      if specials[field] ~= nil then
+        field_value = ' ' .. specials[field]
+      end
+      table.insert(rtn, field .. ':' .. field_value)
     end
-    table.insert(rtn, field .. ':' .. field_value)
+    table.insert(rtn, '---')
   end
-  table.insert(rtn, '---')
   if note_type.body then
     rtn = vim.list_extend(rtn, vim.split(note_type.body, '\n', true))
   end
