@@ -86,6 +86,7 @@ return {
         { 'DiffChange', 'NONE', 'NONE' }, -- The unmodified part of the line
         { 'DiffDelete', 0, 103 },
         { 'MiniPickMatchCurrent', 0, 20 },
+        { 'MiniPickPreviewLine', 'NONE', 19 },
         { 'MiniFilesCursorLine', 'NONE', 19 },
       }
       for _, item in pairs(overrides) do
