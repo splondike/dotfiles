@@ -2,6 +2,7 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
     set -x EDITOR 'nvim'
     set -x GIT_EDITOR 'nvim'
+    set -x RIPGREP_CONFIG_PATH "$HOME/.config/ripgreprc"
     set GOPATH "$HOME/.cache/go"
     set -U fish_greeting
     bind ctrl-o edit_command_buffer
