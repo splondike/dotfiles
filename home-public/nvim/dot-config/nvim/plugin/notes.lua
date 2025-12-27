@@ -208,7 +208,7 @@ local function calculate_anchor_depth(s)
   return depth
 end
 
-local lsp_helper = require 'plugin._lsp_helper'
+local lsp_helper = require 'lsp_helper'
 lsp_helper.register_in_process_lsp('notes', {
   filetypes = { 'markdown' },
   root_dir = function(_, on_dir)
