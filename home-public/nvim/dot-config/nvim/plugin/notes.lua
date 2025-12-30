@@ -48,19 +48,33 @@ local function tbl_concat(t1, t2)
   return t1
 end
 
-local function find_markdown_links(text)
+local function find_links(text)
   local results = {}
-  local pattern = '%[(.-)%]%s*(%b())'
-  local search_start = 1
+  local covered_ranges = {}
 
+  local md_pattern = '%[(.-)%]%((.-)%)'
+
+  local trace_pattern = '%d%d%d%d%d%d%d%d%d%d%-[a-z][a-z][a-z]%-[%w%-%.]*'
+
+  local function is_covered(s, e)
+    for _, range in ipairs(covered_ranges) do
+      if not (e < range.s or s > range.e) then
+        return true
+      end
+    end
+    return false
+  end
+
+  local function mark_covered(s, e)
+    table.insert(covered_ranges, { s = s, e = e })
+  end
+
+  local search_start = 1
   while true do
-    local s, e, label, href = text:find(pattern, search_start)
+    local s, e, label, href = text:find(md_pattern, search_start)
     if not s then
       break
     end
-
-    -- Remove parentheses from href
-    href = href:sub(2, -2)
 
     table.insert(results, {
       start_idx = s,
@@ -69,10 +83,32 @@ local function find_markdown_links(text)
       href = href,
     })
 
+    mark_covered(s, e)
     search_start = e + 1
   end
 
-  local bare_ref_pattern = '%[(.-)%](%b())'
+  search_start = 1
+  while true do
+    local s, e = text:find(trace_pattern, search_start)
+    if not s then
+      break
+    end
+
+    if not is_covered(s, e) then
+      table.insert(results, {
+        start_idx = s,
+        end_idx = e,
+        label = nil,
+        href = text:sub(s, e),
+      })
+    end
+
+    search_start = e + 1
+  end
+
+  table.sort(results, function(a, b)
+    return a.start_idx < b.start_idx
+  end)
 
   return results
 end
