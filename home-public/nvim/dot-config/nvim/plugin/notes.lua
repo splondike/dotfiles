@@ -72,6 +72,8 @@ local function find_markdown_links(text)
     search_start = e + 1
   end
 
+  local bare_ref_pattern = '%[(.-)%](%b())'
+
   return results
 end
 
@@ -166,7 +168,7 @@ local function cmd_completions(arglead, _, _)
 end
 
 vim.api.nvim_create_user_command('Nn', function(opts)
-  if #opts.fargs < 2 then
+  if #opts.fargs < 1 then
     return
   end
 
@@ -174,10 +176,13 @@ vim.api.nvim_create_user_command('Nn', function(opts)
 
   for _, note_type in ipairs(data.note_types) do
     if note_type.name:sub(1, #opts.fargs[1]) == opts.fargs[1] then
-      local rest = vim.list_slice(opts.fargs, 2)
-      local filename = note_type.location .. '/' .. build_filename(note_type, rest)
+      local title = vim.list_slice(opts.fargs, 2)
+      if #title == 0 then
+        title = { 'untitled' }
+      end
+      local filename = note_type.location .. '/' .. build_filename(note_type, title)
       local current_filepath = vim.api.nvim_buf_get_name(vim.fn.bufnr())
-      local filecontent = build_file_content(note_type, rest, current_filepath)
+      local filecontent = build_file_content(note_type, title, current_filepath)
       vim.cmd.e(filename)
       vim.api.nvim_buf_set_lines(vim.fn.bufnr(), 0, -1, false, filecontent)
       break
@@ -228,7 +233,7 @@ lsp_helper.register_in_process_lsp('notes', {
       local line = vim.fn.getline '.'
       local curpos = vim.fn.getcurpos()
       local maybe_hovered_link = nil
-      for _, match in ipairs(find_markdown_links(line)) do
+      for _, match in ipairs(find_links(line)) do
         if (match.start_idx <= curpos[3]) and (curpos[3] <= match.end_idx) then
           maybe_hovered_link = match
           break
