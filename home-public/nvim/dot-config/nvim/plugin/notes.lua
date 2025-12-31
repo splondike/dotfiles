@@ -123,6 +123,36 @@ local function parse_note_filename(filename)
   }
 end
 
+local function extract_tags(file_content)
+  if not file_content then
+    return {}
+  end
+
+  -- Match tags field in frontmatter (between --- delimiters)
+  local frontmatter = file_content:match '^%-%-%-\n(.-)%-%-%-'
+  if not frontmatter then
+    return {}
+  end
+
+  local s, e = frontmatter:find 'tags:'
+  if not s or (s ~= 1 and frontmatter:sub(s - 1, s - 1) ~= '\n') then
+    return {}
+  end
+  s = e + 1
+  e = frontmatter:find('\n', s)
+  local body = frontmatter:sub(s, e)
+
+  local tags = {}
+  for tag in body:gmatch '[^%s,]+' do
+    tag = tag:gsub('^#', '')
+    if tag ~= '' then
+      table.insert(tags, tag)
+    end
+  end
+
+  return tags
+end
+
 local function load_config()
   local config_files = { vim.g.NotesConfig }
   local rtn = { note_types = {} }
@@ -187,7 +217,7 @@ local function cmd_completions(arglead, _, _)
   end
 
   local data = load_config()
-  local rtn = {}
+  local rtn = { 'tags' }
   for _, note_type in ipairs(data.note_types) do
     table.insert(rtn, note_type.name)
   end
@@ -203,16 +233,10 @@ local function cmd_completions(arglead, _, _)
   return rtn
 end
 
-vim.api.nvim_create_user_command('Nn', function(opts)
-  if #opts.fargs < 1 then
-    return
-  end
-
-  local data = load_config()
-
-  for _, note_type in ipairs(data.note_types) do
-    if note_type.name:sub(1, #opts.fargs[1]) == opts.fargs[1] then
-      local title = vim.list_slice(opts.fargs, 2)
+local function create_note(config, args)
+  for _, note_type in ipairs(config.note_types) do
+    if note_type.name:sub(1, #args[1]) == args[1] then
+      local title = vim.list_slice(args, 2)
       if #title == 0 then
         title = { 'untitled' }
       end
@@ -223,6 +247,70 @@ vim.api.nvim_create_user_command('Nn', function(opts)
       vim.api.nvim_buf_set_lines(vim.fn.bufnr(), 0, -1, false, filecontent)
       break
     end
+  end
+end
+
+local function create_tags_page(config, args)
+  local files_by_tag = { untagged = {} }
+  for _, file in pairs(list_note_files(config, { 'zet' })) do
+    local fh = io.open(file.filepath, 'r')
+    if fh then
+      local tags = extract_tags(fh:read 'a')
+      if #tags > 0 then
+        for _, tag in pairs(tags) do
+          if files_by_tag[tag] == nil then
+            files_by_tag[tag] = {}
+          end
+          table.insert(files_by_tag[tag], file.filename)
+        end
+      else
+        table.insert(files_by_tag['untagged'], file.filename)
+      end
+    end
+    fh:close()
+  end
+
+  local tags = {}
+  for tag, _ in pairs(files_by_tag) do
+    table.insert(tags, tag)
+  end
+  table.sort(tags, function(a, b)
+    if #files_by_tag[a] > #files_by_tag[b] then
+      return true
+    else
+      return false
+    end
+  end)
+
+  local content = {}
+  for idx, tag in pairs(tags) do
+    if idx ~= 1 then
+      table.insert(content, '')
+    end
+    table.insert(content, '# ' .. tag .. ' (' .. #files_by_tag[tag] .. ')')
+    for _, filename in pairs(files_by_tag[tag]) do
+      table.insert(content, filename)
+    end
+  end
+
+  vim.cmd 'enew'
+  vim.b.notes_lsp_enable = true
+  vim.bo.filetype = 'markdown'
+  vim.api.nvim_buf_set_text(vim.fn.bufnr(), 0, 0, 0, 0, content)
+  vim.o.modified = false
+end
+
+vim.api.nvim_create_user_command('Nn', function(opts)
+  if #opts.fargs < 1 then
+    return
+  end
+
+  local data = load_config()
+
+  if opts.fargs[1] == 'tags' then
+    create_tags_page(data, opts.fargs)
+  else
+    create_note(data, opts.fargs)
   end
 end, { nargs = '+', complete = cmd_completions })
 
@@ -253,8 +341,12 @@ local lsp_helper = require 'lsp_helper'
 lsp_helper.register_in_process_lsp('notes', {
   filetypes = { 'markdown' },
   root_dir = function(_, on_dir)
-    -- Only enable the LSP if we're in a notes directory, and otherwise
-    -- share a single instance
+    -- Only enable the LSP if we're in a notes directory or have an option
+    -- set to enable it. And share a single instance.
+    if vim.b.notes_lsp_enable then
+      on_dir(vim.fs.dirname(vim.g.NotesConfig))
+    end
+
     local config = load_config()
     local current_filepath = vim.api.nvim_buf_get_name(vim.fn.bufnr())
     for _, note_type in pairs(config.note_types) do
