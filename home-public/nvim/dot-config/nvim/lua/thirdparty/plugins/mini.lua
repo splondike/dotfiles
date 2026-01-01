@@ -96,7 +96,7 @@ return {
       -- File browser
       require('mini.files').setup {
         mappings = {
-          go_in = '<CR>',
+          go_in_plus = '<CR>',
           go_out = '-',
         },
         windows = {
@@ -115,9 +115,6 @@ return {
           move_up = '<C-u>',
           move_down = '<C-e>',
         },
-        -- source = {
-        --   show = MiniPick.pick.default_show,
-        -- },
         window = {
           config = function()
             local height = math.min(math.floor(vim.o.lines), 30)
