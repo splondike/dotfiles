@@ -19,6 +19,7 @@ if status is-interactive
     alias dc='docker-compose'
     alias kssh='kitty +kitten ssh'
     alias pvim='poetry run nvim'
+    alias n='nvim'
     set uname $(uname)
     switch $uname
         case Darwin
