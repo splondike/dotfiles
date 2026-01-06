@@ -20,6 +20,7 @@ if status is-interactive
     alias kssh='kitty +kitten ssh'
     alias pvim='poetry run nvim'
     alias n='nvim'
+    abbr --add gcb -f git_checkout_abbr --set-cursor
     set uname $(uname)
     switch $uname
         case Darwin
