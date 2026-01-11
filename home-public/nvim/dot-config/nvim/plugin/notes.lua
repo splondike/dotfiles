@@ -115,6 +115,13 @@ end
 
 local function parse_note_filename(filename)
   local id_end = string.find(filename, '-')
+  if id_end == nil then
+    return {
+      id = nil,
+      note_type = nil,
+      name = nil,
+    }
+  end
   local type_end = string.find(filename, '-', id_end + 1)
   return {
     id = filename:sub(1, id_end - 1),
@@ -155,10 +162,11 @@ end
 
 local function load_config()
   local config_files = { vim.g.NotesConfig }
-  local rtn = { note_types = {} }
+  local rtn = { note_types = {}, basedirs = {} }
   while #config_files > 0 do
     local config_file = config_files[1]
     local basedir = vim.fs.dirname(config_file)
+    table.insert(rtn.basedirs, basedir)
     table.remove(config_files, 1)
     local fh = io.open(config_file, 'r')
     if not fh then
@@ -341,18 +349,29 @@ local lsp_helper = require 'lsp_helper'
 lsp_helper.register_in_process_lsp('notes', {
   filetypes = { 'markdown' },
   root_dir = function(_, on_dir)
-    -- Only enable the LSP if we're in a notes directory or have an option
+    -- Only enable the LSP if we're in a notes directory, the same directory as a config file, or have an option
     -- set to enable it. And share a single instance.
     if vim.b.notes_lsp_enable then
       on_dir(vim.fs.dirname(vim.g.NotesConfig))
+      return
     end
 
     local config = load_config()
     local current_filepath = vim.api.nvim_buf_get_name(vim.fn.bufnr())
+    local dirname = vim.fs.dirname(current_filepath)
+
+    for _, basedir in pairs(config.basedirs) do
+      if dirname == basedir then
+        on_dir(vim.fs.dirname(vim.g.NotesConfig))
+        return
+      end
+    end
+
     for _, note_type in pairs(config.note_types) do
       local loc = note_type.location
       if current_filepath:sub(1, #loc) == loc then
         on_dir(vim.fs.dirname(vim.g.NotesConfig))
+        return
       end
     end
   end,
@@ -372,12 +391,19 @@ lsp_helper.register_in_process_lsp('notes', {
       end
 
       local config = load_config()
-      local link_data = parse_note_filename(maybe_hovered_link.href)
+      -- first just try opening a file if it exists
+      local fh = io.open(maybe_hovered_link.href, 'r')
       local maybe_filepath = nil
-      for _, file in pairs(list_note_files(config, { link_data.note_type })) do
-        local filename_data = parse_note_filename(file.filename)
-        if link_data.id == filename_data.id then
-          maybe_filepath = file.filepath
+      if fh then
+        fh:close()
+        maybe_filepath = vim.fs.abspath(maybe_hovered_link.href)
+      else
+        local link_data = parse_note_filename(maybe_hovered_link.href)
+        for _, file in pairs(list_note_files(config, { link_data.note_type })) do
+          local filename_data = parse_note_filename(file.filename)
+          if link_data.id == filename_data.id then
+            maybe_filepath = file.filepath
+          end
         end
       end
 
