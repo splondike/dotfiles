@@ -9,11 +9,11 @@ local function send_text(bufnr, pos1, pos2, linewise)
 
   local function getposition(pos, atstart)
     if pos == '.' then
-      local _, line, col, _ = table.unpack(vim.fn.getpos '.')
-      return { line, col }
+      local bits = vim.fn.getpos '.'
+      return { bits[2], bits[3] }
     elseif pos == 'v' then
-      local _, line, col, _ = table.unpack(vim.fn.getpos 'v')
-      return { line, col }
+      local bits = vim.fn.getpos 'v'
+      return { bits[2], bits[3] }
     elseif pos == '$' then
       return { vim.api.nvim_buf_line_count(bufnr), vim.v.maxcol }
     elseif string.sub(pos, 1, 1) == "'" then
@@ -28,8 +28,12 @@ local function send_text(bufnr, pos1, pos2, linewise)
   end
 
   local lines = {}
-  local line1, col1 = table.unpack(getposition(pos1, true))
-  local line2, col2 = table.unpack(getposition(pos2, false))
+  local pos1_bits = getposition(pos1, true)
+  local line1 = pos1_bits[1]
+  local col1 = pos1_bits[2]
+  local pos2_bits = getposition(pos2, false)
+  local line2 = pos2_bits[1]
+  local col2 = pos2_bits[2]
   if line1 > line2 then
     local templine = line1
     local tempcol = col1
@@ -51,8 +55,8 @@ local function cmd_send_hovered_text()
     else
       send_text(vim.fn.bufnr(), '.', '.', true)
     end
-    send_text(vim.fn.bufnr(), '.', 'v', true)
   elseif mode == 'V' then
+    send_text(vim.fn.bufnr(), '.', 'v', true)
   end
 end
 
