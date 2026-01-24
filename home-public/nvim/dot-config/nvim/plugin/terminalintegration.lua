@@ -1,49 +1,11 @@
+local utils = require 'utils'
+
 local function send_text(bufnr, pos1, pos2, linewise)
   if vim.g.SendToTerminalCommand == nil then
     return
   end
 
-  if pos1 == '.' or pos2 == '.' then
-    bufnr = vim.fn.bufnr()
-  end
-
-  local function getposition(pos, atstart)
-    if pos == '.' then
-      local bits = vim.fn.getpos '.'
-      return { bits[2], bits[3] }
-    elseif pos == 'v' then
-      local bits = vim.fn.getpos 'v'
-      return { bits[2], bits[3] }
-    elseif pos == '$' then
-      return { vim.api.nvim_buf_line_count(bufnr), vim.v.maxcol }
-    elseif string.sub(pos, 1, 1) == "'" then
-      return vim.api.nvim_buf_get_mark(bufnr, string.sub(pos, 2, 2))
-    else
-      local col = vim.v.maxcol
-      if atstart then
-        col = 0
-      end
-      return { tonumber(pos), col }
-    end
-  end
-
-  local lines = {}
-  local pos1_bits = getposition(pos1, true)
-  local line1 = pos1_bits[1]
-  local col1 = pos1_bits[2]
-  local pos2_bits = getposition(pos2, false)
-  local line2 = pos2_bits[1]
-  local col2 = pos2_bits[2]
-  if line1 > line2 then
-    local templine = line1
-    local tempcol = col1
-    line1 = line2
-    col1 = col2
-    line2 = templine
-    col2 = tempcol
-  end
-
-  lines = vim.api.nvim_buf_get_lines(bufnr, line1 - 1, line2, false)
+  local lines = utils.get_lines(pos1, pos2, bufnr).lines
   vim.system(vim.g.SendToTerminalCommand, { stdin = lines })
 end
 

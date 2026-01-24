@@ -9,6 +9,7 @@ end
 function refresh_file()
   if vim.g.buffernumbers_bookmarks then
     local filename = vim.api.nvim_buf_get_name(vim.g.buffernumbers_bookmarks[1])
+    vim.cmd 'messages clear'
     vim.cmd('source ' .. filename)
   end
 end
