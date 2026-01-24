@@ -9,6 +9,7 @@ function fish_prompt
     end
 
     set_color $color
+    echo -n "$FISH_PROMPT_PREFIX"
     echo -n "$(date +%H:%M:%S) "
     if test $CMD_DURATION -gt 1000
         echo -n $CMD_DURATION"ms "
