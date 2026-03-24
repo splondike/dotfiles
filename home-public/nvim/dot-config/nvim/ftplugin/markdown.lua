@@ -11,7 +11,7 @@ end
 
 local function wrap_link()
   local old_reg = vim.fn.getreg 'z'
-  vim.cmd 'normal "zr'
+  vim.cmd 'normal "zd'
   local highlighted_text = vim.fn.getreg 'z'
   vim.api.nvim_put({ '[' }, 'c', false, true)
   vim.api.nvim_put({ highlighted_text }, 'c', false, true)
