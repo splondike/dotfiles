@@ -114,6 +114,9 @@ return {
           delete_left = '',
           move_up = '<C-u>',
           move_down = '<C-e>',
+          scroll_up = '',
+          scroll_down = '',
+          refine = '<C-f>',
         },
         window = {
           config = function()
