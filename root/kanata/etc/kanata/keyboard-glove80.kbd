@@ -64,17 +64,6 @@
        lsft _    _                        _    @mac mlft
 )
 
-(deflayer macro
-  _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    @xrt @xrs @xrp _    _    @xpp @xps @xpt _    _
-  _    _    _    _    _    _    _    _    _    _    _    _
-       _    _    _    _              _    _    _    _    _
-
-       _    _    _                        _    _    _
-       _    _    _                        _    @xst -
-)
-
 (deflayer all-caps
   _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _
