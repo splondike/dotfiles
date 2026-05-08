@@ -29,6 +29,7 @@ require('cmp').setup.filetype('markdown', {
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    { name = 'buffer' },
   },
 })
 
