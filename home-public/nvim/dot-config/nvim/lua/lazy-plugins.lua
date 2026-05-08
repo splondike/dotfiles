@@ -23,7 +23,6 @@ require('lazy').setup {
   require 'thirdparty/plugins/csvview',
   'splondike/nvim-tui',
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
-  'Hoffs/omnisharp-extended-lsp.nvim',
   -- require 'thirdparty.plugins.debug',
 
   -- Language plugins
