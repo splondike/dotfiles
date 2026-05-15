@@ -15,8 +15,15 @@ bindings = [
     ("E", "go-down-big"),
     ("Ctrl+E", "go-down-big"),
     ("Ctrl+U", "go-up-big"),
+    ("s", "edit-cell"),
+    ("Ctrl+s", "save-sheet"),
+    ("z", "undo-last"),
+    ("Z", "redo-last"),
+    ("Ctrl+i", "search-next"),
+    ("Ctrl+m", "menu-file"),
 ]
+nounbind = ["E", "Ctrl+U", "Ctrl+s", "z", "Ctrl+i", "Ctrl+m"]
 for binding, action in bindings:
-    if binding in bindings:
-        TableSheet.unbindkey(binding)
+    if binding not in nounbind:
+        Sheet.unbindkey(binding)
     Sheet.bindkey(binding, action)
