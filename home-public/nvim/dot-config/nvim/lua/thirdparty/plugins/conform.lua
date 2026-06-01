@@ -47,11 +47,19 @@ return {
           end
         end
       end,
+      formatters = {
+        nix_fmt = {
+          inherit = false,
+          command = 'nix',
+          args = { 'fmt', '$FILENAME' },
+        },
+      },
       formatters_by_ft = {
         lua = { 'stylua' },
         python = { 'black' },
         go = { 'goimports', 'gofmt' },
         terraform = { 'terraform_fmt' },
+        nix = { 'nix_fmt' },
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
