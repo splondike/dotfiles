@@ -16,7 +16,6 @@ require('lazy').setup {
   require 'thirdparty/plugins/cmp',
   require 'thirdparty/plugins/conform',
   require 'thirdparty/plugins/flash',
-  require 'thirdparty/plugins/nvim-treesitter-context',
   require 'thirdparty/plugins/vimagit',
   require 'thirdparty/plugins/diffview',
   require 'thirdparty/plugins/csvview',
