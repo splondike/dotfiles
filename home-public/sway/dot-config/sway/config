@@ -234,6 +234,10 @@ bindcode 197 exec $HOME/bin/mine/macro.sh 0
 exec gammastep -l -37.7958:144.9234 -t 6500:3000 -b 1.0:0.8
 exec_always ssh-agent -a /var/run/user/1000/ssh-agent.sock
 
+bar {
+    swaybar_command waybar
+}
+
 # Include configs from 3 locations:
 #  - /usr/share/sway/config.d
 #  - /etc/sway/config.d
