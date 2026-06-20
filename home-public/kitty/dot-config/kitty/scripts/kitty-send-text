@@ -1,0 +1,12 @@
+#!/bin/sh
+
+TARGET_PATH=$HOME/.cache/kitty-target-window-$1
+
+if [ ! -e "$TARGET_PATH" ];then
+    exit 0
+fi
+
+sock=$(head -n 1 "$TARGET_PATH")
+window_id=$(tail -n 1 "$TARGET_PATH")
+
+kitty @ --to "$sock" send-text --match "id:$window_id" --stdin

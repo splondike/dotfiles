@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo "$KITTY_LISTEN_ON" > $HOME/.cache/kitty-target-window-$2
+echo "$1" >> $HOME/.cache/kitty-target-window-$2

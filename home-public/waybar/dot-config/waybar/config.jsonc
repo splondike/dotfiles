@@ -10,7 +10,7 @@
          "format": "{:%Y-%m-%d %H:%M}"
     },
     "custom/backup": {
-        "exec": "backup-status.sh",
+        "exec": "sh -c 'echo \"l: $(cat /var/log/backup_local_status) r: $(cat /var/log/backup_remote_status)\"'",
         "interval": 60
     }
 }

@@ -1,0 +1,56 @@
+#!/bin/sh
+
+SYNC_FILE="$HOME/sync/all/clip.txt"
+if [ $# -lt 1 ];then
+    echo "Usage: clip <set|get>" >&2
+    exit 1
+fi
+
+get_clip() {
+    if command -v wl-paste > /dev/null;then
+        wl-paste
+    elif command -v termux-clipboard-get > /dev/null;then
+        termux-clipboard-get
+    elif command -v pbpaste > /dev/null;then
+        pbpaste
+    else
+        echo "Couldn't find get_clip command" >&2
+    fi
+}
+
+set_clip() {
+    if command -v wl-copy > /dev/null;then
+        wl-copy
+    elif command -v termux-clipboard-set > /dev/null;then
+        termux-clipboard-set
+    elif command -v pbcopy > /dev/null;then
+        pbcopy
+    else
+        echo "Couldn't find set_clip command" >&2
+    fi
+}
+
+notify() {
+    if command -v termux-toast > /dev/null;then
+        termux-toast -s "Copied to clipboard"
+    else
+        echo "Copied to clipboard"
+    fi
+}
+
+if [ $1 = "set" ];then
+    get_clip > $SYNC_FILE
+elif [ $1 = "get" ];then
+    if [ -e "$SYNC_FILE" ];then
+        rm "$SYNC_FILE"
+    fi
+    while true;do
+        if [ -e "$SYNC_FILE" ];then
+            cat "$SYNC_FILE" | set_clip
+            rm "$SYNC_FILE"
+            notify
+            exit 0
+        fi
+        sleep 3
+    done
+fi

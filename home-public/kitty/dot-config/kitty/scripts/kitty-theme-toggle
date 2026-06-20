@@ -1,0 +1,14 @@
+#!/bin/bash
+
+theme_target=$HOME/.config/kitty/current-theme.conf
+theme_target_absolute=$(readlink -f $theme_target)
+theme_dark=$(readlink -f $HOME/.config/kitty/theme-solarized-dark.conf)
+theme_light=$(readlink -f $HOME/.config/kitty/theme-solarized-light.conf)
+
+if [ "$theme_target_absolute" = "$theme_dark" ];then
+    ln -sf "$theme_light" "$theme_target"
+else
+    ln -sf "$theme_dark" "$theme_target"
+fi
+
+kitty @ load-config

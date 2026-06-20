@@ -11,7 +11,6 @@ if status is-interactive
     bind ctrl-p 'cd (fd -t d | fzf);commandline -f repaint'
     bind 'escape,.' history-token-search-backward
     fish_add_path -a ~/bin
-    fish_add_path -a ~/bin/mine
     fish_add_path -a ~/go/bin/
     fish_add_path -a ~/.local/bin
     alias vim='nvim'
@@ -19,6 +18,7 @@ if status is-interactive
     alias dc='docker-compose'
     alias kssh='kitty +kitten ssh'
     alias pvim='poetry run nvim'
+    alias kitty-theme-toggle='~/.config/kitty/scripts/kitty-theme-toggle'
     abbr --add gcb -f git_checkout_abbr --set-cursor
     set uname $(uname)
     switch $uname
