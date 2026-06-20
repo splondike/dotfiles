@@ -11,6 +11,8 @@ if status is-interactive
     bind ctrl-p 'cd (fd -t d | fzf);commandline -f repaint'
     bind 'escape,.' history-token-search-backward
     fish_add_path -a ~/bin
+    fish_add_path -a ~/bin/private/
+    fish_add_path -a ~/bin/shared/
     fish_add_path -a ~/go/bin/
     fish_add_path -a ~/.local/bin
     alias vim='nvim'
