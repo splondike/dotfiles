@@ -85,6 +85,7 @@ vim.g.loaded_python3_provider = false
 -- Just update the edited file in place to avoid breaking file watchers
 vim.g.backupcopy = 'yes'
 
+-- Show the path to the RPC socket in the title for Talon
 vim.go.title = true
 vim.go.titlelen = 500
 -- Allow truncation of lock socket paths via RPCPrefixStrip
