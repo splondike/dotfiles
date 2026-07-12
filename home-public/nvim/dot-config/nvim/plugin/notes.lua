@@ -135,29 +135,12 @@ local function extract_tags(file_content)
     return {}
   end
 
-  -- Match tags field in frontmatter (between --- delimiters)
-  local frontmatter = file_content:match '^%-%-%-\n(.-)%-%-%-'
-  if not frontmatter then
-    return {}
+  local t = {}
+  for m in file_content:gmatch ' #[A-Za-z0-9_-]+' do
+    table.insert(t, m:sub(2))
   end
 
-  local s, e = frontmatter:find 'tags:'
-  if not s or (s ~= 1 and frontmatter:sub(s - 1, s - 1) ~= '\n') then
-    return {}
-  end
-  s = e + 1
-  e = frontmatter:find('\n', s)
-  local body = frontmatter:sub(s, e)
-
-  local tags = {}
-  for tag in body:gmatch '[^%s,]+' do
-    tag = tag:gsub('^#', '')
-    if tag ~= '' then
-      table.insert(tags, tag)
-    end
-  end
-
-  return tags
+  return t
 end
 
 local function load_config()
@@ -216,6 +199,21 @@ local function list_note_files(config, included_prefixes)
     end
   end
   return rtn
+end
+
+local function list_tags(config)
+  local rtn = {}
+  local files = list_note_files(config, nil)
+  for _, file in pairs(files) do
+    local fh = io.open(file.filepath, 'r')
+    if not fh then
+      return rtn
+    end
+    local content = fh:read 'a'
+    fh:close()
+    vim.list_extend(rtn, extract_tags(content))
+  end
+  return vim.list.unique(rtn)
 end
 
 local function cmd_completions(arglead, _, _)
@@ -324,6 +322,7 @@ end, { nargs = '+', complete = cmd_completions })
 
 --- LSP
 
+-- Determine if we're within a markdown anchor
 local function calculate_anchor_depth(s)
   local depth = 0
   local idx = 1
@@ -343,6 +342,32 @@ local function calculate_anchor_depth(s)
     end
   end
   return depth
+end
+
+-- Find out if the cursor is positioned in a tag and calculate the prefix
+-- we've typed already if so.
+local function calculate_tag_prefix(s)
+  local idx = nil
+  while true do
+    local curr = string.find(s, '#', (idx or 0) + 1)
+    if curr == nil then
+      break
+    else
+      idx = curr
+    end
+  end
+
+  if idx == nil then
+    return nil
+  end
+
+  local prefix = s:sub(idx)
+  local space_prefix = idx == 1 or (s:sub(idx - 1, idx - 1) == ' ')
+  if string.match(prefix, '#[%w_-]*$') and space_prefix then
+    return prefix
+  else
+    return nil
+  end
 end
 
 local lsp_helper = require 'lsp_helper'
@@ -420,8 +445,18 @@ lsp_helper.register_in_process_lsp('notes', {
       local curpos = vim.fn.getcurpos()[3]
       local truncline = vim.fn.getline('.'):sub(1, curpos - 1)
       local depth = calculate_anchor_depth(truncline)
+      local maybe_tag = calculate_tag_prefix(truncline)
 
-      if depth > 0 then
+      if maybe_tag then
+        local config = load_config()
+        local rtn = {}
+        for _, item in pairs(list_tags(config)) do
+          table.insert(rtn, {
+            label = item,
+          })
+        end
+        callback(nil, rtn)
+      elseif depth > 0 then
         local config = load_config()
         local rtn = {}
         for _, file in pairs(list_note_files(config)) do
