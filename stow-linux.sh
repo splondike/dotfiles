@@ -3,5 +3,5 @@
 cd $(dirname $(readlink -f $0))
 . ./stow-home-general.sh
 
-packages=(fish aerc git tig kitty nvim nvim-local rofi sway swaylock waybar zellij makenote mbsync notmuch w3m vdirsyncer khal khard shotwell nushell visidata ripgrep bin-shared bin-private)
+packages=(fish aerc git tig kitty nvim nvim-local rofi sway swaylock waybar zellij makenote mbsync notmuch w3m vdirsyncer khal khard shotwell nushell visidata ripgrep bin-shared bin-private ssh)
 do_stow "${packages[@]}"
