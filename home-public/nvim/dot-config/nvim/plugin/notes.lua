@@ -48,6 +48,8 @@ local function tbl_concat(t1, t2)
   return t1
 end
 
+-- Extract all the links (markdown or raw id) and their textual
+-- positions from the given text
 local function find_links(text)
   local results = {}
   local covered_ranges = {}
@@ -113,6 +115,36 @@ local function find_links(text)
   return results
 end
 
+-- Extract all the tags and their textual positions from the given text
+local function find_tags(text)
+  local results = {}
+
+  local pattern = ' #[A-Za-z0-9_-]+'
+
+  local search_start = 1
+  while true do
+    local s, e = text:find(pattern, search_start)
+    if not s then
+      break
+    end
+
+    table.insert(results, {
+      start_idx = s + 1,
+      end_idx = e,
+      label = text:sub(s + 1, e),
+    })
+
+    search_start = e + 1
+  end
+
+  table.sort(results, function(a, b)
+    return a.start_idx < b.start_idx
+  end)
+
+  return results
+end
+
+-- Extract, id, note-type, name from a note filename
 local function parse_note_filename(filename)
   local id_end = string.find(filename, '-')
   if id_end == nil then
@@ -130,17 +162,13 @@ local function parse_note_filename(filename)
   }
 end
 
-local function extract_tags(file_content)
-  if not file_content then
-    return {}
+-- Extract just a list of tags from the given text
+local function extract_tags(text)
+  local rtn = {}
+  for _, item in pairs(find_tags(text)) do
+    table.insert(rtn, item['label'])
   end
-
-  local t = {}
-  for m in file_content:gmatch ' #[A-Za-z0-9_-]+' do
-    table.insert(t, m:sub(2))
-  end
-
-  return t
+  return rtn
 end
 
 local function load_config()
@@ -166,6 +194,7 @@ local function load_config()
   return rtn
 end
 
+-- List all notes of the given types (or all notes)
 local function list_note_files(config, included_prefixes)
   local rtn = {}
   for _, note_type in pairs(config.note_types) do
@@ -201,6 +230,7 @@ local function list_note_files(config, included_prefixes)
   return rtn
 end
 
+-- List all the tags in my notes
 local function list_tags(config)
   local rtn = {}
   local files = list_note_files(config, nil)
@@ -216,6 +246,7 @@ local function list_tags(config)
   return vim.list.unique(rtn)
 end
 
+-- neovim command mode autocompleter
 local function cmd_completions(arglead, _, _)
   if arglead:find(' ', 1, true) ~= nil then
     -- No autocomplete beyond the type
@@ -239,6 +270,7 @@ local function cmd_completions(arglead, _, _)
   return rtn
 end
 
+-- Entrypoint for creating a new note
 local function create_note(config, args)
   for _, note_type in ipairs(config.note_types) do
     if note_type.name:sub(1, #args[1]) == args[1] then
@@ -256,9 +288,21 @@ local function create_note(config, args)
   end
 end
 
-local function create_tags_page(config, args)
+-- Build a page listing out notes by tag. Can pass in
+-- a list of note types to include, otherwise 'zet' is the default
+local function create_tags_page(config, note_types)
+  local final_note_types = {}
+  for _, item in pairs(note_types) do
+    if item ~= 'tags' then
+      table.insert(note_types, item)
+    end
+  end
+  if #note_types == 0 then
+    note_types = { 'zet' }
+  end
+
   local files_by_tag = { untagged = {} }
-  for _, file in pairs(list_note_files(config, { 'zet' })) do
+  for _, file in pairs(list_note_files(config, final_note_types)) do
     local fh = io.open(file.filepath, 'r')
     if fh then
       local tags = extract_tags(fh:read 'a')
