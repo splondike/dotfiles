@@ -294,11 +294,11 @@ local function create_tags_page(config, note_types)
   local final_note_types = {}
   for _, item in pairs(note_types) do
     if item ~= 'tags' then
-      table.insert(note_types, item)
+      table.insert(final_note_types, item)
     end
   end
-  if #note_types == 0 then
-    note_types = { 'zet' }
+  if #final_note_types == 0 then
+    final_note_types = { 'zet' }
   end
 
   local files_by_tag = { untagged = {} }
