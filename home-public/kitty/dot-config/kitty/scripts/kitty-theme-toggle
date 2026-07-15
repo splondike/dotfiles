@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 theme_target=$HOME/.config/kitty/current-theme.conf
 theme_target_absolute=$(readlink -f $theme_target)
