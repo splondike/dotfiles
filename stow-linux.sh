@@ -9,5 +9,5 @@ mkdir -p ~/bin
 mkdir -p ~/.local
 mkdir -p ~/.config
 
-packages=(fish aerc git tig kitty nvim nvim-local rofi sway swaylock waybar zellij makenote mbsync notmuch w3m vdirsyncer khal khard shotwell nushell visidata ripgrep bin-shared bin-private ssh)
+packages=(fish aerc git tig kitty nvim nvim-local rofi sway swaylock waybar zellij makenote mbsync notmuch w3m vdirsyncer khal khard shotwell nushell visidata ripgrep bin-shared bin-private ssh nvim-private)
 do_stow "${packages[@]}"
