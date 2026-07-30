@@ -255,3 +255,7 @@ bar {
 include ${XDG_CONFIG_HOME:-$HOME/.config}/sway/config-local.gitignored.conf
 include ${XDG_CONFIG_HOME:-$HOME/.config}/sway/swayidle.conf
 include ${XDG_CONFIG_HOME:-$HOME/.config}/sway/app-tweaks.conf
+
+# For Nixos. Makes a 'sway-session' systemd target that means the WAYLAND_DISPLAY
+# env var has been populated
+include /etc/sway/config.d/*
