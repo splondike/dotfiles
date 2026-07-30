@@ -234,9 +234,9 @@ bindsym $mod+apostrophe mode "passthrough"
 
 # Allow volume controls even if the screen is locked
 bindsym --locked {
-    XF86AudioRaiseVolume exec wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+
-    XF86AudioLowerVolume exec wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-
-    XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+    XF86AudioRaiseVolume exec ${XDG_CONFIG_HOME:-$HOME/.config}/sway/scripts/volume-adjust.sh 5%+
+    XF86AudioLowerVolume exec ${XDG_CONFIG_HOME:-$HOME/.config}/sway/scripts/volume-adjust.sh 5%-
+    XF86AudioMute exec ${XDG_CONFIG_HOME:-$HOME/.config}/sway/scripts/volume-adjust.sh toggle-mute
 }
 
 # Extra custom bindings
