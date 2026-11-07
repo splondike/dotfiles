@@ -51,3 +51,12 @@
   _    _    _    _    _    _    _    _    _    _    _    _
   _    _    lsft           mlft           @mac _    _
 )
+
+(deflayer all-caps
+  _    _    _    _    _    _    _    @ldf _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    @mup @msu _    _    _    _
+  @ldf _    @mac ctl  met  mrgt mmid @mlt @mdn @mrt @msd _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    lsft           mlft           @mac _    _
+)
