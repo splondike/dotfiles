@@ -171,9 +171,78 @@ local function extract_tags(text)
   return rtn
 end
 
+-- Given a base path (dir or filename) load the given relative_file
+-- and return its contents. relative_file can be absolute or relative.
+local function load_relative_file(base_path, relative_file)
+  local function path_join(a, b)
+    if a == "" then return b end
+    if b == "" then return a end
+    if string.sub(b, 1, 1) == '/' or string.sub(b, 1, 1) == '\\' then
+      return b
+    end
+    if string.sub(a, -1) ~= '/' and string.sub(a, -1) ~= '\\' then
+      a = a .. '/'
+    end
+    return a .. b
+  end
+
+  local function is_absolute(p)
+    if p == nil then return false end
+    return string.sub(p, 1, 1) == '/' or string.sub(p, 1, 1) == '\\'
+  end
+
+  local function dir_of(p)
+    -- Remove the final path component, if any
+    -- Handles both / and \ as separators
+    if p == nil or p == "" then return "" end
+    local last_slash_pos = nil
+    for i = #p, 1, -1 do
+      local c = string.sub(p, i, i)
+      if c == '/' or c == '\\' then
+        last_slash_pos = i
+        break
+      end
+    end
+    if last_slash_pos == nil then
+      return ""
+    end
+    return string.sub(p, 1, last_slash_pos - 1)
+  end
+
+  local target_path
+  if is_absolute(relative_file) then
+    target_path = relative_file
+  else
+    local use_base_as_dir = false
+    if base_path ~= nil and base_path ~= "" then
+      local last = string.sub(base_path, -1, -1)
+      if last == '/' or last == '\\' then
+        use_base_as_dir = true
+      end
+    end
+
+    if use_base_as_dir then
+      target_path = path_join(base_path, relative_file)
+    else
+      local base_dir = dir_of(base_path)
+      target_path = path_join(base_dir, relative_file)
+    end
+  end
+
+  local f, err = io.open(target_path, "r")
+  if not f then
+    return nil
+  end
+
+  local content = f:read("*a")
+  f:close()
+  return content
+end
+
 local function load_config()
   local config_files = { vim.g.NotesConfig }
-  local rtn = { note_types = {}, basedirs = {} }
+  local rtn = { note_types = {}, basedirs = {}, tags = {} }
+  local temp_tags = {}
   while #config_files > 0 do
     local config_file = config_files[1]
     local basedir = vim.fs.dirname(config_file)
@@ -188,9 +257,24 @@ local function load_config()
       note_type.location = basedir .. '/' .. note_type.location
       table.insert(rtn.note_types, note_type)
     end
+
+    -- Add in tags from the given tag file
+    for _, file in ipairs(data.tag_files or {}) do
+      local content = load_relative_file(config_file, file)
+      if content then
+        for line in (content .. "\n"):gmatch("(.-)\r?\n") do
+          temp_tags[line] = true
+        end
+      end
+    end
+
     config_files = tbl_concat(config_files, data['includes'])
     fh:close()
   end
+  for tag in pairs(temp_tags) do
+    table.insert(rtn.tags, tag)
+  end
+
   return rtn
 end
 
@@ -494,7 +578,7 @@ lsp_helper.register_in_process_lsp('notes', {
       if maybe_tag then
         local config = load_config()
         local rtn = {}
-        for _, item in pairs(list_tags(config)) do
+        for _, item in pairs(config.tags) do
           table.insert(rtn, {
             label = item,
           })
