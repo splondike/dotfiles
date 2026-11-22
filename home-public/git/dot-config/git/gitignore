@@ -1,3 +1,5 @@
 *gitignored*
 .DS_Store
 .ropeproject/
+
+**/.claude/settings.local.json
