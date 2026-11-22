@@ -20,10 +20,12 @@ bindings = [
     ("z", "undo-last"),
     ("Z", "redo-last"),
     ("Ctrl+i", "search-next"),
+    ("Ctrl+y", "search-next"),
     ("Ctrl+m", "menu-file"),
 ]
 nounbind = ["E", "Ctrl+U", "Ctrl+s", "z", "Ctrl+i", "Ctrl+m"]
 for binding, action in bindings:
-    if binding not in nounbind:
-        Sheet.unbindkey(binding)
+    # if binding not in nounbind:
+    #     Sheet.unbindkey(binding)
+    # Sheet.bindkey(binding, action)
     Sheet.bindkey(binding, action)
